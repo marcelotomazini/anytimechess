@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>crazygames</groupId>
+		<artifactId>anytimechess</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>anytimechess-library</artifactId>
+	<name>Anytime Chess Library</name>
+
+	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.api-client</groupId> -->
+<!-- 			<artifactId>google-api-client-android</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client-java6</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client-jackson2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-jetty</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+	</dependencies>
+</project>
