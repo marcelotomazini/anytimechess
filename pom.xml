@@ -33,27 +33,7 @@
 				<version>4.1.1.4</version>
 			</dependency>
 
-			<!-- Google API -->
-			<dependency>
-				<groupId>com.google.api-client</groupId>
-				<artifactId>google-api-client-android</artifactId>
-				<version>1.17.0-rc</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.api-client</groupId>
-				<artifactId>google-api-client-java6</artifactId>
-				<version>1.17.0-rc</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.api-client</groupId>
-				<artifactId>google-api-client-jackson2</artifactId>
-				<version>1.17.0-rc</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.oauth-client</groupId>
-				<artifactId>google-oauth-client-jetty</artifactId>
-				<version>1.17.0-rc</version>
-			</dependency>
+			
 
 		</dependencies>
 	</dependencyManagement>
@@ -76,11 +56,11 @@
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>3.7.0</version>
+					<version>3.8.2</version>
 
 					<configuration>
 						<sdk>
-							<platform>18</platform>
+							<platform>19</platform>
 						</sdk>
 						<emulator>
 							<avd>23</avd>
@@ -137,6 +117,7 @@
 											<goal>
 												generate-sources
 											</goal>
+											<goal>consume-aar</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

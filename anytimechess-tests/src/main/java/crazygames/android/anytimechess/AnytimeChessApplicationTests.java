@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.marcelotomazini.android.antitheftadvanced;
+package crazygames.android.anytimechess;
 
-import com.marcelotomazini.android.antitheftadvanced.AntiTheftAdvanced;
-
+import crazygames.android.anytimechess.AnytimeChess;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
@@ -32,10 +31,10 @@ import android.test.suitebuilder.annotation.SmallTest;
  *   -e class com.example.android.apis.MorseFlashApiDemosApplicationTests \
  *   com.example.android.apis.tests/android.test.InstrumentationTestRunner
  */
-public class AntiTheftAdvancedApplicationTests extends ApplicationTestCase<AntiTheftAdvanced> {
+public class AnytimeChessApplicationTests extends ApplicationTestCase<AnytimeChess> {
 
-    public AntiTheftAdvancedApplicationTests() {
-        super(AntiTheftAdvanced.class);
+    public AnytimeChessApplicationTests() {
+        super(AnytimeChess.class);
       }
 
       @Override

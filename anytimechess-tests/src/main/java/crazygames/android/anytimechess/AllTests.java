@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marcelotomazini.android.antitheftadvanced;
+package crazygames.android.anytimechess;
 
 import android.test.suitebuilder.TestSuiteBuilder;
 import junit.framework.Test;
