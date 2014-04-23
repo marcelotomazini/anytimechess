@@ -54,3 +54,8 @@ After this preparation the release build can be invoked with
 mvn clean install -P release
 
 which will in turn sign and zipalign the apk.
+
+Debug
+-----
+adb logcat -v time
+

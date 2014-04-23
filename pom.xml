@@ -21,6 +21,7 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.10</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.google.android</groupId>
@@ -183,4 +184,7 @@
 	</profiles>
 
 
+	<modules>
+		<module>anytimechess-engine</module>
+	</modules>
 </project>

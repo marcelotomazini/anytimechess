@@ -11,10 +11,7 @@ public class Board extends GridView {
 		super(context);
 
 		setBackgroundColor(Color.WHITE);
-		//		setVerticalSpacing(5);
-		//		setHorizontalSpacing(5);
 		setNumColumns(8);
-		setColumnWidth(60);
 		setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 		setGravity(Gravity.CENTER_HORIZONTAL);
 		setAdapter(new BoardAdapter(context));

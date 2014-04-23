@@ -9,22 +9,31 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import crazygames.android.anytimechess.engine.game.Game;
+import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class BoardAdapter implements ListAdapter {
 
+	private final Game game = new Game();
 	private final List<Square> itemList = new ArrayList<Square>();
 
 	public BoardAdapter(final Context context) {
 		boolean white = false;
-		for(int i = 0; i < 64; i++) {
-			final Square square = new Square(context);
-			if(white)
-				square.setBackgroundColor(Color.GRAY);
-			if((i + 1) % 8 != 0)
-				white = !white;
+		for (int row = 1; row <= 8; row++)
+			for (char col = 'a'; col <= 'h'; col++) {
+				final Square square = new Square(context);
+				if(white)
+					square.setBackgroundColor(Color.GRAY);
+				if(col != 'h')
+					white = !white;
 
-			itemList.add(square);
-		}
+				itemList.add(square);
+
+				final Piece piece = game.getBoard().get(col, row);
+				if(piece != null) 
+					square.addView(new PieceView(context, piece.color().name().toLowerCase() + "_" + String.valueOf(piece.code()).toLowerCase()));
+			}
+
 	}
 
 	@Override
