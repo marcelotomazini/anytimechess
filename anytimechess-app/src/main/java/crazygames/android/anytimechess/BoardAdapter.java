@@ -14,16 +14,16 @@ import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class BoardAdapter implements ListAdapter {
 
-	private final Game game = new Game();
+	public static Game game = new Game();
 	private final List<Square> itemList = new ArrayList<Square>();
 
 	public BoardAdapter(final Context context) {
 		boolean white = false;
 		for (int row = 1; row <= 8; row++)
 			for (char col = 'a'; col <= 'h'; col++) {
-				final Square square = new Square(context);
-				if(white)
-					square.setBackgroundColor(Color.GRAY);
+				final Square square = new Square(context, white ? Color.GRAY : Color.BLACK, row, col);
+				//				if(white)
+				//					square.setBackgroundColor(Color.GRAY);
 				if(col != 'h')
 					white = !white;
 
@@ -31,9 +31,8 @@ public class BoardAdapter implements ListAdapter {
 
 				final Piece piece = game.getBoard().get(col, row);
 				if(piece != null) 
-					square.addView(new PieceView(context, piece.color().name().toLowerCase() + "_" + String.valueOf(piece.code()).toLowerCase()));
+					square.addView(new PieceView(context, piece));
 			}
-
 	}
 
 	@Override

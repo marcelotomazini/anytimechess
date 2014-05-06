@@ -176,6 +176,9 @@ public class Game {
 	}
 
 	public Move getLastMove() {
+		if(moves.isEmpty())
+			return null;
+
 		return moves.get(moves.size() - 1);
 	}
 

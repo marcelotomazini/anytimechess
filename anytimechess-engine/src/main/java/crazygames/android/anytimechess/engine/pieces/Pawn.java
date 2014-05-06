@@ -83,6 +83,9 @@ public class Pawn extends Piece {
 
 			if (pieceTo == null) {
 				final Move lastMove = game.getLastMove();
+				if(lastMove == null)
+					return new CantMoveResponse();
+
 				if (Character.toLowerCase(lastMove.getPieceCode()) ==
 						Character.toLowerCase(code()) &&
 						lastMove.getColTo() == move.getColTo() &&
