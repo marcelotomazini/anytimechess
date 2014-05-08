@@ -186,5 +186,6 @@
 
 	<modules>
 		<module>anytimechess-engine</module>
+		<module>anytimechess-comm</module>
 	</modules>
 </project>
