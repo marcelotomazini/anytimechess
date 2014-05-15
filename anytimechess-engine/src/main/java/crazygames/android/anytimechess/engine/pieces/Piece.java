@@ -99,5 +99,8 @@ public abstract class Piece {
 
 	public abstract List<Move> moves(char col, int row, Game game);
 
-
+	@Override
+	public String toString() {
+		return String.format("%s %s", color(), code());
+	}
 }
