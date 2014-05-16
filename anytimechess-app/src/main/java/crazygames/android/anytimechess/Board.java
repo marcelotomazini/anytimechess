@@ -72,22 +72,25 @@ public class Board extends GridView {
 			final Square item = (Square) getAdapter().getItem(i);
 			item.setOnClickListener(new OnClickListener() {
 				@Override public void onClick(final View v) {
-					if(hasSelectedPiece() && ((Square)v).getChildAt(0) == null)
+					if(hasSelectedPiece() /*&& ((Square)v).getChildAt(0) == null*/)
 						move((Square) v);
 
 					final PieceView child = (PieceView) ((Square)v).getChildAt(0);
 					setSelectedPiece(child);
 
-					if(child == null)
+					if(child == null) {
+						setBackgroundOriginalColor();
 						return;
+					}
 
 					final Piece piece = child.getPiece();
-
-
-					for(int i = 0; i < getChildCount(); i++) {
-						final Square s = (Square)getChildAt(i);
-						s.setOriginalBackgroundColor();
+					if(!game.getTurn().equals(piece.color())) {
+						setBackgroundOriginalColor();
+						return;
 					}
+
+
+					setBackgroundOriginalColor();
 
 					final List<Move> moves = piece.moves(child.getColumn(), child.getRow(), game);
 					for(final Move move : moves) {
@@ -105,21 +108,22 @@ public class Board extends GridView {
 					}
 					setBackgroundColor(Color.CYAN);
 				}
+
 			});
+		}
+	}
+
+	private void setBackgroundOriginalColor() {
+		for(int i = 0; i < getChildCount(); i++) {
+			final Square s = (Square)getChildAt(i);
+			s.setOriginalBackgroundColor();
 		}
 	}
 
 	private void move(final Square square) {
 		final PieceView selectedPiece = getSelectedPiece();
 		game.move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
-
-		((Square)selectedPiece.getParent()).removeView(selectedPiece);
-		addView(selectedPiece);
-
-		for(int i = 0; i < getChildCount(); i++) {
-			final Square s = (Square)getChildAt(i);
-			s.setOriginalBackgroundColor();
-		}
+		refresh();
 	}
 
 
