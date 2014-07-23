@@ -1,6 +1,11 @@
 package crazygames.android.anytimechess.comm.message;
 
-public abstract class MessageItem {
+abstract class MessageItem {
+	
+	@Override
+	public String toString() {
+		return build();
+	}
 	
 	protected abstract int size();
 	

@@ -163,4 +163,8 @@ public class Board {
 			this.row = row;
 		}
 	}
+
+	public Piece[][] getMap() {
+		return map;
+	}
 }

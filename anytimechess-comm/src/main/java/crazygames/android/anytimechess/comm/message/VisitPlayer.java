@@ -1,8 +1,8 @@
 package crazygames.android.anytimechess.comm.message;
 
-public class VisitPlayer extends Player {
+class VisitPlayer extends Player {
 
-	public VisitPlayer(String visitPlayer) {
+	VisitPlayer(String visitPlayer) {
 		super(visitPlayer);
 	}
 
@@ -10,7 +10,7 @@ public class VisitPlayer extends Player {
 		super(messageContext, index);
 	}
 
-	public String getVisitPlayer() {
+	String getVisitPlayer() {
 		return getPlayer();
 	}
 }

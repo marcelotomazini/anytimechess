@@ -1,44 +1,66 @@
 package crazygames.android.anytimechess.comm.message;
 
-import java.util.ArrayList;
-import java.util.List;
+import crazygames.android.anytimechess.engine.game.Game;
+import crazygames.android.anytimechess.engine.pieces.Piece;
 
-public class GameState extends MessageItem {
+class GameState extends MessageItem {
+	
+	private Piece[][] map = new Piece[8][8];
 
-	private List<List<String>> matrix = new ArrayList<List<String>>();
+	GameState(Game game) {
+		this.map = game.getBoard().getMap();
+	}
 	
 	GameState(String messageContext, int index) {
-		createMatrix(getValue(messageContext, index));
+		createMap(getValue(messageContext, index));
 	}
 	
 	@Override
 	protected int size() {
-		return 64;
+		return 68;
 	}
 
 	@Override
 	protected String build() {
 		StringBuilder builder = new StringBuilder();
 		
-		for(List<String> line : matrix)
-			for(String man : line)
-				builder.append(man);
+		for(int l = 0; l < 8; l++)
+			for(int c = 0; c < 8; c++)
+				builder.append(map[l][c] == null ? '-' : map[l][c].getMessageCode());
 		
 		return builder.toString();
 	}
 
-	private void createMatrix(String value) {
-		int count = 0;
-		List<String> line = new ArrayList<String>();
+	Piece[][] getMap() {
+		return map;
+	}
+
+	private void createMap(String value) {
+		PieceGenerator gen = new PieceGenerator();
+		String kingBuffer = "";
+		int row = 0;
+		int col = 0;
 		
-		for (char charac : value.toCharArray()) {
-			line.add(String.valueOf(charac));
-			count++;
-			if (count == 7) {
-				matrix.add(line);
-				line = new ArrayList<String>();
+		for (char code : value.toCharArray()) {
+			Piece piece;
+			
+			if (gen.isKing(code) || !kingBuffer.isEmpty()) {
+				kingBuffer += code;
+				
+				if (kingBuffer.length() != 3)
+					continue;
+				
+				piece = gen.generateKing(kingBuffer);
+				kingBuffer = "";
+			} else
+				piece = gen.generatePiece(code);
+			
+			map[row][col] = piece;
+			col++;
+			if (col == 8) {
+				col = 0;
+				row++;
 			}
 		}
 	}
-
 }

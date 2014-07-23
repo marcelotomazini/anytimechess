@@ -1,7 +1,7 @@
 package crazygames.android.anytimechess.comm.message;
 
 
-public abstract class Player extends MessageItem {
+abstract class Player extends MessageItem {
 
 	private String player;
 	
@@ -15,7 +15,7 @@ public abstract class Player extends MessageItem {
 		process(value);
 	}
 
-	protected String getPlayer() {
+	String getPlayer() {
 		return player;
 	}
 

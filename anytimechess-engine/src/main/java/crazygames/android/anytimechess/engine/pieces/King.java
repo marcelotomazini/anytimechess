@@ -1,5 +1,7 @@
 package crazygames.android.anytimechess.engine.pieces;
 
+import static java.lang.String.valueOf;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -111,4 +113,9 @@ public class King extends Piece {
 
     return moves;
   }
+  
+  @Override
+	public String getMessageCode() {
+	  	return valueOf(code()) + valueOf(row) + valueOf(col);
+	}
 }

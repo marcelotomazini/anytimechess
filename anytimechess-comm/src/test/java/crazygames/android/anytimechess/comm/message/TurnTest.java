@@ -1,10 +1,13 @@
 package crazygames.android.anytimechess.comm.message;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 
 public class TurnTest {
 	
@@ -12,21 +15,31 @@ public class TurnTest {
 	public ExpectedException expected = ExpectedException.none();
 	
 	private static final String INVALID_TURN = "J";
-	private static final String VALID_TURN = "H";
+	private static final String HOME_TURN = "H";
+	private static final String VISIT_TURN = "V";
 	private static final String VALID_BUILD_TURN = "H";
 
 	@Test
-	public void createTurn() {
-		Turn turn = new Turn(VALID_TURN);
+	public void createHomeTurn() {
+		Turn turn = new Turn(HOME_TURN);
 		
-		assertEquals("Turn", VALID_TURN, turn.getTurn());
+		assertTrue("Should be home turn", turn.isHomeTurn());
+		assertFalse("Should not be visit turn", turn.isVisitTurn());
+	}
+
+	@Test
+	public void createVisitTurn() {
+		Turn turn = new Turn(VISIT_TURN);
+		
+		assertTrue("Should be visit turn", turn.isVisitTurn());
+		assertFalse("Should not be home turn", turn.isHomeTurn());
 	}
 
 	@Test
 	public void buildTurn() {
 		Turn turn = new Turn(VALID_BUILD_TURN, 0);
 		
-		assertEquals("Turn", VALID_TURN, turn.build());
+		assertEquals("Turn", HOME_TURN, turn.build());
 	}
 
 	@Test

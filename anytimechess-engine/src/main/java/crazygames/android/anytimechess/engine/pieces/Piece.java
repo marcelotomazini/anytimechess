@@ -103,4 +103,8 @@ public abstract class Piece {
 	public String toString() {
 		return String.format("%s %s", color(), code());
 	}
+	
+	public String getMessageCode() {
+		return String.valueOf(code());
+	}
 }

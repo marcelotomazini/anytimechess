@@ -1,30 +1,19 @@
 package crazygames.android.anytimechess.comm.message;
 
-public class Turn extends MessageItem {
+class Turn extends MessageItem {
 
+	//TODO Pilo convert to enum
 	private static final String CODE_HOME = "H";
 	private static final String CODE_VISIT = "V";
 	private String turnCode;
 	
-	public Turn(String turnCode) {
+	Turn(String turnCode) {
 		validate(turnCode);
 		this.turnCode = turnCode;
 	}
 
 	Turn(String messageContext, int index) {
 		turnCode = getValue(messageContext, index);
-	}
-
-	public String getTurn() {
-		return turnCode;
-	}
-
-	public boolean isHomeTurn() {
-		return CODE_HOME.equals(turnCode);
-	}
-
-	public boolean isVisitTurn() {
-		return !isHomeTurn();
 	}
 
 	@Override
@@ -35,6 +24,14 @@ public class Turn extends MessageItem {
 	@Override
 	protected int size() {
 		return 1;
+	}
+
+	boolean isHomeTurn() {
+		return CODE_HOME.equals(turnCode);
+	}
+
+	boolean isVisitTurn() {
+		return !isHomeTurn();
 	}
 
 	private void validate(String turnCode) {

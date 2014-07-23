@@ -1,9 +1,9 @@
 package crazygames.android.anytimechess.comm.message;
 
 
-public class HomePlayer extends Player {
+class HomePlayer extends Player {
 
-	public HomePlayer(String homePlayer) {
+	HomePlayer(String homePlayer) {
 		super(homePlayer);
 	}
 
@@ -11,7 +11,7 @@ public class HomePlayer extends Player {
 		super(messageContext, index);
 	}
 
-	public String getHomePlayer() {
+	String getHomePlayer() {
 		return getPlayer();
 	}
 }

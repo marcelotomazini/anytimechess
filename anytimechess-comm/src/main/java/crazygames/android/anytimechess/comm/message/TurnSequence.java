@@ -1,21 +1,17 @@
 package crazygames.android.anytimechess.comm.message;
 
 
-public class TurnSequence extends MessageItem {
+class TurnSequence extends MessageItem {
 
 	private int turnSequence;
 	
-	TurnSequence(String messageContext, int index) {
-		String value = getValue(messageContext, index);
-		process(value);
-	}
-
-	public TurnSequence(int turnSequence) {
+	TurnSequence(int turnSequence) {
 		this.turnSequence = turnSequence;
 	}
 
-	public int getTurnSequence() {
-		return turnSequence;
+	TurnSequence(String messageContext, int index) {
+		String value = getValue(messageContext, index);
+		process(value);
 	}
 
 	@Override
@@ -29,8 +25,11 @@ public class TurnSequence extends MessageItem {
 		return String.format(format, turnSequence); 
 	}
 
+	int getTurnSequence() {
+		return turnSequence;
+	}
+
 	private void process(String value) {
 		turnSequence = Integer.parseInt(value);
 	}
-
 }
