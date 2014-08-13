@@ -18,7 +18,7 @@ public class PieceView extends ImageView {
 
 	@Override
 	public String toString() {
-		return piece.toString();
+		return getPiece().toString();
 	}
 
 	public Piece getPiece() {

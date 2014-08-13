@@ -42,7 +42,7 @@ public class Board extends GridView {
 			for (char col = 'a'; col <= 'h'; col++) {
 				final Piece piece = game.getBoard().get(col, row);
 				if(piece != null) 
-					pieces.add(new PieceView(context, piece));
+					getPieces().add(new PieceView(context, piece));
 			}
 	}
 
@@ -51,7 +51,7 @@ public class Board extends GridView {
 			for(int row = 1; row <= 8; row++) {
 				final Piece piece = game.getBoard().get(col, row);
 				if(piece != null)
-					for(final PieceView pieceView : pieces)
+					for(final PieceView pieceView : getPieces())
 						if(piece.equals(pieceView.getPiece()))
 							for(int i = 0; i < getAdapter().getCount(); i++) {
 								final Square item = (Square) getAdapter().getItem(i);
@@ -137,6 +137,10 @@ public class Board extends GridView {
 
 	public boolean hasSelectedPiece() {
 		return getSelectedPiece() != null;
+	}
+
+	public List<PieceView> getPieces() {
+		return pieces;
 	}
 
 }
