@@ -34,8 +34,6 @@
 				<version>4.1.1.4</version>
 			</dependency>
 
-			
-
 		</dependencies>
 	</dependencyManagement>
 
@@ -80,55 +78,6 @@
 					<version>1.5</version>
 				</plugin>
 
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-										<artifactId>android-maven-plugin</artifactId>
-										<versionRange>[3.2.0,)</versionRange>
-										<goals>
-											<goal>manifest-update</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.jayway.maven.plugins.android.generation2
-										</groupId>
-										<artifactId>
-											android-maven-plugin
-										</artifactId>
-										<versionRange>
-											[3.5.3,)
-										</versionRange>
-										<goals>
-											<goal>proguard</goal>
-											<goal>
-												generate-sources
-											</goal>
-											<goal>consume-aar</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -140,11 +89,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<modules>
-				<module>anytimechess-library</module>
-				<module>anytimechess-app</module>
-				<module>anytimechess-tests</module>
-			</modules>
 			<properties>
 				<!-- when i will try to enter this address the app will start :) -->
 				<!-- for development i want to use my local host -->
@@ -167,10 +111,6 @@
 					<value>true</value>
 				</property>
 			</activation>
-			<modules>
-				<module>anytimechess-library</module>
-				<module>anytimechess-app</module>
-			</modules>
 			<properties>
 				<!-- when i will try to enter this address the app will start :) -->
 				<!-- for release i want to use my git -->
@@ -187,5 +127,7 @@
 	<modules>
 		<module>anytimechess-engine</module>
 		<module>anytimechess-comm</module>
+		<module>anytimechess-app</module>
+<!-- 		<module>anytimechess-tests</module> -->
 	</modules>
 </project>
