@@ -55,7 +55,7 @@
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>3.8.2</version>
+					<version>3.9.0-rc.2</version>
 
 					<configuration>
 						<sdk>
@@ -128,6 +128,14 @@
 		<module>anytimechess-engine</module>
 		<module>anytimechess-comm</module>
 		<module>anytimechess-app</module>
-<!-- 		<module>anytimechess-tests</module> -->
+		<!-- <module>anytimechess-tests</module> -->
 	</modules>
+
+	<repositories>
+		<repository>
+			<id>android</id>
+			<name>Android Local Repository</name>
+			<url>file:///${android.sdk.path}/extras/android/m2repository/</url>
+		</repository>
+	</repositories>
 </project>
