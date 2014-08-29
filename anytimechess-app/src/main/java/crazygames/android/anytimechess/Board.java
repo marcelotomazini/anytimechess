@@ -11,12 +11,11 @@ import android.widget.GridView;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.game.Move;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
-import crazygames.android.anytimechess.engine.game.response.Position;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class Board extends GridView {
 
-	private final Game game = new Game();
+	private Game game;
 
 	private final Context context;
 
@@ -32,37 +31,50 @@ public class Board extends GridView {
 		setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 		setGravity(Gravity.CENTER_HORIZONTAL);
 
+		
+		newGame();
 		createPieces();
 		createSquares();
 		refresh();
 	}
+	
+	private void newGame() {
+		game = new Game();
+	}
 
 	private void createPieces() {
-		for (int row = 1; row <= 8; row++)
-			for (char col = 'a'; col <= 'h'; col++) {
-				final Piece piece = game.getBoard().get(col, row);
+		Piece[][] pieces = game.getBoard().getMap();
+		for(Piece[] p1 : pieces)
+			for(Piece piece : p1)
 				if(piece != null) 
-					getPieces().add(new PieceView(context, piece));
-			}
+					addNewPiece(piece);
+	}
+
+	private void addNewPiece(Piece piece) {
+		getPieces().add(new PieceView(context, piece));
 	}
 
 	private void refresh() {
-		for(char col = 'a'; col <= 'h'; col++)
-			for(int row = 1; row <= 8; row++) {
-				final Piece piece = game.getBoard().get(col, row);
-				if(piece != null)
-					for(final PieceView pieceView : getPieces())
-						if(piece.equals(pieceView.getPiece()))
-							for(int i = 0; i < getAdapter().getCount(); i++) {
-								final Square item = (Square) getAdapter().getItem(i);
-								if(item.getPosition().equals(new Position(col, row))) {
-									final Square parent = (Square) pieceView.getParent();
-									if(parent != null)
-										parent.removeAllViews();
-									item.addView(pieceView);
-								}
-							}
+		for(int i = 0; i < getAdapter().getCount(); i++) {
+			final Square item = (Square) getAdapter().getItem(i);
+			item.removeAllViews();
+			
+			Piece piece = game.getBoard().get(item.getPosition().getCol(), item.getPosition().getRow());
+			if(piece != null) {
+				PieceView pieceView = pieceViewCorrespondingTo(piece);
+				final Square parent = (Square) pieceView.getParent();
+				if(parent != null)
+					parent.removeAllViews();
+				item.addView(pieceView);
 			}
+		}
+	}
+
+	private PieceView pieceViewCorrespondingTo(Piece piece) {
+		for (PieceView pieceView : getPieces())
+			if(piece.equals(pieceView.getPiece()))
+				return pieceView;
+		return null;
 	}
 
 	private void createSquares() {

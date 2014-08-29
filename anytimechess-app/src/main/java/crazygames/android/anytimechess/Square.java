@@ -34,7 +34,7 @@ public class Square extends FrameLayout {
 		return column;
 	}
 
-	public Object getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 
