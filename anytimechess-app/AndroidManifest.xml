@@ -4,6 +4,9 @@
     android:versionCode="19"
     android:versionName="0.0.1-SNAPSHOT" >
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    
     <application
         android:name="AnytimeChess"
         android:debuggable="true"
@@ -16,6 +19,15 @@
             </intent-filter>
         </activity>
         <activity android:name="AnytimeChessActivity" />
+        
+        <receiver 
+            android:name="crazygames.android.anytimechess.sms.SMSReceiver"
+            android:exported="true" > 
+            <intent-filter android:priority="9999999"> 
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" /> 
+            </intent-filter> 
+        </receiver>
+        
     </application>
 
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="19" />

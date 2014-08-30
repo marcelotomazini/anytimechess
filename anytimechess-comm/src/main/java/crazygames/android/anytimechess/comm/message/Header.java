@@ -1,8 +1,8 @@
 package crazygames.android.anytimechess.comm.message;
 
-class Header extends MessageItem {
+public class Header extends MessageItem {
 	
-	private static final String HEADER = "atchess";
+	public static final String HEADER = "atchess";
 	
 	Header() {}
 
