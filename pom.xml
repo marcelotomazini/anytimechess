@@ -133,9 +133,14 @@
 
 	<repositories>
 		<repository>
-			<id>android</id>
-			<name>Android Local Repository</name>
-			<url>file:///${android.sdk.path}/extras/android/m2repository/</url>
+			<id>br.com.pilovieira</id>
+			<name>Pilo Vieira's Repository</name>
+			<url>http://repo.pilovieira.com.br/</url>
 		</repository>
+		<!-- <repository> -->
+		<!-- <id>android</id> -->
+		<!-- <name>Android Local Repository</name> -->
+		<!-- <url>file:///${android.sdk.path}/extras/android/m2repository/</url> -->
+		<!-- </repository> -->
 	</repositories>
 </project>
