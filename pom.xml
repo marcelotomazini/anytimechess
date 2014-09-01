@@ -10,7 +10,6 @@
 
 	<properties>
 		<server_schema>http</server_schema>
-		<android.sdk.path>/home/marcelo.tomazini/development/tools/android/sdk</android.sdk.path>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
@@ -137,10 +136,5 @@
 			<name>Pilo Vieira's Repository</name>
 			<url>http://repo.pilovieira.com.br/</url>
 		</repository>
-		<!-- <repository> -->
-		<!-- <id>android</id> -->
-		<!-- <name>Android Local Repository</name> -->
-		<!-- <url>file:///${android.sdk.path}/extras/android/m2repository/</url> -->
-		<!-- </repository> -->
 	</repositories>
 </project>
