@@ -13,6 +13,7 @@ import crazygames.android.anytimechess.engine.pieces.Bishop;
 import crazygames.android.anytimechess.engine.pieces.King;
 import crazygames.android.anytimechess.engine.pieces.Knight;
 import crazygames.android.anytimechess.engine.pieces.Piece;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.engine.pieces.Queen;
 import crazygames.android.anytimechess.engine.pieces.Rook;
 
@@ -29,6 +30,12 @@ public class Game {
 		board = new Board();
 		moves = new LinkedList<Move>();
 		turn = Piece.Color.WHITE;
+	}
+	
+	public Game(Color turn, Piece[][] piece) {
+		board = new Board(piece);
+		moves = new LinkedList<Move>();
+		this.turn = turn;
 	}
 
 	public Board getBoard() {

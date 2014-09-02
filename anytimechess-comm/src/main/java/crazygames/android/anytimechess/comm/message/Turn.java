@@ -1,45 +1,48 @@
 package crazygames.android.anytimechess.comm.message;
 
+import static crazygames.android.anytimechess.engine.pieces.Piece.Color.BLACK;
+import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
+
 class Turn extends Item {
 
-	//TODO Pilo convert to enum
-	private static final String CODE_HOME = "H";
-	private static final String CODE_VISIT = "V";
-	private String turnCode;
+	private Color turn;
 	
-	Turn(String turnCode) {
-		validate(turnCode);
-		this.turnCode = turnCode;
+	Turn(Color turn) {
+		validate(turn);
+		this.turn = turn;
 	}
 
 	Turn(String messageContext, int index) {
-		turnCode = getValue(messageContext, index);
+		turn = convert(getValue(messageContext, index));
+	}
+
+	public Color getTurn() {
+		return turn;
 	}
 
 	@Override
 	protected String build() {
-		return turnCode;
+		return turn.toString();
 	}
 
 	@Override
 	protected int size() {
-		return 1;
+		return 5;
 	}
 
-	boolean isHomeTurn() {
-		return CODE_HOME.equals(turnCode);
-	}
-
-	boolean isVisitTurn() {
-		return !isHomeTurn();
-	}
-
-	private void validate(String turnCode) {
-		if(turnCode == null || turnCode.isEmpty() || turnCode.length() > size() || !isValidCode(turnCode))
+	private void validate(Color turn) {
+		if(turn == null)
 			throw new RuntimeException("Invalid turn code");
 	}
-	
-	private boolean isValidCode(String turnCode) {
-		return turnCode.equals(CODE_HOME) || turnCode.equals(CODE_VISIT);
+
+	private Color convert(String value) {
+		if (value.equals(WHITE.toString()))
+			return WHITE;
+		return BLACK;
+	}
+
+	public Color invert() {
+		return turn == WHITE ? BLACK : WHITE;
 	}
 }

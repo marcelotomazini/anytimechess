@@ -1,5 +1,7 @@
 package crazygames.android.anytimechess.state;
 
+import static crazygames.android.anytimechess.state.StateUtils.filterNumber;
+import crazygames.android.anytimechess.comm.message.Message;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -14,26 +16,25 @@ public class StateStamp {
 		this.context = context;
 	}
 	
-	public String getState(String player) {
-		return getSharedPreferences().getString(filterContactNumber(player), null);
+	public String getStateMessage(String player) {
+		return getSharedPreferences().getString(filterNumber(player), null);
 	}
 
-	public void setState(SmsMessage sms) {
-		setState(sms.getOriginatingAddress(), sms.getMessageBody().toString());
+	public void setStateMessage(SmsMessage smsMessage) {
+		setStateMessage(smsMessage.getOriginatingAddress(), smsMessage.getMessageBody().toString());
+	}
+	
+	public void setStateMessage(Message message) {
+		setStateMessage(message.getDestination(), message.build());
 	}
 
-	public void setState(String player, String state) {
+	private void setStateMessage(String player, String stateMessage) {
 		Editor editor = getSharedPreferences().edit();
-		editor.putString(filterContactNumber(player), state);
+		editor.putString(filterNumber(player), stateMessage);
 		editor.commit();	
 	}
 
 	private SharedPreferences getSharedPreferences() {
 		return PreferenceManager.getDefaultSharedPreferences(context);
-	}
-	
-	private String filterContactNumber(String player) {
-		//TODO Pilo remove ddd and country code
-		return player;
 	}
 }

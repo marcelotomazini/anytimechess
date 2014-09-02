@@ -21,11 +21,16 @@ public class SMSReceiver extends BroadcastReceiver {
 		if (!isAnytimeChessMessage(sms.getMessageBody()))
 			return;
 		
-		new StateStamp(context).setState(sms);
+		manageMessage(context, sms);
 		abortBroadcast();
 	}
-	
+
 	private boolean isAnytimeChessMessage(String message) {
 		return message.contains(HEADER);
+	}
+
+	private void manageMessage(Context context, SmsMessage sms) {
+		//TODO Pilo create message identifier
+		new StateStamp(context).setStateMessage(sms);
 	}
 }

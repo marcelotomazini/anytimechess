@@ -13,17 +13,20 @@ import crazygames.android.anytimechess.engine.pieces.Rook;
 
 public class Board {
 
-	private final Piece[][] map = new Piece[8][8];
+	private Piece[][] map = new Piece[8][8];
 	private King whiteKing;
 	private King blackKing;
 	private final Stack<Action> actionStack = new Stack<Action>();
 	private boolean inTransaction = false;
 
-
 	public Board() {
 		for (int row = 1; row <= 8; row++)
 			for (char col = 'a'; col <= 'h'; col++)
 				set(col, row, initPiece(row, col));
+	}
+
+	public Board(Piece[][] map) {
+		this.map = map;
 	}
 
 	public final static int colIndex(final char col) {

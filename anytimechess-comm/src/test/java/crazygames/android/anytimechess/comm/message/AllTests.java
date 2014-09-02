@@ -11,7 +11,9 @@ import org.junit.runners.Suite.SuiteClasses;
 	TurnSequenceTest.class,
 	TurnTest.class,
 	VisitPlayerTest.class,
-	StateTest.class})
+	StateTest.class,
+	ChallengeTest.class,
+	ChallengeAcceptedTest.class})
 public class AllTests {
 
 }

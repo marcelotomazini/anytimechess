@@ -2,7 +2,7 @@ package crazygames.android.anytimechess.comm.message;
 
 import static crazygames.android.anytimechess.comm.message.Header.HEADER;
 import crazygames.android.anytimechess.engine.game.Game;
-import crazygames.android.anytimechess.engine.pieces.Piece;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 
 
 public class State implements Message {
@@ -18,12 +18,12 @@ public class State implements Message {
 		produce(messageContext);
 	}
 
-	public State(int turnSequence, String homePlayer, String visitPlayer, String turnCode, Game game) {
+	public State(int turnSequence, String homePlayer, String visitPlayer, Color turnColor, Game game) {
 		header = new Header();
 		turnSeq = new TurnSequence(turnSequence);
 		home = new HomePlayer(homePlayer);
 		visit = new VisitPlayer(visitPlayer);
-		turn = new Turn(turnCode);
+		turn = new Turn(turnColor);
 		gameState = new GameState(game);
 	}
 
@@ -41,12 +41,29 @@ public class State implements Message {
 		return buffer.toString();
 	}
 
+	@Override
+	public String getDestination() {
+		return visit.getPlayer();
+	}
+
+	public Color invertTurn() {
+		return turn.invert();
+	}
+
+	public Game getGame() {
+		return new Game(turn.getTurn(), gameState.getMap());
+	}
+
 	public String getHeader() {
 		return HEADER;
 	}
 
 	public int getTurnSequence() {
 		return turnSeq.getTurnSequence();
+	}
+	
+	public int nextSequence() {
+		return getTurnSequence() + 1;
 	}
 
 	public String getHome() {
@@ -55,18 +72,6 @@ public class State implements Message {
 	
 	public String getVisit() {
 		return visit.getPlayer();
-	}
-
-	public boolean isHomeTurn() {
-		return turn.isHomeTurn();
-	}
-
-	public boolean isVisitTurn() {
-		return turn.isVisitTurn();
-	}
-
-	public Piece[][] getGameMap() {
-		return gameState.getMap();
 	}
 
 	private void produce(String messageContext) {

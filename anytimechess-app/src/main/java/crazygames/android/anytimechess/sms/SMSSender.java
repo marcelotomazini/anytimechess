@@ -5,8 +5,8 @@ import crazygames.android.anytimechess.comm.message.Message;
 
 public class SMSSender {
 	
-	public void send(String player, Message message) {
-		send(player, message.build());
+	public void send(Message message) {
+		send(message.getDestination(), message.build());
 	}
 	
 	private void send(String numero, String comando) {
