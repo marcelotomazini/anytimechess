@@ -1,31 +1,31 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 
-class TurnSequence extends Item {
+public class TurnSequence extends Item {
 
 	private int turnSequence;
 	
-	TurnSequence(int turnSequence) {
+	public TurnSequence(int turnSequence) {
 		this.turnSequence = turnSequence;
 	}
 
-	TurnSequence(String messageContext, int index) {
+	public TurnSequence(String messageContext, int index) {
 		String value = getValue(messageContext, index);
 		process(value);
 	}
 
 	@Override
-	protected int size() {
+	public int size() {
 		return 5;
 	}
 
 	@Override
-	protected String build() {
+	public String build() {
 		String format = "%0" + size() + "d";		
 		return String.format(format, turnSequence); 
 	}
 
-	int getTurnSequence() {
+	public int getTurnSequence() {
 		return turnSequence;
 	}
 

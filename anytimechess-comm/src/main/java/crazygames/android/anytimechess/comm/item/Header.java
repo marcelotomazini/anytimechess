@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 public class Header extends Item {
 	
@@ -7,7 +7,7 @@ public class Header extends Item {
 	public Header() {}
 
 	@Override
-	protected int size() {
+	public int size() {
 		return HEADER.length();
 	}
 

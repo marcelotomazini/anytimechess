@@ -1,27 +1,27 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
-class GameState extends Item {
+public class GameState extends Item {
 	
 	private Piece[][] map = new Piece[8][8];
 
-	GameState(Game game) {
+	public GameState(Game game) {
 		this.map = game.getBoard().getMap();
 	}
 	
-	GameState(String messageContext, int index) {
+	public GameState(String messageContext, int index) {
 		createMap(getValue(messageContext, index));
 	}
 	
 	@Override
-	protected int size() {
+	public int size() {
 		return 68;
 	}
 
 	@Override
-	protected String build() {
+	public String build() {
 		StringBuilder builder = new StringBuilder();
 		
 		for(int l = 0; l < 8; l++)
@@ -31,7 +31,7 @@ class GameState extends Item {
 		return builder.toString();
 	}
 
-	Piece[][] getMap() {
+	public Piece[][] getMap() {
 		return map;
 	}
 

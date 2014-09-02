@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.BLACK;
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;

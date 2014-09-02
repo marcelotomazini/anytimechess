@@ -1,6 +1,12 @@
 package crazygames.android.anytimechess.comm.message;
 
-import static crazygames.android.anytimechess.comm.message.Header.HEADER;
+import static crazygames.android.anytimechess.comm.item.Header.HEADER;
+import crazygames.android.anytimechess.comm.item.GameState;
+import crazygames.android.anytimechess.comm.item.Header;
+import crazygames.android.anytimechess.comm.item.HomePlayer;
+import crazygames.android.anytimechess.comm.item.Turn;
+import crazygames.android.anytimechess.comm.item.TurnSequence;
+import crazygames.android.anytimechess.comm.item.VisitPlayer;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 

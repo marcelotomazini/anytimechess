@@ -1,19 +1,19 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.BLACK;
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 
-class Turn extends Item {
+public class Turn extends Item {
 
 	private Color turn;
 	
-	Turn(Color turn) {
+	public Turn(Color turn) {
 		validate(turn);
 		this.turn = turn;
 	}
 
-	Turn(String messageContext, int index) {
+	public Turn(String messageContext, int index) {
 		turn = convert(getValue(messageContext, index));
 	}
 
@@ -22,12 +22,12 @@ class Turn extends Item {
 	}
 
 	@Override
-	protected String build() {
+	public String build() {
 		return turn.toString();
 	}
 
 	@Override
-	protected int size() {
+	public int size() {
 		return 5;
 	}
 

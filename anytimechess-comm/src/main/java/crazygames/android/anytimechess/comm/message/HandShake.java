@@ -1,5 +1,7 @@
 package crazygames.android.anytimechess.comm.message;
 
+import crazygames.android.anytimechess.comm.item.Header;
+
 
 public abstract class HandShake implements Message {
 

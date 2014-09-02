@@ -16,16 +16,16 @@ public class StateTest {
 	private static final Color TURN = WHITE;
 
 	@Test
-	public void createSMSMessage() {
-		State messageContext = new State(1, HOME_PLAYER, VISIT_PLAYER, TURN, new Game());
+	public void createState() {
+		State state = new State(1, HOME_PLAYER, VISIT_PLAYER, TURN, new Game());
 		
-		String smsMessage = messageContext.build();
+		String smsMessage = state.build();
 		
 		assertEquals("SMS Message", SMS_MESSAGE_VALID, smsMessage);
 	}
 	
 	@Test
-	public void createMessageContext() {
+	public void createStateWithSMSMessage() {
 		State state = new State(SMS_MESSAGE_VALID);
 		
 		assertEquals("Header", "atchess", state.getHeader());

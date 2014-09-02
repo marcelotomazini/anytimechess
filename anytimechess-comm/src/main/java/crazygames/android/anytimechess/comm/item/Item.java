@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 public abstract class Item {
 	
@@ -7,9 +7,9 @@ public abstract class Item {
 		return build();
 	}
 	
-	protected abstract int size();
+	public abstract int size();
 	
-	protected abstract String build();
+	public abstract String build();
 	
 	protected String getValue(String messageContext, int index) {
 		return messageContext.substring(index, index + size());

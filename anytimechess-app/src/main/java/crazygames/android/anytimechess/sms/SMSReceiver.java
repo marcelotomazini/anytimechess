@@ -1,6 +1,6 @@
 package crazygames.android.anytimechess.sms;
 
-import static crazygames.android.anytimechess.comm.message.Header.HEADER;
+import static crazygames.android.anytimechess.comm.item.Header.HEADER;
 import crazygames.android.anytimechess.state.StateStamp;
 import android.content.BroadcastReceiver;
 import android.content.Context;

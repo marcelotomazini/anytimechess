@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 import static junit.framework.Assert.assertEquals;
 

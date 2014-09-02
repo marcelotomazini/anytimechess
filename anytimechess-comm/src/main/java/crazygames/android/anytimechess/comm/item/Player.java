@@ -1,7 +1,7 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.item;
 
 
-abstract class Player extends Item {
+public abstract class Player extends Item {
 
 	private String player;
 	
@@ -15,17 +15,17 @@ abstract class Player extends Item {
 		process(value);
 	}
 
-	String getPlayer() {
+	public String getPlayer() {
 		return player;
 	}
 
 	@Override
-	protected int size() {
+	public int size() {
 		return 12;
 	}
 
 	@Override
-	protected String build() {
+	public String build() {
 		String format = "";
 		for (int i = 0; i < size() - player.length(); i++)
 			format += "0";
