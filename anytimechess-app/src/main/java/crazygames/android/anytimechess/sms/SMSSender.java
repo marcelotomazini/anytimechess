@@ -1,15 +1,12 @@
 package crazygames.android.anytimechess.sms;
 
 import android.telephony.SmsManager;
-import crazygames.android.anytimechess.comm.message.MessageContext;
-import crazygames.android.anytimechess.engine.game.Game;
+import crazygames.android.anytimechess.comm.message.Message;
 
 public class SMSSender {
 	
-	public void send(String player, Game game) {
-		//TODO Pilo complete parameters
-		MessageContext messageContext = new MessageContext(0, "", "", "", game);
-		send("", messageContext.buildMessage());
+	public void send(String player, Message message) {
+		send(player, message.build());
 	}
 	
 	private void send(String numero, String comando) {

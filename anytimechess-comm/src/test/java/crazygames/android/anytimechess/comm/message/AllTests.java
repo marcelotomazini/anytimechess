@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	TurnSequenceTest.class,
 	TurnTest.class,
 	VisitPlayerTest.class,
-	MessageContextTest.class})
+	StateTest.class})
 public class AllTests {
 
 }

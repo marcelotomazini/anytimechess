@@ -21,7 +21,7 @@ public class SMSReceiver extends BroadcastReceiver {
 		if (!isAnytimeChessMessage(sms.getMessageBody()))
 			return;
 		
-		new StateStamp(context).updateState(sms);
+		new StateStamp(context).setState(sms);
 		abortBroadcast();
 	}
 	

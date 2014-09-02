@@ -1,6 +1,6 @@
 package crazygames.android.anytimechess.comm.message;
 
-abstract class MessageItem {
+public abstract class Item {
 	
 	@Override
 	public String toString() {

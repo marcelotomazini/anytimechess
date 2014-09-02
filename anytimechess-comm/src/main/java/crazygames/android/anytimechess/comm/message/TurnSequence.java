@@ -1,7 +1,7 @@
 package crazygames.android.anytimechess.comm.message;
 
 
-class TurnSequence extends MessageItem {
+class TurnSequence extends Item {
 
 	private int turnSequence;
 	

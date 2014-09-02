@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import crazygames.android.anytimechess.engine.game.Game;
 
-public class MessageContextTest {
+public class StateTest {
 
 	private static final String SMS_MESSAGE_VALID = "atchess00001004498476508004491257086HRNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
 	private static final String VISIT_PLAYER = "4491257086";
@@ -17,16 +17,16 @@ public class MessageContextTest {
 
 	@Test
 	public void createSMSMessage() {
-		MessageContext messageContext = new MessageContext(1, HOME_PLAYER, VISIT_PLAYER, TURN, new Game());
+		State messageContext = new State(1, HOME_PLAYER, VISIT_PLAYER, TURN, new Game());
 		
-		String smsMessage = messageContext.buildMessage();
+		String smsMessage = messageContext.build();
 		
 		assertEquals("SMS Message", SMS_MESSAGE_VALID, smsMessage);
 	}
 	
 	@Test
 	public void createMessageContext() {
-		MessageContext messageContext = new MessageContext(SMS_MESSAGE_VALID);
+		State messageContext = new State(SMS_MESSAGE_VALID);
 		
 		assertEquals("Header", "atchess", messageContext.getHeader());
 		assertEquals("TurnSequence", 1, messageContext.getTurnSequence());
@@ -35,6 +35,6 @@ public class MessageContextTest {
 		assertTrue("Should be home turn", messageContext.isHomeTurn());
 		assertFalse("Should not be visit turn", messageContext.isVisitTurn());
 		
-		assertEquals("GameState", SMS_MESSAGE_VALID, messageContext.buildMessage());
+		assertEquals("GameState", SMS_MESSAGE_VALID, messageContext.build());
 	}
 }

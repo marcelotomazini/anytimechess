@@ -1,10 +1,11 @@
 package crazygames.android.anytimechess.comm.message;
 
+import static crazygames.android.anytimechess.comm.message.Header.HEADER;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
 
-public class MessageContext {
+public class State implements Message {
 
 	private Header header;
 	private TurnSequence turnSeq;
@@ -13,11 +14,11 @@ public class MessageContext {
 	private Turn turn;
 	private GameState gameState;
 	
-	public MessageContext(String messageContext) {
+	public State(String messageContext) {
 		produce(messageContext);
 	}
 
-	public MessageContext(int turnSequence, String homePlayer, String visitPlayer, String turnCode, Game game) {
+	public State(int turnSequence, String homePlayer, String visitPlayer, String turnCode, Game game) {
 		header = new Header();
 		turnSeq = new TurnSequence(turnSequence);
 		home = new HomePlayer(homePlayer);
@@ -25,10 +26,11 @@ public class MessageContext {
 		turn = new Turn(turnCode);
 		gameState = new GameState(game);
 	}
-	
-	public String buildMessage() {
-		StringBuffer buffer = new StringBuffer();
 
+	@Override
+	public String build() {
+		StringBuffer buffer = new StringBuffer();
+	
 		buffer.append(header.build());
 		buffer.append(turnSeq.build());
 		buffer.append(home.build());
@@ -40,7 +42,7 @@ public class MessageContext {
 	}
 
 	public String getHeader() {
-		return (String) header.getHeaderValue();
+		return HEADER;
 	}
 
 	public int getTurnSequence() {

@@ -1,6 +1,6 @@
 package crazygames.android.anytimechess.comm.message;
 
-class Turn extends MessageItem {
+class Turn extends Item {
 
 	//TODO Pilo convert to enum
 	private static final String CODE_HOME = "H";

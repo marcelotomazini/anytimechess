@@ -1,10 +1,10 @@
 package crazygames.android.anytimechess.comm.message;
 
-public class Header extends MessageItem {
+public class Header extends Item {
 	
 	public static final String HEADER = "atchess";
 	
-	Header() {}
+	public Header() {}
 
 	@Override
 	protected int size() {
@@ -12,11 +12,7 @@ public class Header extends MessageItem {
 	}
 
 	@Override
-	protected String build() {
-		return HEADER;
-	}
-
-	String getHeaderValue() {
+	public String build() {
 		return HEADER;
 	}
 }

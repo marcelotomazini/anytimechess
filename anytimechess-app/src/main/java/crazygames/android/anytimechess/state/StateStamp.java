@@ -13,10 +13,18 @@ public class StateStamp {
 	public StateStamp(Context context) {
 		this.context = context;
 	}
+	
+	public String getState(String player) {
+		return getSharedPreferences().getString(filterContactNumber(player), null);
+	}
 
-	public void updateState(SmsMessage sms) {
+	public void setState(SmsMessage sms) {
+		setState(sms.getOriginatingAddress(), sms.getMessageBody().toString());
+	}
+
+	public void setState(String player, String state) {
 		Editor editor = getSharedPreferences().edit();
-		editor.putString(getContactNumber(sms), sms.getMessageBody().toString());
+		editor.putString(filterContactNumber(player), state);
 		editor.commit();	
 	}
 
@@ -24,8 +32,8 @@ public class StateStamp {
 		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 	
-	private String getContactNumber(SmsMessage sms) {
+	private String filterContactNumber(String player) {
 		//TODO Pilo remove ddd and country code
-		return sms.getOriginatingAddress();
+		return player;
 	}
 }

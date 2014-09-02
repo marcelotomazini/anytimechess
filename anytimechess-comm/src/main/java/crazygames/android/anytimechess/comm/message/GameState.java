@@ -3,7 +3,7 @@ package crazygames.android.anytimechess.comm.message;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
-class GameState extends MessageItem {
+class GameState extends Item {
 	
 	private Piece[][] map = new Piece[8][8];
 
