@@ -18,7 +18,7 @@ public class BoardAdapter implements ListAdapter {
 		boolean white = false;
 		for (int row = 1; row <= 8; row++)
 			for (char col = 'a'; col <= 'h'; col++) {
-				final Square square = new Square(context, white ? Color.GRAY : Color.BLACK, row, col);
+				final Square square = new Square(context, white ? Color.GRAY : Color.LTGRAY, row, col);
 				if(col != 'h')
 					white = !white;
 
