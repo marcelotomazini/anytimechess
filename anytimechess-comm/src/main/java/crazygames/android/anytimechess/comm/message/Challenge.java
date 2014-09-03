@@ -1,7 +1,7 @@
 package crazygames.android.anytimechess.comm.message;
 
 
-public class Challenge extends HandShake implements Message {
+public class Challenge extends HandShake {
 
 	/*
 	 * ░░░▄█▀▀░░▄▄▄▄▄▄▄░░░░░░░▄███▄░░░░

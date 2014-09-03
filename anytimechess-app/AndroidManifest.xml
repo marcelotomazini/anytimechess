@@ -6,6 +6,7 @@
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     
     <application
         android:name="AnytimeChess"
@@ -18,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="AnytimeChessActivity" />
         
         <receiver 
             android:name="crazygames.android.anytimechess.sms.SMSReceiver"
@@ -30,6 +30,6 @@
         
     </application>
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="19" />
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="19" />
 
 </manifest>

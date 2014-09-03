@@ -122,27 +122,8 @@ public class SlideMenu extends ViewGroup {
 		STATUS_BAR_HEIGHT = (int) getStatusBarHeight(context);
 		setWillNotDraw(false);
 
-		// Set the shadow attributes
 		setPrimaryShadowWidth(10);
 		setSecondaryShadowWidth(10);
-
-//		Drawable primaryShadowDrawable = getResources().getDrawable(
-//				getResources().getIdentifier("black_b", "drawable", context.getPackageName()));
-//		if (null == primaryShadowDrawable) {
-//			primaryShadowDrawable = new GradientDrawable(
-//					Orientation.LEFT_RIGHT, new int[] { Color.TRANSPARENT,
-//							Color.argb(99, 0, 0, 0) });
-//		}
-//		setPrimaryShadowDrawable(primaryShadowDrawable);
-
-//		Drawable secondaryShadowDrawable = getResources().getDrawable(
-//				getResources().getIdentifier("white_b", "drawable", context.getPackageName()));
-//		if (null == secondaryShadowDrawable) {
-//			secondaryShadowDrawable = new GradientDrawable(
-//					Orientation.LEFT_RIGHT, new int[] {
-//							Color.argb(99, 0, 0, 0), Color.TRANSPARENT });
-//		}
-//		setSecondaryShadowDrawable(secondaryShadowDrawable);
 
 		int interpolatorResId = -1;
 		setInterpolator(-1 == interpolatorResId ? DEFAULT_INTERPOLATOR
