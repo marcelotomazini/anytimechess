@@ -1,12 +1,11 @@
 package crazygames.android.anytimechess.state;
 
-import static crazygames.android.anytimechess.state.StateUtils.filterNumber;
-import crazygames.android.anytimechess.comm.message.Message;
+import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import android.telephony.SmsMessage;
+import crazygames.android.anytimechess.comm.message.Message;
 
 public class StateStamp {
 	
@@ -20,10 +19,6 @@ public class StateStamp {
 		return getSharedPreferences().getString(filterNumber(player), null);
 	}
 
-	public void setStateMessage(SmsMessage smsMessage) {
-		setStateMessage(smsMessage.getOriginatingAddress(), smsMessage.getMessageBody().toString());
-	}
-	
 	public void setStateMessage(Message message) {
 		setStateMessage(message.getDestination(), message.build());
 	}

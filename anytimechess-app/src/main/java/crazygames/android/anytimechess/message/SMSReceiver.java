@@ -1,7 +1,6 @@
-package crazygames.android.anytimechess.sms;
+package crazygames.android.anytimechess.message;
 
 import static crazygames.android.anytimechess.comm.item.Header.HEADER;
-import crazygames.android.anytimechess.state.StateStamp;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,16 +20,11 @@ public class SMSReceiver extends BroadcastReceiver {
 		if (!isAnytimeChessMessage(sms.getMessageBody()))
 			return;
 		
-		manageMessage(context, sms);
+		new MessageManager(context).routeMessage(sms);
 		abortBroadcast();
 	}
 
 	private boolean isAnytimeChessMessage(String message) {
 		return message.contains(HEADER);
-	}
-
-	private void manageMessage(Context context, SmsMessage sms) {
-		//TODO Pilo create message identifier
-		new StateStamp(context).setStateMessage(sms);
 	}
 }

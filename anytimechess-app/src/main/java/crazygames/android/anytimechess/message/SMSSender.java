@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.sms;
+package crazygames.android.anytimechess.message;
 
 import android.telephony.SmsManager;
 import crazygames.android.anytimechess.comm.message.Message;

@@ -1,11 +1,12 @@
 package crazygames.android.anytimechess.state;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
+import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
+import static crazygames.android.anytimechess.utils.TelephonyUtils.getTelephonyNumber;
 import android.content.Context;
-import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
-import crazygames.android.anytimechess.sms.SMSSender;
+import crazygames.android.anytimechess.message.SMSSender;
 
 public class StateManager {
 	
@@ -15,51 +16,51 @@ public class StateManager {
 		this.context = context;
 	}
 	
-	public void create(String player, Game game) {
-		State state = new State(1, getHomePlayer(), getVisitPlayer(player), WHITE, game);
+	public void create(String player) {
+		State state = new State(1, getTelephonyNumber(context), filterNumber(player), WHITE, new Game());
 		
-		firm(state);
+		stamp(state);
+		//TODO Pilo notify
 	}
-	
+
 	public State get(String player) {
 		String stateMessage = new StateStamp(context).getStateMessage(player);
 		
 		return new State(stateMessage);
 	}
 	
-	public void update(String player, Game game) {
+	public void send(String player, Game game) {
 		State oldState = get(player);
 		State state = buildNext(oldState, game);
 		
-		firm(state);
+		stamp(state);
+		new SMSSender().send(state);
 	}
 
 	public void refresh(String player) {
 		State state = get(player);
 		
-		firm(state);
+		new SMSSender().send(state);
 	}
 	
-	public void invite(String player) {
-		Challenge invite = new Challenge(getHomePlayer(), getVisitPlayer(player));
-		new SMSSender().send(invite);
+	public void update(String messageState) {
+		State newState = new State(messageState);
+		State oldState = get(newState.getVisit());
+		
+		if (newState.getTurnSequence() < oldState.getTurnSequence())
+			throw new RuntimeException("Inconsistent State");
+		
+		if (newState.getTurnSequence() > oldState.getTurnSequence())
+			stamp(newState);
+		
+		//TODO Pilo notify
 	}
-
+	
 	private State buildNext(State oldState, Game game) {
 		return new State(oldState.nextSequence(), oldState.getHome(), oldState.getVisit(), oldState.invertTurn(), game);
 	}
 
-	private void firm(State state) {
+	private void stamp(State state) {
 		new StateStamp(context).setStateMessage(state);
-		new SMSSender().send(state);
-	}
-
-	private String getHomePlayer() {
-		// TODO Pilo get telephone number
-		return StateUtils.filterNumber(null);
-	}
-
-	private String getVisitPlayer(String player) {
-		return StateUtils.filterNumber(player);
 	}
 }
