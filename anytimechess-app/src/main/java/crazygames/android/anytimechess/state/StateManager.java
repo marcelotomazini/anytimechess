@@ -7,6 +7,7 @@ import android.content.Context;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.message.SMSSender;
+import crazygames.android.anytimechess.utils.Notifications;
 
 public class StateManager {
 	
@@ -53,7 +54,7 @@ public class StateManager {
 		if (newState.getTurnSequence() > oldState.getTurnSequence())
 			stamp(newState);
 		
-		//TODO Pilo notify
+		new Notifications(context).notifyNewMove();
 	}
 	
 	private State buildNext(State oldState, Game game) {

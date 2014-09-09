@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
+import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.slidemenu.Menu;
 import crazygames.android.anytimechess.slidemenu.SlideMenu;
 import crazygames.android.anytimechess.utils.Messages;
@@ -52,6 +53,9 @@ public class AnytimeChessActivity extends Activity {
 	            // number to challenge
 	            String number = cursor.getString(column);
 	            System.out.println(number);
+	            
+	            //much need so pls refactor doge
+	            new HandShakeManager(this).challenge(number);
 	            
 	            Builder ok = new AlertDialog.Builder(this);
 	            ok.setMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
