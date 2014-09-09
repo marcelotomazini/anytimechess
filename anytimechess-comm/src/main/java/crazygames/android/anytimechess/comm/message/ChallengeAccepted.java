@@ -22,7 +22,7 @@ public class ChallengeAccepted extends HandShake {
 	 * ░░░░░░░░░░░░▄█▀░░▄▄██▄███▀███░░░
 	 */
 
-	private static final String CHALLENGE_ACCEPTED = "Challenge Accepted";
+	public static final String CHALLENGE_ACCEPTED = "CA";
 
 	public ChallengeAccepted(String destination) {
 		super(destination);
@@ -30,6 +30,11 @@ public class ChallengeAccepted extends HandShake {
 
 	@Override
 	protected String buildMessage() {
+		return CHALLENGE_ACCEPTED;
+	}
+
+	@Override
+	protected String handShakeType() {
 		return CHALLENGE_ACCEPTED;
 	}
 }

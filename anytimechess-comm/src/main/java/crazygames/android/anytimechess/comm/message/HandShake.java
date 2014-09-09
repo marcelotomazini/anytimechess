@@ -5,13 +5,11 @@ import crazygames.android.anytimechess.comm.item.Header;
 
 public abstract class HandShake implements Message {
 
-	private Header header;
+	public static final String HEADER = Header.HEADER + "HS";
 	private String destination;
 
 	public HandShake(String destination) {
 		validateDestination(destination);
-		
-		header = new Header();
 		this.destination = destination;
 	}
 
@@ -19,7 +17,8 @@ public abstract class HandShake implements Message {
 	public String build() {
 		StringBuffer buffer = new StringBuffer();
 
-		buffer.append(header.build());
+		buffer.append(HEADER);
+		buffer.append(handShakeType());
 		buffer.append(" ");
 		buffer.append(buildMessage());
 		
@@ -32,6 +31,8 @@ public abstract class HandShake implements Message {
 	}
 	
 	protected abstract String buildMessage();
+	
+	protected abstract String handShakeType();
 	
 	private void validateDestination(String destination) {
 		if (destination == null || destination.isEmpty())
