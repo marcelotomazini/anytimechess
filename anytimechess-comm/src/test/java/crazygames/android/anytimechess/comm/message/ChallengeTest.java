@@ -14,11 +14,11 @@ public class ChallengeTest {
 	private static final String VALID_PLAYER = "4498476508";
 
 	@Test
-	public void createInvite() {
+	public void createChallenge() {
 		Challenge invite = new Challenge("Pilo", VALID_PLAYER);
 		
 		assertEquals("Invite Player", VALID_PLAYER, invite.getDestination());
-		assertEquals("Home Player", "atchess Hey you! Pilo is challenging you to play AnytimeChess!", invite.build());
+		assertEquals("Home Player", "atchessHSCH Hey you! Pilo is challenging you to play AnytimeChess!", invite.build());
 	}
 
 	@Test
@@ -26,7 +26,7 @@ public class ChallengeTest {
 		Challenge invite = new Challenge(null, VALID_PLAYER);
 		
 		assertEquals("Invite Player", VALID_PLAYER, invite.getDestination());
-		assertEquals("Home Player", "atchess Hey you! This is an challenge to play AnytimeChess!", invite.build());
+		assertEquals("Home Player", "atchessHSCH Hey you! This is an challenge to play AnytimeChess!", invite.build());
 	}
 	
 	@Test

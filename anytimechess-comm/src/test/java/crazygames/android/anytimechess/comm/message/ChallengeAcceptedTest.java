@@ -18,7 +18,7 @@ public class ChallengeAcceptedTest {
 		ChallengeAccepted ca = new ChallengeAccepted(VALID_PLAYER);
 		
 		assertEquals("Invite Player", VALID_PLAYER, ca.getDestination());
-		assertEquals("Home Player", "atchess Challenge Accepted", ca.build());
+		assertEquals("Home Player", "atchessHSCA CA", ca.build());
 	}
 
 	@Test
