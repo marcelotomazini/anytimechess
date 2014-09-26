@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         
-        <receiver 
-            android:name="crazygames.android.anytimechess.sms.SMSReceiver"
+        <receiver
+            android:name="crazygames.android.anytimechess.message.SMSReceiver"
             android:exported="true" > 
             <intent-filter android:priority="9999999"> 
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" /> 
