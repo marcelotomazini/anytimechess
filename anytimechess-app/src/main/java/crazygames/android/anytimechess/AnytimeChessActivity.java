@@ -13,7 +13,7 @@ import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.slidemenu.Menu;
 import crazygames.android.anytimechess.slidemenu.SlideMenu;
 import crazygames.android.anytimechess.utils.Messages;
-import crazygames.android.anytimechess.utils.Notifications;
+import crazygames.android.anytimechess.utils.NotificationUtils;
 
 
 public class AnytimeChessActivity extends Activity {
@@ -39,7 +39,7 @@ public class AnytimeChessActivity extends Activity {
         slideMenu.addView(primaryMenu, new SlideMenu.LayoutParams(300,
         		SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU));
         
-        Notifications.init(this);
+        NotificationUtils.init(this);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class AnytimeChessActivity extends Activity {
 	            
 	            mainLayout.newGame();
 	            
-	            Notifications.displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
+	            NotificationUtils.displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
 	        }
 	    }
 	    slideMenu.close(true);
