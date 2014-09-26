@@ -28,4 +28,16 @@ public class Notifications {
 		((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE)).notify(R.string.app_name, notificacao);
 	}
 
+private static Context context;
+
+	public static void init(Context context) {
+		Notifications.context = context;
+	}
+	
+	public static void displayMessage(String message) {
+		Builder ok = new AlertDialog.Builder(context);
+        ok.setMessage(message);
+        ok.setPositiveButton("OK", null);
+        ok.show();
+	}
 }

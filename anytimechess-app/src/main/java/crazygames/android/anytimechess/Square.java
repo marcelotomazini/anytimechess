@@ -1,6 +1,7 @@
 package crazygames.android.anytimechess;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import crazygames.android.anytimechess.engine.game.response.Position;
@@ -19,10 +20,10 @@ public class Square extends FrameLayout {
 		this.position = new Position(column, row);
 		this.originalBackgroundColor = backgroundColor;
 		setOriginalBackgroundColor();
-		setLayoutParams(new AbsListView.LayoutParams(100, 100));
+		setLayoutParams(new AbsListView.LayoutParams(100, 100, Gravity.LEFT));
 	}
 
-	protected void setOriginalBackgroundColor() {
+	public void setOriginalBackgroundColor() {
 		setBackgroundColor(originalBackgroundColor);
 	}
 
@@ -36,6 +37,11 @@ public class Square extends FrameLayout {
 
 	public Position getPosition() {
 		return position;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s%s", column, row);
 	}
 
 }

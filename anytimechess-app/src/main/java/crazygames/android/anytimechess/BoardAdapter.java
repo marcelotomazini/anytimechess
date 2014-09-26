@@ -23,10 +23,6 @@ public class BoardAdapter implements ListAdapter {
 					white = !white;
 
 				itemList.add(square);
-
-				//				final Piece piece = game.getBoard().get(col, row);
-				//				if(piece != null) 
-				//					square.addView(new PieceView(context, piece));
 			}
 	}
 
@@ -62,38 +58,34 @@ public class BoardAdapter implements ListAdapter {
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return itemList.isEmpty();
 	}
 
 	@Override
 	public void registerDataSetObserver(final DataSetObserver arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void unregisterDataSetObserver(final DataSetObserver arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public boolean areAllItemsEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled(final int arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	public List<Square> getAllItems() {
+		return itemList;
 	}
 
 }
