@@ -55,7 +55,7 @@
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>3.9.0-rc.2</version>
+					<version>4.0.0-rc.2</version>
 
 					<configuration>
 						<sdk>
@@ -70,6 +70,7 @@
 							<verbose>true</verbose>
 						</zipalign>
 						<undeployBeforeDeploy>true</undeployBeforeDeploy>
+						<androidManifestFile>AndroidManifest.xml</androidManifestFile>
 					</configuration>
 				</plugin>
 				<plugin>
