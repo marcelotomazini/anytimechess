@@ -1,18 +1,15 @@
-package crazygames.android.anytimechess.slidemenu;
+package crazygames.android.anytimechess;
 
 import java.util.Arrays;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import crazygames.android.anytimechess.AnytimeChessActivity;
-import crazygames.android.anytimechess.SimpleListAdapter;
 import crazygames.android.anytimechess.utils.Messages;
 
 public class Menu extends ListView {
@@ -35,7 +32,7 @@ public class Menu extends ListView {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Builder ok = new AlertDialog.Builder(context);
+				AlertDialog.Builder ok = new AlertDialog.Builder(context);
 	            ok.setMessage("AnytimeChess");
 	            ok.setPositiveButton("OK", null);
 	            ok.show();

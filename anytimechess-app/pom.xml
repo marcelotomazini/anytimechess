@@ -40,6 +40,16 @@
 			<version>19.1.0</version>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<artifactId>slidemenu-library</artifactId> -->
+<!-- 			<groupId>com.aretha</groupId> -->
+<!-- 			<type>apklib</type> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<artifactId>slidemenu-library</artifactId>
+			<groupId>com.aretha</groupId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

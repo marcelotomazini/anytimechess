@@ -1,6 +1,7 @@
 package crazygames.android.anytimechess;
 
 
+import me.tangke.slidemenu.SlideMenu;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -8,10 +9,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.view.View;
 import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
-import crazygames.android.anytimechess.slidemenu.Menu;
-import crazygames.android.anytimechess.slidemenu.SlideMenu;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.NotificationUtils;
 
@@ -27,18 +27,20 @@ public class AnytimeChessActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
-		slideMenu = new SlideMenu(this);
+		SlideMenu slideMenu = new SlideMenu(this);
         setContentView(slideMenu);
-        
-        mainLayout = new MainLayout(this);
-        slideMenu.addView(mainLayout, new SlideMenu.LayoutParams(
+
+        // Setup the content
+        View contentView = new View(this);
+        slideMenu.addView(contentView, new SlideMenu.LayoutParams(
                 SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.MATCH_PARENT,
                 SlideMenu.LayoutParams.ROLE_CONTENT));
 
-        Menu primaryMenu = new Menu(this);
+        // Setup the primary menu
+        View primaryMenu = new Menu(this);
         slideMenu.addView(primaryMenu, new SlideMenu.LayoutParams(300,
         		SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU));
-        
+
         NotificationUtils.init(this);
 	}
 
