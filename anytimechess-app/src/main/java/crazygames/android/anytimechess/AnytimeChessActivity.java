@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
-import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.NotificationUtils;
@@ -20,7 +19,6 @@ public class AnytimeChessActivity extends Activity {
 
 	public static final int PICK_CONTACT_REQUEST = 1;
 	private SlideMenu slideMenu;
-	private MainLayout mainLayout;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -54,21 +52,13 @@ public class AnytimeChessActivity extends Activity {
 
 	            Cursor cursor = getContentResolver().query(contactUri, projection, null, null, null);
 	            cursor.moveToFirst();
-
-	            int column = cursor.getColumnIndex(Phone.NUMBER);
-	            String number = cursor.getString(column);
-	            // TODO pilo -> number to challenge
-	            System.out.println(number);
 	            
-	            //much need so pls refactor doge
-	            new HandShakeManager(this).challenge(number);
-	            
-	            mainLayout.newGame();
+	            new HandShakeManager(this).challenge(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
 	            
 	            NotificationUtils.displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
 	        }
 	    }
-	    slideMenu.close(true);
+//	    slideMenu.close(true);
 	}
 
 }
