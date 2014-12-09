@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import crazygames.android.anytimechess.utils.NotificationUtils;
 
 public class SMSReceiver extends BroadcastReceiver {
 	
@@ -20,7 +21,12 @@ public class SMSReceiver extends BroadcastReceiver {
 		if (!isAnytimeChessMessage(sms.getMessageBody()))
 			return;
 		
-		new MessageManager(context).routeMessage(sms);
+		try {
+			new MessageManager(context).routeMessage(sms);			
+		} catch (Exception e) {
+			NotificationUtils.displayMessage(e.getMessage());
+		}
+		
 		abortBroadcast();
 	}
 

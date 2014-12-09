@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
 import crazygames.android.anytimechess.message.HandShakeManager;
+import crazygames.android.anytimechess.state.MyNumber;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.NotificationUtils;
 
@@ -22,10 +23,12 @@ public class AnytimeChessActivity extends Activity {
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		new MyNumber(this).resolveMyNumber();
+		
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
-		SlideMenu slideMenu = new SlideMenu(this);
+		slideMenu = new SlideMenu(this);
         setContentView(slideMenu);
 
         // Setup the content
@@ -58,7 +61,7 @@ public class AnytimeChessActivity extends Activity {
 	            NotificationUtils.displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
 	        }
 	    }
-//	    slideMenu.close(true);
+	    slideMenu.close(true);
 	}
 
 }

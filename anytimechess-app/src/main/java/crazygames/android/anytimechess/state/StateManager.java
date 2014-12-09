@@ -2,7 +2,6 @@ package crazygames.android.anytimechess.state;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
-import static crazygames.android.anytimechess.utils.TelephonyUtils.getTelephonyNumber;
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
@@ -18,10 +17,13 @@ public class StateManager {
 	}
 	
 	public void create(String player) {
-		State state = new State(1, getTelephonyNumber(context), filterNumber(player), WHITE, new Game());
+		String myNumber = new MyNumber(context).getMyNumber();
+		String playerNumber = filterNumber(player);
 		
+		State state = new State(1, myNumber, playerNumber, WHITE, new Game());
 		stamp(state);
-		//TODO Pilo notify
+	
+		new Notifications(context).notifyNewMove();
 	}
 
 	public State get(String player) {
