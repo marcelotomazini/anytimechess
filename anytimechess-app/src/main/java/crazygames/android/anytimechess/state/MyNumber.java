@@ -20,6 +20,10 @@ public class MyNumber implements Inputavel {
 		if (getSharedPreferences().contains(MY_NUMBER))
 			return;
 		
+		setMyNumber();
+	}
+
+	public void setMyNumber() {
 		NotificationUtils.displayInput(this);
 	}
 	

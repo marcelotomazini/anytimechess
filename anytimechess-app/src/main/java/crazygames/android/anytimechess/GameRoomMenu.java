@@ -12,9 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import crazygames.android.anytimechess.utils.Messages;
 
-public class Menu extends ListView {
+public class GameRoomMenu extends ListView {
 
-	public Menu(final Activity context) {
+	public GameRoomMenu(final Activity context) {
 		super(context);
 
 		TextView tv1 = new TextView(context);

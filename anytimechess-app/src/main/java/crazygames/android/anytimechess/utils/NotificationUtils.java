@@ -16,10 +16,14 @@ public class NotificationUtils {
 	}
 	
 	public static void displayMessage(String message) {
+		displayMessage(context, message);
+	}
+
+	public static void displayMessage(Context context, String message) {
 		Builder ok = new AlertDialog.Builder(context);
-        ok.setMessage(message);
-        ok.setPositiveButton("OK", null);
-        ok.show();
+		ok.setMessage(message);
+		ok.setPositiveButton("OK", null);
+		ok.show();
 	}
 
 	public static void displayInput(final Inputavel inputavel) {

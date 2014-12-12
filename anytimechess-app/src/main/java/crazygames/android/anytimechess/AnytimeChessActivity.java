@@ -33,14 +33,20 @@ public class AnytimeChessActivity extends Activity {
 
         // Setup the content
         View contentView = new View(this);
-        slideMenu.addView(contentView, new SlideMenu.LayoutParams(
-                SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.MATCH_PARENT,
-                SlideMenu.LayoutParams.ROLE_CONTENT));
+        slideMenu.addView(contentView,
+        		new SlideMenu.LayoutParams(
+        				SlideMenu.LayoutParams.MATCH_PARENT,
+        				SlideMenu.LayoutParams.MATCH_PARENT,
+        				SlideMenu.LayoutParams.ROLE_CONTENT));
 
         // Setup the primary menu
-        View primaryMenu = new Menu(this);
-        slideMenu.addView(primaryMenu, new SlideMenu.LayoutParams(300,
-        		SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU));
+        View primaryMenu = new OptionsMenu(this);
+        slideMenu.addView(primaryMenu,
+        		new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU));
+
+        View gameRoomMenu = new GameRoomMenu(this);
+        slideMenu.addView(gameRoomMenu,
+        		new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_SECONDARY_MENU));
 
         NotificationUtils.init(this);
 	}
@@ -63,5 +69,4 @@ public class AnytimeChessActivity extends Activity {
 	    }
 	    slideMenu.close(true);
 	}
-
 }
