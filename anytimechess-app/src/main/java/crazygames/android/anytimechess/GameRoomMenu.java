@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.state.StateManager;
 import android.app.Activity;
 import android.preference.PreferenceManager;
@@ -16,8 +17,11 @@ import android.widget.TextView;
 
 public class GameRoomMenu extends ListView {
 	
-	public GameRoomMenu(final Activity context) {
+	private MainLayout mainLayout;
+
+	public GameRoomMenu(final Activity context, MainLayout mainLayout) {
 		super(context);
+		this.mainLayout = mainLayout;
 		refresh();
 	}
 
@@ -61,12 +65,7 @@ public class GameRoomMenu extends ListView {
 			@Override
 			public void onClick(View arg0) {
 				State state = new StateManager(getContext()).get(player);
-				
-				
-				// TODO Pilo abrir o jogo aqui, carregando o game;
-				// chamar tela principal e chamar refresh(game), 
-				state.getGame();
-				
+				mainLayout.load(state);
 			}
 		};
 	}

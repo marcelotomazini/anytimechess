@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import crazygames.android.anytimechess.BoardAdapter;
 import crazygames.android.anytimechess.PieceView;
 import crazygames.android.anytimechess.Square;
+import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.game.Move;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
@@ -77,10 +78,10 @@ public class MainLayout extends LinearLayout {
 	    }
 	}
 	
-	public void newGame() {
+	public void load(State state) {
 		boardAdapter = new BoardAdapter(getContext());
 		boardLayout.setAdapter(boardAdapter);
-		boardLayout.newGame();
+		boardLayout.start(state.getGame());
 		boardLayout.setOnTouchListener(new OnTouchListener() {
 			
 			@Override

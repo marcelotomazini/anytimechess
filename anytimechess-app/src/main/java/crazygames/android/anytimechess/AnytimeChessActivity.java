@@ -23,7 +23,7 @@ public class AnytimeChessActivity extends Activity {
 	public static final int PICK_CONTACT_REQUEST = 1;
 	private SlideMenu slideMenu;
 	private GameRoomMenu gameRoomMenu;
-	private View mainLayout;
+	private MainLayout mainLayout;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class AnytimeChessActivity extends Activity {
         View optionsMenu = new OptionsMenu(this);
         slideMenu.addView(optionsMenu, getOptionsMenuParameters());
 
-        gameRoomMenu = new GameRoomMenu(this);
+        gameRoomMenu = new GameRoomMenu(this, mainLayout);
         slideMenu.addView(gameRoomMenu, getGameRoomMenuParameters());
 	}
 

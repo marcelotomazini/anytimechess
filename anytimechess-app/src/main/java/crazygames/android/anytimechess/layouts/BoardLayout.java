@@ -33,6 +33,11 @@ public class BoardLayout extends GridView {
 
 	public void newGame() {
 		game = new Game();
+		start(game);
+	}
+
+	public void start(Game game) {
+		this.game = game;
 		createPieces(game.getBoard().getMap());
 		refresh(game);
 	}
