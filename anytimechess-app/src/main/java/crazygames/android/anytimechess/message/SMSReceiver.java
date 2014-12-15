@@ -24,7 +24,7 @@ public class SMSReceiver extends BroadcastReceiver {
 		try {
 			new MessageManager(context).routeMessage(sms);			
 		} catch (Exception e) {
-			NotificationUtils.displayMessage(e.getMessage());
+			new NotificationUtils(context).displayMessage(e.getMessage());
 		}
 		
 		abortBroadcast();

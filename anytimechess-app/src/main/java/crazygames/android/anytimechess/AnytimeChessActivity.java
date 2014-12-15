@@ -2,6 +2,7 @@ package crazygames.android.anytimechess;
 
 
 import me.tangke.slidemenu.SlideMenu;
+import me.tangke.slidemenu.SlideMenu.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
+import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.state.MyNumber;
 import crazygames.android.anytimechess.utils.Messages;
@@ -21,37 +23,44 @@ public class AnytimeChessActivity extends Activity {
 	public static final int PICK_CONTACT_REQUEST = 1;
 	private SlideMenu slideMenu;
 	private GameRoomMenu gameRoomMenu;
+	private View mainLayout;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
 		new MyNumber(this).resolveMyNumber();
 		
-		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
 		slideMenu = new SlideMenu(this);
         setContentView(slideMenu);
 
-        // Setup the content
-        View contentView = new View(this);
-        slideMenu.addView(contentView,
-        		new SlideMenu.LayoutParams(
-        				SlideMenu.LayoutParams.MATCH_PARENT,
-        				SlideMenu.LayoutParams.MATCH_PARENT,
-        				SlideMenu.LayoutParams.ROLE_CONTENT));
+        mainLayout = new MainLayout(this);
+        slideMenu.addView(mainLayout, getMainLayoutParameters());
 
-        // Setup the primary menu
-        View primaryMenu = new OptionsMenu(this);
-        slideMenu.addView(primaryMenu,
-        		new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU));
+        View optionsMenu = new OptionsMenu(this);
+        slideMenu.addView(optionsMenu, getOptionsMenuParameters());
 
         gameRoomMenu = new GameRoomMenu(this);
-        slideMenu.addView(gameRoomMenu,
-        		new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_SECONDARY_MENU));
-
-        NotificationUtils.init(this);
+        slideMenu.addView(gameRoomMenu, getGameRoomMenuParameters());
 	}
-	
+
+	private LayoutParams getMainLayoutParameters() {
+		return new SlideMenu.LayoutParams(
+				SlideMenu.LayoutParams.MATCH_PARENT,
+				SlideMenu.LayoutParams.MATCH_PARENT,
+				SlideMenu.LayoutParams.ROLE_CONTENT);
+	}
+
+	private LayoutParams getOptionsMenuParameters() {
+		return new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU);
+	}
+
+	private LayoutParams getGameRoomMenuParameters() {
+		return new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_SECONDARY_MENU);
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -71,7 +80,7 @@ public class AnytimeChessActivity extends Activity {
 	            
 	            new HandShakeManager(this).challenge(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
 	            
-	            NotificationUtils.displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
+	            new NotificationUtils(this).displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
 	        }
 	    }
 	    slideMenu.close(true);

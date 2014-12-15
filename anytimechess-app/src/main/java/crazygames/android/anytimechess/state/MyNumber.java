@@ -24,7 +24,7 @@ public class MyNumber implements Inputavel {
 	}
 
 	public void setMyNumber() {
-		NotificationUtils.displayInput(this);
+		new NotificationUtils(context).displayInput(this);
 	}
 	
 	public String getMyNumber() {
@@ -40,11 +40,6 @@ public class MyNumber implements Inputavel {
 
 	private SharedPreferences getSharedPreferences() {
 		return PreferenceManager.getDefaultSharedPreferences(context);
-	}
-
-	@Override
-	public Context getContext() {
-		return context;
 	}
 
 	@Override

@@ -8,28 +8,24 @@ import android.content.DialogInterface.OnClickListener;
 import android.widget.EditText;
 
 public class NotificationUtils {
-
-	private static Context context;
-
-	public static void init(Context context) {
-		NotificationUtils.context = context;
-	}
 	
-	public static void displayMessage(String message) {
-		displayMessage(context, message);
+	private Context context;
+
+	public NotificationUtils(Context context) {
+		this.context = context;
 	}
 
-	public static void displayMessage(Context context, String message) {
-		Builder ok = new AlertDialog.Builder(context);
-		ok.setMessage(message);
-		ok.setPositiveButton("OK", null);
-		ok.show();
+	public void displayMessage(String message) {
+		Builder alert = new AlertDialog.Builder(context);
+		alert.setMessage(message);
+		alert.setPositiveButton("OK", null);
+		alert.show();
 	}
 
-	public static void displayInput(final Inputavel inputavel) {
-		Builder alert = new AlertDialog.Builder(inputavel.getContext());
+	public void displayInput(final Inputavel inputavel) {
+		Builder alert = new AlertDialog.Builder(context);
 		
-		final EditText input = new EditText(inputavel.getContext());
+		final EditText input = new EditText(context);
 		alert.setView(input);
 		
 		alert.setMessage(inputavel.getMessage());
@@ -46,7 +42,6 @@ public class NotificationUtils {
 	}
 	
 	public interface Inputavel {		
-		Context getContext();
 		void input(String text);
 		String getMessage();
 	}

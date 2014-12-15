@@ -43,7 +43,7 @@ public class HandShakeManager {
 	}
 
 	private void challengeDenied(String player) {
-		NotificationUtils.displayMessage(player + "O bixin tremeu na base!"); //TODO Pilo extract string
+		new NotificationUtils(context).displayMessage(player + "O bixin tremeu na base!"); //TODO Pilo extract string
 	}
 
 	private void notifyChallenge(final String player) {

@@ -64,6 +64,7 @@ public class GameRoomMenu extends ListView {
 				
 				
 				// TODO Pilo abrir o jogo aqui, carregando o game;
+				// chamar tela principal e chamar refresh(game), 
 				state.getGame();
 				
 			}
