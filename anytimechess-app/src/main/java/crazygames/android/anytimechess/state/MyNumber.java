@@ -9,7 +9,7 @@ import crazygames.android.anytimechess.utils.NotificationUtils.Inputavel;
 
 public class MyNumber implements Inputavel {
 	
-	private static final String MY_NUMBER = "myNumber";
+	public static final String MY_NUMBER = "myNumber";
 	private Context context;
 	
 	public MyNumber(Context context) {

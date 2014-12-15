@@ -20,6 +20,7 @@ public class AnytimeChessActivity extends Activity {
 
 	public static final int PICK_CONTACT_REQUEST = 1;
 	private SlideMenu slideMenu;
+	private GameRoomMenu gameRoomMenu;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -44,11 +45,17 @@ public class AnytimeChessActivity extends Activity {
         slideMenu.addView(primaryMenu,
         		new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_PRIMARY_MENU));
 
-        View gameRoomMenu = new GameRoomMenu(this);
+        gameRoomMenu = new GameRoomMenu(this);
         slideMenu.addView(gameRoomMenu,
         		new SlideMenu.LayoutParams(300, SlideMenu.LayoutParams.MATCH_PARENT, SlideMenu.LayoutParams.ROLE_SECONDARY_MENU));
 
         NotificationUtils.init(this);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		gameRoomMenu.refresh();
 	}
 
 	@Override

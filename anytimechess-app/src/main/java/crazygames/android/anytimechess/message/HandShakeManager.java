@@ -5,9 +5,7 @@ import static crazygames.android.anytimechess.comm.message.ChallengeAccepted.CHA
 import static crazygames.android.anytimechess.comm.message.ChallengeDenied.CHALLENGE_DENIED;
 import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import static crazygames.android.anytimechess.utils.TelephonyUtils.getTelephonyNumber;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.comm.message.ChallengeAccepted;
 import crazygames.android.anytimechess.comm.message.ChallengeDenied;
@@ -16,6 +14,8 @@ import crazygames.android.anytimechess.utils.NotificationUtils;
 import crazygames.android.anytimechess.utils.Notifications;
 
 public class HandShakeManager {
+	
+	private static String player;  //TODO Pilo hole shit static (learn Bundle)!
 	
 	private Context context;
 
@@ -39,23 +39,25 @@ public class HandShakeManager {
 
 	private void prepareNewGame(String player) {
 		new StateManager(context).create(player);
+		new Notifications(context).notifyNewMove();
 	}
 
 	private void challengeDenied(String player) {
-		NotificationUtils.displayMessage("O bixin tremeu na base!"); //TODO Pilo extract string
+		NotificationUtils.displayMessage(player + "O bixin tremeu na base!"); //TODO Pilo extract string
 	}
 
 	private void notifyChallenge(final String player) {
-		new Notifications(context).notifyChallenge(player);
+		HandShakeManager.player = player;
+		new Notifications(context).notifyChallenge();
 	}
 	
-	private void sendChallengeDenied(String player) {
-		ChallengeDenied cd = new ChallengeDenied(filterNumber(player));
-		new SMSSender().send(cd);
-	}
-
-	private void sendChallengeAccepted(String player) {
+	void sendChallengeAccepted() {
 		ChallengeAccepted ca = new ChallengeAccepted(filterNumber(player));
 		new SMSSender().send(ca);
+	}
+
+	void sendChallengeDenied() {
+		ChallengeDenied cd = new ChallengeDenied(filterNumber(player));
+		new SMSSender().send(cd);
 	}
 }

@@ -1,58 +1,72 @@
 package crazygames.android.anytimechess;
 
-import java.util.Arrays;
+import static crazygames.android.anytimechess.state.MyNumber.MY_NUMBER;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.state.StateManager;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import crazygames.android.anytimechess.utils.Messages;
 
 public class GameRoomMenu extends ListView {
-
+	
 	public GameRoomMenu(final Activity context) {
 		super(context);
-
-		TextView tv1 = new TextView(context);
-		tv1.setText(Messages.getString("new.game"));
-		TextView tv2 = new TextView(context);
-		tv2.setText(Messages.getString("about"));
-
-		tv1.setOnClickListener(openContacts(context));
-		tv2.setOnClickListener(about(context));
-
-		setAdapter(new SimpleListAdapter(Arrays.asList(tv1, tv2)));
+		refresh();
 	}
 
-	private OnClickListener about(final Activity context) {
+	void refresh() {
+		List<TextView> games = buildGamesList();
+		
+		for (String player : getPlayers())
+			games.add(buildGame(player));
+		
+		setAdapter(new SimpleListAdapter(games));
+	}
+
+	private ArrayList<TextView> buildGamesList() {
+		ArrayList<TextView> games = new ArrayList<TextView>();
+		
+		TextView tv = new TextView(getContext());
+		tv.setText("Jogos"); //TODO Pilo extract string
+		
+		games.add(tv);
+		
+		return games;
+	}
+
+	private TextView buildGame(String player) {
+		TextView tv = new TextView(getContext());
+		tv.setText(player); //TODO Pilo alterar para nome do contato.
+		tv.setOnClickListener(openGame(player));
+		return tv;
+	}
+
+	private Set<String> getPlayers() {
+		Set<String> numbers = PreferenceManager.getDefaultSharedPreferences(getContext()).getAll().keySet();
+		
+		numbers.remove(MY_NUMBER);
+		return numbers;
+	}
+
+	private OnClickListener openGame(final String player) {
 		return new OnClickListener() {
+			
 			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder ok = new AlertDialog.Builder(context);
-	            ok.setMessage("AnytimeChess");
-	            ok.setPositiveButton("OK", null);
-	            ok.show();
+			public void onClick(View arg0) {
+				State state = new StateManager(getContext()).get(player);
+				
+				
+				// TODO Pilo abrir o jogo aqui, carregando o game;
+				state.getGame();
+				
 			}
 		};
 	}
-
-	private OnClickListener openContacts(final Activity context) {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				openContacts();
-			}
-
-			private void openContacts() {
-				Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
-				pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
-				context.startActivityForResult(pickContactIntent, AnytimeChessActivity.PICK_CONTACT_REQUEST);
-			}
-		};
-	}
-
 }
