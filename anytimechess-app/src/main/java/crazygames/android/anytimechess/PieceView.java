@@ -2,6 +2,7 @@ package crazygames.android.anytimechess;
 
 import android.content.Context;
 import android.widget.ImageView;
+import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class PieceView extends ImageView {
@@ -11,6 +12,16 @@ public class PieceView extends ImageView {
 	public PieceView(final Context context, final Piece piece) {
 		super(context);
 		this.piece = piece;
+		
+		System.out.println("entrando");
+		if(piece instanceof EmptyPiece) {
+			System.out.println("entrou");
+			System.out.println(piece);
+			System.out.println(piece.color());
+			System.out.println(piece.color().name());
+		}
+		
+		
 		final String imageName = piece.color().name().toLowerCase() + "_" + String.valueOf(piece.code()).toLowerCase();
 		final int identifier = getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 		setImageResource(identifier);

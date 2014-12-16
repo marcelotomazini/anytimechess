@@ -16,6 +16,7 @@ import crazygames.android.anytimechess.PieceView;
 import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
+import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class BoardLayout extends GridView {
@@ -49,13 +50,11 @@ public class BoardLayout extends GridView {
 
 			Piece piece = game.getBoard().get(item.getPosition().getCol(),
 					item.getPosition().getRow());
-			if (piece != null) {
-				PieceView pieceView = pieceViewCorrespondingTo(piece);
-				final Square parent = (Square) pieceView.getParent();
-				if (parent != null)
-					parent.removeAllViews();
-				item.addView(pieceView);
-			}
+			PieceView pieceView = pieceViewCorrespondingTo(piece);
+			final Square parent = (Square) pieceView.getParent();
+			if (parent != null)
+				parent.removeAllViews();
+			item.addView(pieceView);
 		}
 	}
 
@@ -94,6 +93,11 @@ public class BoardLayout extends GridView {
 
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println(String.format("opa, exited %s %s %s %s", v, event.getX(), event.getY(), event.getLocalState()));
+					break;
+
+				case DragEvent.ACTION_DROP:
+					System.out.println("opa, dropô");
+					
 					View viewSquare = null;
 					for(Square square : ((BoardAdapter)getAdapter()).getAllItems()) {
 	            		Rect rect = new Rect();
@@ -104,10 +108,6 @@ public class BoardLayout extends GridView {
 	            			break;
 	            	}
 					move((Square)viewSquare, game);
-					break;
-
-				case DragEvent.ACTION_DROP:
-					System.out.println("opa, dropô");
 					break;
 
 				case DragEvent.ACTION_DRAG_ENDED:
@@ -156,9 +156,10 @@ public class BoardLayout extends GridView {
 
 	private PieceView pieceViewCorrespondingTo(Piece piece) {
 		for (PieceView pieceView : getPieces())
-			if (piece.equals(pieceView.getPiece()))
+			if (pieceView.getPiece().equals(piece))
 				return pieceView;
-		return null;
+		System.out.println("vai retornar uma instância de emptyPiece");
+		return new PieceView(getContext(), new EmptyPiece());
 	}
 	
 	private View findViewAtPosition(View parent, float x, float y) {

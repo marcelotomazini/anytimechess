@@ -22,4 +22,9 @@ public class EmptyPiece extends Piece {
 	public List<Move> moves(final char col, final int row, final Game game) {
 		return null;
 	}
+	
+	@Override
+	public Color color() {
+		return Color.WHITE;
+	}
 }
