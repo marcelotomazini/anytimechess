@@ -17,6 +17,7 @@ import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
+import crazygames.android.anytimechess.engine.pieces.Pawn;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class BoardLayout extends GridView {
@@ -66,8 +67,43 @@ public class BoardLayout extends GridView {
 	}
 
 	private void addNewPiece(Piece piece) {
+		final PieceView pieceView = newPieceView(piece);
+		getPieces().add(pieceView);
+	}
+
+	public List<PieceView> getPieces() {
+		return pieces;
+	}
+
+	public void setBackgroundOriginalColor() {
+		for (int i = 0; i < getChildCount(); i++) {
+			final Square s = (Square) getChildAt(i);
+			s.setOriginalBackgroundColor();
+		}
+	}
+
+	public PieceView getSelectedPiece() {
+		return selectedPiece;
+	}
+
+	public void setSelectedPiece(final PieceView selectedPiece) {
+		this.selectedPiece = selectedPiece;
+	}
+
+	public boolean hasSelectedPiece() {
+		return getSelectedPiece() != null;
+	}
+
+	private PieceView pieceViewCorrespondingTo(Piece piece) {
+		for (PieceView pieceView : getPieces())
+			if (pieceView.getPiece().equals(piece))
+				return pieceView;
+		PieceView pieceView = newPieceView(new EmptyPiece().white());
+		return pieceView;
+	}
+	
+	private PieceView newPieceView(Piece piece) {
 		final PieceView pieceView = new PieceView(getContext(), piece);
-		
 		pieceView.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -128,38 +164,7 @@ public class BoardLayout extends GridView {
 
 			}
 		});
-		getPieces().add(pieceView);
-	}
-
-	public List<PieceView> getPieces() {
-		return pieces;
-	}
-
-	public void setBackgroundOriginalColor() {
-		for (int i = 0; i < getChildCount(); i++) {
-			final Square s = (Square) getChildAt(i);
-			s.setOriginalBackgroundColor();
-		}
-	}
-
-	public PieceView getSelectedPiece() {
-		return selectedPiece;
-	}
-
-	public void setSelectedPiece(final PieceView selectedPiece) {
-		this.selectedPiece = selectedPiece;
-	}
-
-	public boolean hasSelectedPiece() {
-		return getSelectedPiece() != null;
-	}
-
-	private PieceView pieceViewCorrespondingTo(Piece piece) {
-		for (PieceView pieceView : getPieces())
-			if (pieceView.getPiece().equals(piece))
-				return pieceView;
-		System.out.println("vai retornar uma instância de emptyPiece");
-		return new PieceView(getContext(), new EmptyPiece());
+		return pieceView;
 	}
 	
 	private View findViewAtPosition(View parent, float x, float y) {

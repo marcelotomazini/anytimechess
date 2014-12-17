@@ -8,9 +8,14 @@ import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 
 
 public class EmptyPiece extends Piece {
+
+	public EmptyPiece() {
+		color(Color.WHITE);
+	}
+
 	@Override
 	protected char _code() {
-		return 0;
+		return '0';
 	}
 
 	@Override
@@ -21,10 +26,5 @@ public class EmptyPiece extends Piece {
 	@Override
 	public List<Move> moves(final char col, final int row, final Game game) {
 		return null;
-	}
-	
-	@Override
-	public Color color() {
-		return Color.WHITE;
 	}
 }
