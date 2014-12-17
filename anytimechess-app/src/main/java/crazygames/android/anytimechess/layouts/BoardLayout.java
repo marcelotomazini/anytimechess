@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 import crazygames.android.anytimechess.BoardAdapter;
 import crazygames.android.anytimechess.PieceView;
@@ -17,7 +16,6 @@ import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
-import crazygames.android.anytimechess.engine.pieces.Pawn;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 
 public class BoardLayout extends GridView {
@@ -63,12 +61,7 @@ public class BoardLayout extends GridView {
 		for (Piece[] p1 : pieces)
 			for (Piece piece : p1)
 				if (piece != null)
-					addNewPiece(piece);
-	}
-
-	private void addNewPiece(Piece piece) {
-		final PieceView pieceView = newPieceView(piece);
-		getPieces().add(pieceView);
+					getPieces().add(createPieceView(piece));
 	}
 
 	public List<PieceView> getPieces() {
@@ -98,98 +91,18 @@ public class BoardLayout extends GridView {
 		for (PieceView pieceView : getPieces())
 			if (pieceView.getPiece().equals(piece))
 				return pieceView;
-		PieceView pieceView = newPieceView(new EmptyPiece().white());
+		PieceView pieceView = createPieceView(new EmptyPiece().white());
 		return pieceView;
 	}
 	
-	private PieceView newPieceView(Piece piece) {
+	private PieceView createPieceView(Piece piece) {
 		final PieceView pieceView = new PieceView(getContext(), piece);
-		pieceView.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				System.out.println(String.format("xxxxxxxxxxxxxxxxxxxxxxxxxxxx > %s %s", pieceView, v));
-				DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-            	v.startDrag(null, shadowBuilder, v, 0);
-            	
-            	setSelectedPiece((PieceView) v);
-				return true;
-			}
-		});
-		
-		pieceView.setOnDragListener(new OnDragListener() {
-			@Override
-			public boolean onDrag(View v, DragEvent event) {
-				switch (event.getAction()) {
-				case DragEvent.ACTION_DRAG_STARTED:
-//					return false;
-					break;
-
-				case DragEvent.ACTION_DRAG_ENTERED:
-					break;
-
-				case DragEvent.ACTION_DRAG_EXITED:
-					System.out.println(String.format("opa, exited %s %s %s %s", v, event.getX(), event.getY(), event.getLocalState()));
-					break;
-
-				case DragEvent.ACTION_DROP:
-					System.out.println("opa, dropô");
-					
-					View viewSquare = null;
-					for(Square square : ((BoardAdapter)getAdapter()).getAllItems()) {
-	            		Rect rect = new Rect();
-	        	        square.getHitRect(rect);
-	            		viewSquare = rect.contains((int)event.getX(), (int)event.getY()) ? square : null;
-
-	            		if(viewSquare != null)
-	            			break;
-	            	}
-					move((Square)viewSquare, game);
-					break;
-
-				case DragEvent.ACTION_DRAG_ENDED:
-//					PieceView view = (PieceView) event.getLocalState();
-//					System.out.println("view : " + view + " v: " + v);
-//					System.out.println(v + "2=========================================================");
-//	    			Square from = (Square) view.getParent();
-//	    			System.out.println(v + "3=========================================================");
-//	    			from.removeView(view);
-//	    			System.out.println(v + "4=========================================================");
-//	    			PieceView to = (PieceView) v;
-//	    			to.addView(view);
-//	    			view.setVisibility(View.VISIBLE);
-//					((Square) v.getParent()).setBackgroundColor(Color.RED);
-				}
-
-				return true;
-
-			}
-		});
+		pieceView.setOnTouchListener(new PieceTouchListener());
+		pieceView.setOnDragListener(new PieceDragListener());
 		return pieceView;
 	}
 	
-	private View findViewAtPosition(View parent, float x, float y) {
-	    if (parent instanceof ViewGroup) {
-	        ViewGroup viewGroup = (ViewGroup)parent;
-	        for (int i=0; i<viewGroup.getChildCount(); i++) {
-	            View child = viewGroup.getChildAt(i);
-	            View viewAtPosition = findViewAtPosition(child, x, y);
-	            if (viewAtPosition != null) {
-	                return viewAtPosition;
-	            }
-	        }
-	        return null;
-	    } else {
-	        Rect rect = new Rect();
-	        parent.getGlobalVisibleRect(rect);
-	        if (rect.contains((int)x, (int)y)) {
-	            return parent;
-	        } else {
-	            return null;
-	        }
-	    }
-	}
-	
-	private void move(final Square square, Game game) {
+	private void move(final Square square) {
 		final PieceView selectedPiece = getSelectedPiece();
 		
 		System.out.println("==================================> start moving: " + selectedPiece.getColumn() + selectedPiece.getRow() + square.getColumn() + square.getRow());
@@ -203,5 +116,49 @@ public class BoardLayout extends GridView {
 //			Notifications.displayMessage("Illegal move");
 		
 		refresh(game);
+	}
+	
+	private class PieceTouchListener implements OnTouchListener {
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+        	v.startDrag(null, shadowBuilder, v, 0);
+        	
+        	setSelectedPiece((PieceView) v);
+			return true;
+		}
+	}
+	
+	private class PieceDragListener implements OnDragListener {
+
+		@Override
+		public boolean onDrag(View destinyView, DragEvent event) {
+			switch (event.getAction()) {
+				case DragEvent.ACTION_DROP:
+					move(getDestinySquare(destinyView));
+					break;
+			}
+
+			return true;
+		}
+
+		private Square getDestinySquare(View destinyView) {
+			for(Square square : ((BoardAdapter)getAdapter()).getAllItems()) {
+				Rect rect = new Rect();
+			    square.getHitRect(rect);
+			    
+			    Rect destinyRect = new Rect();
+			    destinyView.getGlobalVisibleRect(destinyRect);
+			    
+			    int centerX = destinyRect.centerX();
+			    int centerY = destinyRect.top - 100; // I fucking don't fucking know why the fucking fuck axis y is fucking displaced
+			    
+				if (rect.contains(centerX, centerY))
+			    	return square;
+			}
+			
+			return null;
+		}
 	}
 }
