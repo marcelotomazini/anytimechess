@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.widget.LinearLayout;
 import crazygames.android.anytimechess.BoardAdapter;
 import crazygames.android.anytimechess.comm.message.State;
-import crazygames.android.anytimechess.engine.game.Game;
 
 public class MainLayout extends LinearLayout {
 

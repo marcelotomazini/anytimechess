@@ -37,10 +37,11 @@ public class BoardLayout extends GridView {
 	
 	public void load(State state) {
 		this.state = state;
-		this.game = state.getGame();
 	}
 
 	public void start() {
+		game = state != null ? state.getGame() : new Game(); // TODO Pilo para testes
+		
 		createPieces();
 		refresh();
 	}
@@ -112,7 +113,7 @@ public class BoardLayout extends GridView {
 		
 		MoveResponse move = game.move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
 		
-		if (!move.getMoveType().equals(Move.Type.CANTMOVE))
+		if (!move.getMoveType().equals(Move.Type.CANTMOVE) && state != null)
 			new StateManager(getContext()).send(state.getVisit(), game);
 //		if(move.isCheck())
 //			Notifications.displayMessage("Check");

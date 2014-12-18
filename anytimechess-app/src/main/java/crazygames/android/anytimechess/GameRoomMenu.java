@@ -40,8 +40,8 @@ public class GameRoomMenu extends ListView {
 		TextView tv = new TextView(getContext());
 		tv.setText("Jogos"); //TODO Pilo extract string
 		
+		//TODO Pilo bloco para testes
 		tv.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				mainLayout.load(null);
