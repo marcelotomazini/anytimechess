@@ -28,6 +28,7 @@ public class MainLayout extends LinearLayout {
 	public void load(State state) {
 		boardAdapter = new BoardAdapter(getContext());
 		boardLayout.setAdapter(boardAdapter);
-		boardLayout.start(new Game());
+		boardLayout.load(state);
+		boardLayout.start();
 	}
 }

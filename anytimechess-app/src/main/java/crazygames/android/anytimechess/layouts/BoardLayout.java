@@ -13,13 +13,17 @@ import android.widget.GridView;
 import crazygames.android.anytimechess.BoardAdapter;
 import crazygames.android.anytimechess.PieceView;
 import crazygames.android.anytimechess.Square;
+import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
+import crazygames.android.anytimechess.engine.game.Move;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
+import crazygames.android.anytimechess.state.StateManager;
 
 public class BoardLayout extends GridView {
 
+	private State state;
 	private Game game;
 	
 	private final List<PieceView> pieces = new ArrayList<PieceView>();
@@ -30,19 +34,18 @@ public class BoardLayout extends GridView {
 		setBackgroundColor(Color.WHITE);
 		setNumColumns(8);
 	}
-
-	public void newGame() {
-		game = new Game();
-		start(game);
+	
+	public void load(State state) {
+		this.state = state;
+		this.game = state.getGame();
 	}
 
-	public void start(Game game) {
-		this.game = game;
-		createPieces(game.getBoard().getMap());
-		refresh(game);
+	public void start() {
+		createPieces();
+		refresh();
 	}
 
-	public void refresh(Game game) {
+	public void refresh() {
 		for (int i = 0; i < getAdapter().getCount(); i++) {
 			final Square item = (Square) getAdapter().getItem(i);
 			item.removeAllViews();
@@ -57,8 +60,8 @@ public class BoardLayout extends GridView {
 		}
 	}
 
-	private void createPieces(Piece[][] pieces) {
-		for (Piece[] p1 : pieces)
+	private void createPieces() {
+		for (Piece[] p1 : game.getBoard().getMap())
 			for (Piece piece : p1)
 				if (piece != null)
 					getPieces().add(createPieceView(piece));
@@ -108,6 +111,9 @@ public class BoardLayout extends GridView {
 		System.out.println("==================================> start moving: " + selectedPiece.getColumn() + selectedPiece.getRow() + square.getColumn() + square.getRow());
 		
 		MoveResponse move = game.move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
+		
+		if (!move.getMoveType().equals(Move.Type.CANTMOVE))
+			new StateManager(getContext()).send(state.getVisit(), game);
 //		if(move.isCheck())
 //			Notifications.displayMessage("Check");
 //		if(move.isCheckmate())
@@ -115,7 +121,7 @@ public class BoardLayout extends GridView {
 //		if(move.getMoveType().equals(Move.Type.CANTMOVE))
 //			Notifications.displayMessage("Illegal move");
 		
-		refresh(game);
+		refresh();
 	}
 	
 	private class PieceTouchListener implements OnTouchListener {
