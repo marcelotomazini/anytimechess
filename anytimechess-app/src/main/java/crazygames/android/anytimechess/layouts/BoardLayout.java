@@ -5,12 +5,10 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
-import crazygames.android.anytimechess.BoardAdapter;
 import crazygames.android.anytimechess.PieceView;
 import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.comm.message.State;
@@ -109,8 +107,6 @@ public class BoardLayout extends GridView {
 	private void move(final Square square) {
 		final PieceView selectedPiece = getSelectedPiece();
 		
-		System.out.println("==================================> start moving: " + selectedPiece.getColumn() + selectedPiece.getRow() + square.getColumn() + square.getRow());
-		
 		MoveResponse move = game.move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
 		
 		if (!move.getMoveType().equals(Move.Type.CANTMOVE) && state != null)
@@ -143,29 +139,11 @@ public class BoardLayout extends GridView {
 		public boolean onDrag(View destinyView, DragEvent event) {
 			switch (event.getAction()) {
 				case DragEvent.ACTION_DROP:
-					move(getDestinySquare(destinyView));
+					move((Square) destinyView.getParent());
 					break;
 			}
 
 			return true;
-		}
-
-		private Square getDestinySquare(View destinyView) {
-			for(Square square : ((BoardAdapter)getAdapter()).getAllItems()) {
-				Rect rect = new Rect();
-			    square.getHitRect(rect);
-			    
-			    Rect destinyRect = new Rect();
-			    destinyView.getGlobalVisibleRect(destinyRect);
-			    
-			    int centerX = destinyRect.centerX();
-			    int centerY = destinyRect.top - 100; // I fucking don't fucking know why the fucking fuck axis y is fucking displaced
-			    
-				if (rect.contains(centerX, centerY))
-			    	return square;
-			}
-			
-			return null;
 		}
 	}
 }
