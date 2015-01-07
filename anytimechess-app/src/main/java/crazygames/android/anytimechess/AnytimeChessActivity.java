@@ -30,7 +30,7 @@ public class AnytimeChessActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		new MyNumber(this).resolveMyNumber();
-		
+				
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
 		slideMenu = new SlideMenu(this);

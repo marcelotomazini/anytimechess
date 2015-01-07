@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import crazygames.android.anytimechess.comm.message.State;
-import crazygames.android.anytimechess.layouts.MainLayout;
-import crazygames.android.anytimechess.state.StateManager;
 import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.layouts.MainLayout;
+import crazygames.android.anytimechess.state.StateManager;
 
 public class GameRoomMenu extends ListView {
 	
@@ -44,7 +44,8 @@ public class GameRoomMenu extends ListView {
 		tv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mainLayout.load(null);
+				new StateManager(getContext()).create("4499045990");
+//				mainLayout.load(null);
 			}
 		});
 		

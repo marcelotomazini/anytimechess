@@ -1,5 +1,7 @@
 package crazygames.android.anytimechess.engine.game;
 
+import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
+
 import java.util.Stack;
 
 import crazygames.android.anytimechess.engine.pieces.Bishop;
@@ -7,6 +9,7 @@ import crazygames.android.anytimechess.engine.pieces.King;
 import crazygames.android.anytimechess.engine.pieces.Knight;
 import crazygames.android.anytimechess.engine.pieces.Pawn;
 import crazygames.android.anytimechess.engine.pieces.Piece;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.engine.pieces.Queen;
 import crazygames.android.anytimechess.engine.pieces.Rook;
 
@@ -27,6 +30,14 @@ public class Board {
 
 	public Board(Piece[][] map) {
 		this.map = map;
+		
+		for (int row = 1; row <= 8; row++)
+			for (char col = 'a'; col <= 'h'; col++)
+				if (get(col,row) instanceof King)
+					if (get(col,row).color() == WHITE)
+						whiteKing = (King) get(col,row);
+					else
+						blackKing = (King) get(col,row);
 	}
 
 	public final static int colIndex(final char col) {
