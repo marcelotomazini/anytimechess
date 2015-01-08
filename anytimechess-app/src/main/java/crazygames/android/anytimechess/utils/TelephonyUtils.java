@@ -8,6 +8,9 @@ import android.telephony.TelephonyManager;
 public class TelephonyUtils {
 	
 	public static String filterNumber(String playerNumber) {
+		if (playerNumber == null)
+			return null;
+		
 		playerNumber = playerNumber.replace("(", "");
 		playerNumber = playerNumber.replace(")", "");
 		playerNumber = playerNumber.replace("-", "");

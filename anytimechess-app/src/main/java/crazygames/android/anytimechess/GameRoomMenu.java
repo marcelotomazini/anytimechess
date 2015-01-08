@@ -1,6 +1,6 @@
 package crazygames.android.anytimechess;
 
-import static crazygames.android.anytimechess.state.MyNumber.MY_NUMBER;
+import static crazygames.android.anytimechess.state.MyNumberResolver.MY_NUMBER;
 
 import java.util.ArrayList;
 import java.util.List;

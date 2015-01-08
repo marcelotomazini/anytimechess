@@ -21,6 +21,7 @@ public class State implements Message {
 	private GameState gameState;
 	
 	public State(String messageContext) {
+		validate(messageContext);
 		produce(messageContext);
 	}
 
@@ -78,6 +79,11 @@ public class State implements Message {
 	
 	public String getVisit() {
 		return visit.getPlayer();
+	}
+
+	private void validate(String messageContext) {
+		if (messageContext == null || messageContext.isEmpty())
+			throw new RuntimeException("Invalid State Message");
 	}
 
 	private void produce(String messageContext) {

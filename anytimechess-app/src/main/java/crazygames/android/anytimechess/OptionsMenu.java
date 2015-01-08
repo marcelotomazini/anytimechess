@@ -10,7 +10,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import crazygames.android.anytimechess.state.MyNumber;
+import crazygames.android.anytimechess.state.MyNumberResolver;
 import crazygames.android.anytimechess.utils.Messages;
 
 public class OptionsMenu extends ListView {
@@ -48,7 +48,7 @@ public class OptionsMenu extends ListView {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new MyNumber(context).setMyNumber();
+				new MyNumberResolver(context).setMyNumber();
 			}
 		};
 	}

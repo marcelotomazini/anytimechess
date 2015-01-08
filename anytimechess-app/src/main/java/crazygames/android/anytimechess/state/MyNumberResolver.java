@@ -7,12 +7,12 @@ import android.preference.PreferenceManager;
 import crazygames.android.anytimechess.utils.NotificationUtils;
 import crazygames.android.anytimechess.utils.NotificationUtils.Inputavel;
 
-public class MyNumber implements Inputavel {
+public class MyNumberResolver implements Inputavel {
 	
 	public static final String MY_NUMBER = "myNumber";
 	private Context context;
 	
-	public MyNumber(Context context) {
+	public MyNumberResolver(Context context) {
 		this.context = context;
 	}
 	

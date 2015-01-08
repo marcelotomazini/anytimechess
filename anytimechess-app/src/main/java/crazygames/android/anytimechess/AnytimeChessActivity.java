@@ -13,7 +13,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
 import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
-import crazygames.android.anytimechess.state.MyNumber;
+import crazygames.android.anytimechess.state.MyNumberResolver;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.NotificationUtils;
 
@@ -29,7 +29,7 @@ public class AnytimeChessActivity extends Activity {
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		new MyNumber(this).resolveMyNumber();
+		new MyNumberResolver(this).resolveMyNumber();
 				
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 

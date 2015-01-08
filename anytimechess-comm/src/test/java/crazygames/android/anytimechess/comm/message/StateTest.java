@@ -3,7 +3,9 @@ package crazygames.android.anytimechess.comm.message;
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import static junit.framework.Assert.assertEquals;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
@@ -15,6 +17,8 @@ public class StateTest {
 	private static final String HOME_PLAYER = "4498476508";
 	private static final Color TURN = WHITE;
 
+	@Rule public ExpectedException thrown = ExpectedException.none();
+	
 	@Test
 	public void createState() {
 		State state = new State(1, HOME_PLAYER, VISIT_PLAYER, TURN, new Game());
@@ -35,5 +39,21 @@ public class StateTest {
 		assertEquals("Turn", WHITE, state.getGame().getTurn());
 		
 		assertEquals("GameState", SMS_MESSAGE_VALID, state.build());
+	}
+
+	@Test
+	public void dontCreateStateWithNullMessage() {
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage("Invalid State Message");
+		
+		new State(null);
+	}
+
+	@Test
+	public void dontCreateStateWithEmptyMessage() {
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage("Invalid State Message");
+		
+		new State("");
 	}
 }
