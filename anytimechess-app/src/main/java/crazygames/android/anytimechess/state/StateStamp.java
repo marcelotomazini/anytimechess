@@ -1,18 +1,17 @@
 package crazygames.android.anytimechess.state;
 
 import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 import crazygames.android.anytimechess.comm.message.Message;
+import crazygames.android.anytimechess.utils.Preferences;
 
 public class StateStamp {
 	
-	private Context context;
+	private Preferences preferences;
 	
-	public StateStamp(Context context) {
-		this.context = context;
+	public StateStamp(Preferences preferences) {
+		this.preferences = preferences;
 	}
 	
 	public String getStateMessage(String player) {
@@ -30,6 +29,6 @@ public class StateStamp {
 	}
 
 	private SharedPreferences getSharedPreferences() {
-		return PreferenceManager.getDefaultSharedPreferences(context);
+		return preferences.getSharedPreferences();
 	}
 }

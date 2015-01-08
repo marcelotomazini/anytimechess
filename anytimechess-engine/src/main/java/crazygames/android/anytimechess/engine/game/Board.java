@@ -9,7 +9,6 @@ import crazygames.android.anytimechess.engine.pieces.King;
 import crazygames.android.anytimechess.engine.pieces.Knight;
 import crazygames.android.anytimechess.engine.pieces.Pawn;
 import crazygames.android.anytimechess.engine.pieces.Piece;
-import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.engine.pieces.Queen;
 import crazygames.android.anytimechess.engine.pieces.Rook;
 

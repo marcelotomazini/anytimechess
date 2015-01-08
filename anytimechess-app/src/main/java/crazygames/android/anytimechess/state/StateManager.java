@@ -7,13 +7,16 @@ import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.message.SMSSender;
 import crazygames.android.anytimechess.utils.Notifications;
+import crazygames.android.anytimechess.utils.Preferences;
 
 public class StateManager {
 
 	private Context context;
+	private Preferences preferences;
 
 	public StateManager(Context context) {
 		this.context = context;
+		this.preferences = new Preferences(context);
 	}
 
 	public void create(String player) {
@@ -25,7 +28,7 @@ public class StateManager {
 	}
 
 	public State get(String player) {
-		String stateMessage = new StateStamp(context).getStateMessage(player);
+		String stateMessage = new StateStamp(preferences).getStateMessage(player);
 
 		return new State(stateMessage);
 	}
@@ -63,6 +66,6 @@ public class StateManager {
 	}
 
 	private void stamp(State state) {
-		new StateStamp(context).setStateMessage(state);
+		new StateStamp(preferences).setStateMessage(state);
 	}
 }
