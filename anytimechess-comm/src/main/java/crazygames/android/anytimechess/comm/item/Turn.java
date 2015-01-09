@@ -17,7 +17,7 @@ public class Turn extends Item {
 		turn = convert(getValue(messageContext, index));
 	}
 
-	public Color getTurn() {
+	public Color getTurnValue() {
 		return turn;
 	}
 
@@ -42,7 +42,7 @@ public class Turn extends Item {
 		return BLACK;
 	}
 
-	public Color invert() {
+	public Color getReverse() {
 		return turn == WHITE ? BLACK : WHITE;
 	}
 }

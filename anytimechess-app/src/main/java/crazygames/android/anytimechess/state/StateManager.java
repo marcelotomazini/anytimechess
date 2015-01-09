@@ -5,6 +5,7 @@ import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.message.SMSSender;
 import crazygames.android.anytimechess.utils.Preferences;
 
@@ -42,34 +43,39 @@ public class StateManager {
 		return stateMessage == null ? null : new State(stateMessage);
 	}
 
-	public State send(String player, Game game) {
-		State oldState = get(player);
-		State state = buildNext(oldState, game);
+	public State send(State oldState, Game newGame) {
+		State state = buildNext(oldState, newGame);
 
 		stamp(state);
-		sender.send(state);
+		send(state);
 		
 		return state;
 	}
 
 	private State buildNext(State oldState, Game game) {
-		return new State(oldState.nextSequence(), oldState.getHome(),
-				oldState.getVisit(), oldState.invertTurn(), game);
+		int nextSequence = oldState.getTurnSequence() + 1;
+		Color newTurn = oldState.getTurn().getReverse();
+		
+		return new State(nextSequence, oldState.getHome(), oldState.getVisit(), newTurn, game);
 	}
 
 	public void refresh(String player) {
 		State state = get(player);
 		
 		if (state != null)
-			sender.send(state);
+			send(state);
 	}
 
 	public void update(String messageState) {
 		State newState = new State(messageState);
-		State oldState = get(newState.getVisit());
+		State oldState = get(getStateKey(newState));
 
 		if (oldState == null || isValidStates(oldState, newState))
 			stamp(newState);
+	}
+	
+	private String getStateKey(State state) {
+		return filterNumber(state.getHome().contains(myNumberResolver.getMyNumber()) ? state.getVisit() : state.getHome());
 	}
 
 	private boolean isValidStates(State oldState, State newState) {
@@ -80,6 +86,10 @@ public class StateManager {
 	}
 
 	private void stamp(State state) {
-		stateStamp.setStateMessage(state);
+		stateStamp.setStateMessage(new StateMessage(getStateKey(state), state));
+	}
+
+	private void send(State state) {
+		sender.send(new StateMessage(getStateKey(state), state));
 	}
 }

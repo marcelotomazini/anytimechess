@@ -10,8 +10,7 @@ import crazygames.android.anytimechess.comm.item.VisitPlayer;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 
-
-public class State implements Message {
+public class State {
 
 	private Header header;
 	private TurnSequence turnSeq;
@@ -19,7 +18,7 @@ public class State implements Message {
 	private VisitPlayer visit;
 	private Turn turn;
 	private GameState gameState;
-	
+
 	public State(String messageContext) {
 		validate(messageContext);
 		produce(messageContext);
@@ -34,31 +33,25 @@ public class State implements Message {
 		gameState = new GameState(game);
 	}
 
-	@Override
 	public String build() {
 		StringBuffer buffer = new StringBuffer();
-	
+
 		buffer.append(header.build());
 		buffer.append(turnSeq.build());
 		buffer.append(home.build());
 		buffer.append(visit.build());
 		buffer.append(turn.build());
 		buffer.append(gameState.build());
-		
+
 		return buffer.toString();
 	}
 
-	@Override
-	public String getDestination() {
-		return visit.getPlayer();
-	}
-
-	public Color invertTurn() {
-		return turn.invert();
+	public Turn getTurn() {
+		return turn;
 	}
 
 	public Game getGame() {
-		return new Game(turn.getTurn(), gameState.getMap());
+		return new Game(turn.getTurnValue(), gameState.getMap());
 	}
 
 	public String getHeader() {
@@ -68,15 +61,11 @@ public class State implements Message {
 	public int getTurnSequence() {
 		return turnSeq.getTurnSequence();
 	}
-	
-	public int nextSequence() {
-		return getTurnSequence() + 1;
-	}
 
 	public String getHome() {
 		return home.getPlayer();
 	}
-	
+
 	public String getVisit() {
 		return visit.getPlayer();
 	}
@@ -89,19 +78,19 @@ public class State implements Message {
 	private void produce(String messageContext) {
 		header = new Header();
 		int index = header.size();
-		
+
 		turnSeq = new TurnSequence(messageContext, index);
 		index += turnSeq.size();
-		
+
 		home = new HomePlayer(messageContext, index);
 		index += home.size();
-		
+
 		visit = new VisitPlayer(messageContext, index);
 		index += visit.size();
-		
+
 		turn = new Turn(messageContext, index);
 		index += turn.size();
-		
+
 		gameState = new GameState(messageContext, index);
 	}
 }

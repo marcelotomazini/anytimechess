@@ -24,7 +24,7 @@ public class TurnTest {
 	public void createHomeTurn() {
 		Turn turn = new Turn(HOME_TURN);
 		
-		assertEquals("Turn", HOME_TURN, turn.getTurn());
+		assertEquals("Turn", HOME_TURN, turn.getTurnValue());
 		assertEquals("Turn", VALID_BUILD_TURN, turn.build());
 	}
 
@@ -32,22 +32,22 @@ public class TurnTest {
 	public void createVisitTurn() {
 		Turn turn = new Turn(VISIT_TURN);
 		
-		assertEquals("Turn", VISIT_TURN, turn.getTurn());
+		assertEquals("Turn", VISIT_TURN, turn.getTurnValue());
 	}
 
 	@Test
 	public void buildTurn() {
 		Turn turn = new Turn(VALID_BUILD_TURN, 0);
 		
-		assertEquals("Turn", HOME_TURN, turn.getTurn());
+		assertEquals("Turn", HOME_TURN, turn.getTurnValue());
 	}
 	
 	@Test
 	public void invertTurn() {
 		Turn turn = new Turn(VISIT_TURN);
 		
-		assertEquals("Turn", VISIT_TURN, turn.getTurn());
-		assertEquals("Inverted turn", HOME_TURN, turn.invert());
+		assertEquals("Turn", VISIT_TURN, turn.getTurnValue());
+		assertEquals("Inverted turn", HOME_TURN, turn.getReverse());
 	}
 
 	@Test
