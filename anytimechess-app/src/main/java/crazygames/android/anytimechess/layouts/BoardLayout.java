@@ -106,12 +106,16 @@ public class BoardLayout extends GridView {
 	}
 	
 	private void move(final Square square) {
+		StateManager stateManager = new StateManager(getContext());
+		if(!stateManager.isMyTurn(state))
+			return;
+		
 		final PieceView selectedPiece = getSelectedPiece();
 		
 		MoveResponse move = game.move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
 		
 		if (!move.getMoveType().equals(Move.Type.CANTMOVE) && state != null) {
-			new StateManager(getContext()).send(state, game);
+			state = stateManager.send(state, game);
 			new NotificationUtils(getContext()).displayMessage("Jogada enviada !");
 		}
 		
@@ -124,7 +128,7 @@ public class BoardLayout extends GridView {
 		
 		refresh();
 	}
-	
+
 	private class PieceTouchListener implements OnTouchListener {
 		
 		@Override

@@ -75,7 +75,7 @@ public class StateManager {
 	}
 	
 	private String getStateKey(State state) {
-		return filterNumber(state.getHome().contains(myNumberResolver.getMyNumber()) ? state.getVisit() : state.getHome());
+		return filterNumber(amIHome(state) ? state.getVisit() : state.getHome());
 	}
 
 	private boolean isValidStates(State oldState, State newState) {
@@ -91,5 +91,17 @@ public class StateManager {
 
 	private void send(State state) {
 		sender.send(new StateMessage(getStateKey(state), state));
+	}
+
+	public boolean isMyTurn(State state) {
+		return state.getTurn().getTurnValue().equals(getTurnColor(state));
+	}
+
+	private Color getTurnColor(State state) {
+		return amIHome(state) ? Color.WHITE : Color.BLACK;
+	}
+
+	private boolean amIHome(State state) {
+		return state.getHome().contains(myNumberResolver.getMyNumber());
 	}
 }
