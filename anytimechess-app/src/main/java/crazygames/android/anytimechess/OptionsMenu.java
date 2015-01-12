@@ -10,6 +10,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import crazygames.android.anytimechess.layouts.menu.MenuItem;
 import crazygames.android.anytimechess.state.MyNumberResolver;
 import crazygames.android.anytimechess.utils.Messages;
 
@@ -18,12 +19,9 @@ public class OptionsMenu extends ListView {
 	public OptionsMenu(final Activity context) {
 		super(context);
 
-		TextView tv1 = new TextView(context);
-		tv1.setText(Messages.getString("new.game"));
-		TextView tv2 = new TextView(context);
-		tv2.setText("My Number"); //TODO Pilo extract string
-		TextView tv3 = new TextView(context);
-		tv3.setText(Messages.getString("about"));
+		TextView tv1 = new MenuItem(context, Messages.getString("new.game"));
+		TextView tv2 = new MenuItem(context, "My Number"); //TODO Pilo extract string
+		TextView tv3 = new MenuItem(context, Messages.getString("about"));
 
 		tv1.setOnClickListener(openContacts(context));
 		tv2.setOnClickListener(myNumber(context));

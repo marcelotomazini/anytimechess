@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.layouts.MainLayout;
+import crazygames.android.anytimechess.layouts.menu.MenuItem;
 import crazygames.android.anytimechess.state.StateManager;
 
 public class GameRoomMenu extends ListView {
@@ -37,17 +38,7 @@ public class GameRoomMenu extends ListView {
 	private ArrayList<TextView> buildGamesList() {
 		ArrayList<TextView> games = new ArrayList<TextView>();
 		
-		TextView tv = new TextView(getContext());
-		tv.setText("Jogos"); //TODO Pilo extract string
-		
-		//TODO Pilo bloco para testes
-		tv.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				new StateManager(getContext()).create("4499045990");
-//				mainLayout.load(null);
-			}
-		});
+		TextView tv = new MenuItem(getContext(), "Jogos"); //TODO Pilo extract string
 		
 		games.add(tv);
 		
