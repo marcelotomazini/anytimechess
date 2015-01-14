@@ -7,11 +7,11 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.EditText;
 
-public class NotificationUtils {
+public class Alerts {
 	
 	private Context context;
 
-	public NotificationUtils(Context context) {
+	public Alerts(Context context) {
 		this.context = context;
 	}
 

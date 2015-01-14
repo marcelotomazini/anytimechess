@@ -53,6 +53,18 @@ public class StateStampTest {
 		inOrder.verify(editor).putString(PLAYER, MESSAGE_BUILDED);
 		inOrder.verify(editor).commit();
 	}
+
+	@Test
+	public void clearStateMessage() {
+		subject.clearStateMessage(PLAYER);
+		
+		InOrder inOrder = Mockito.inOrder(preferences, sharedPreferences, editor);
+		
+		inOrder.verify(preferences).getSharedPreferences();
+		inOrder.verify(sharedPreferences).edit();
+		inOrder.verify(editor).remove(PLAYER);
+		inOrder.verify(editor).commit();
+	}
 	
 	@Test
 	public void getStateMessageStamped() {

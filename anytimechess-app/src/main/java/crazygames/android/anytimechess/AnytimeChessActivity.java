@@ -15,7 +15,7 @@ import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.state.MyNumberResolver;
 import crazygames.android.anytimechess.utils.Messages;
-import crazygames.android.anytimechess.utils.NotificationUtils;
+import crazygames.android.anytimechess.utils.Alerts;
 
 
 public class AnytimeChessActivity extends Activity {
@@ -80,7 +80,7 @@ public class AnytimeChessActivity extends Activity {
 	            
 	            new HandShakeManager(this).newChallenge(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
 	            
-	            new NotificationUtils(this).displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
+	            new Alerts(this).displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
 	        }
 	    }
 	    slideMenu.close(true);

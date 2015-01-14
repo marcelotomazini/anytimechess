@@ -8,7 +8,7 @@ import static crazygames.android.anytimechess.utils.TelephonyUtils.getTelephonyN
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.state.StateManager;
-import crazygames.android.anytimechess.utils.NotificationUtils;
+import crazygames.android.anytimechess.utils.Alerts;
 import crazygames.android.anytimechess.utils.Notifications;
 
 public class HandShakeManager {
@@ -43,6 +43,6 @@ public class HandShakeManager {
 	}
 
 	private void challengeDenied(String player) {
-		new NotificationUtils(context).displayMessage(player + "O bixin tremeu na base!"); //TODO Pilo extract string
+		new Alerts(context).displayMessage(player + "O bixin tremeu na base!"); //TODO Pilo extract string
 	}
 }

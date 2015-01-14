@@ -2,6 +2,7 @@ package crazygames.android.anytimechess.utils;
 
 import static android.app.Notification.DEFAULT_ALL;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static crazygames.android.anytimechess.message.ChallengeService.PLAYER_KEY;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,9 +17,11 @@ import crazygames.android.anytimechess.message.ChallengeService.DenyChallenge;
 public class Notifications {
 	
 	private Context context;
+	private Resources resources;
 
 	public Notifications(Context context) {
 		this.context = context;
+		this.resources = new Resources(context);
 	}
 	
 	public void notifyNewMove() {
@@ -51,18 +54,25 @@ public class Notifications {
 		notify(mBuilder);
 	}
 
+	public void cancel() {
+		NotificationManager manager = getManager();
+		manager.cancel(resources.getIdentifierAppName());
+	}
+
 	private NotificationCompat.Builder createDefaultBuilder() {
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 		mBuilder.setDefaults(DEFAULT_ALL);
-		mBuilder.setSmallIcon(context.getResources().getIdentifier("chess", "drawable", context.getPackageName()));
+		mBuilder.setSmallIcon(resources.getMainIcon());
 		mBuilder.setAutoCancel(true);
 		return mBuilder;
 	}
 
+	private NotificationManager getManager() {
+		return (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+	}
+
 	private void notify(NotificationCompat.Builder mBuilder) {
-		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-			    
-		int identifierAppName = context.getResources().getIdentifier("app_name", "strings", context.getPackageName());
-		mNotificationManager.notify(identifierAppName, mBuilder.build());
+		NotificationManager manager = getManager();
+		manager.notify(resources.getIdentifierAppName(), mBuilder.build());
 	}
 }

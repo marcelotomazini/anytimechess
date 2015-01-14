@@ -104,4 +104,11 @@ public class StateManager {
 	private boolean amIHome(State state) {
 		return state.getHome().contains(myNumberResolver.getMyNumber());
 	}
+
+	public void clear(String player) {
+		if (get(player) == null)
+			return;
+		
+		stateStamp.clearStateMessage(player);
+	}
 }

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import crazygames.android.anytimechess.utils.NotificationUtils;
-import crazygames.android.anytimechess.utils.NotificationUtils.Inputavel;
+import crazygames.android.anytimechess.utils.Alerts;
+import crazygames.android.anytimechess.utils.Alerts.Inputavel;
 
 public class MyNumberResolver implements Inputavel {
 	
@@ -24,7 +24,7 @@ public class MyNumberResolver implements Inputavel {
 	}
 
 	public void setMyNumber() {
-		new NotificationUtils(context).displayInput(this);
+		new Alerts(context).displayInput(this);
 	}
 	
 	public String getMyNumber() {

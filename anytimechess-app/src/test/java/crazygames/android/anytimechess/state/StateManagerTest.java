@@ -1,11 +1,14 @@
 package crazygames.android.anytimechess.state;
 
 import static crazygames.android.anytimechess.comm.item.Header.HEADER;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,8 +34,8 @@ public class StateManagerTest {
 
 	private static final String HOME = "98476508";
 	private static final String VISIT = "91257086";
-	private static final String STATE_SEQ_1 = "atchess00001004498476508004491257086WHITERNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
-	private static final String STATE_SEQ_2 = "atchess00002004498476508004491257086BLACKRNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
+	private static final String STATE_SEQ_1_WHITE = "atchess00001004498476508004491257086WHITERNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
+	private static final String STATE_SEQ_2_BLACK = "atchess00002004498476508004491257086BLACKRNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
 
 	@Mock private MyNumberResolver myNumber;
 	@Mock private StateStamp stateStamp;
@@ -45,7 +48,7 @@ public class StateManagerTest {
 	
 	@Before
 	public void setUp() {
-		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1);
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1_WHITE);
 		when(myNumber.getMyNumber()).thenReturn(HOME);
 		
 		subject = new StateManager(myNumber, stateStamp, sender);
@@ -65,6 +68,24 @@ public class StateManagerTest {
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp, new StateMessageVerification()).setStateMessage(new StateMessage(VISIT, null));
+	}
+
+	@Test
+	public void clearState() {
+		subject.clear(VISIT);
+		
+		verify(stateStamp).getStateMessage(VISIT);
+		verify(stateStamp).clearStateMessage(VISIT);
+	}
+
+	@Test
+	public void doNothingWhenClearStateWithoutPlayer() {
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(null);
+		
+		subject.clear(VISIT);
+		
+		verify(stateStamp).getStateMessage(VISIT);
+		verify(stateStamp, never()).clearStateMessage(anyString());
 	}
 	
 	@Test
@@ -97,9 +118,9 @@ public class StateManagerTest {
 
 	@Test
 	public void updateNewState() {
-		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1);
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1_WHITE);
 		
-		subject.update(STATE_SEQ_2);
+		subject.update(STATE_SEQ_2_BLACK);
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp).getStateMessage(VISIT);
@@ -109,9 +130,9 @@ public class StateManagerTest {
 	@Test
 	public void updateNewStateYouAreVisit() {
 		when(myNumber.getMyNumber()).thenReturn(VISIT);
-		when(stateStamp.getStateMessage(HOME)).thenReturn(STATE_SEQ_1);
+		when(stateStamp.getStateMessage(HOME)).thenReturn(STATE_SEQ_1_WHITE);
 		
-		subject.update(STATE_SEQ_2);
+		subject.update(STATE_SEQ_2_BLACK);
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp).getStateMessage(HOME);
@@ -122,7 +143,7 @@ public class StateManagerTest {
 	public void updateCreatingNewState() {
 		when(stateStamp.getStateMessage(VISIT)).thenReturn(null);
 		
-		subject.update(STATE_SEQ_2);
+		subject.update(STATE_SEQ_2_BLACK);
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp).getStateMessage(VISIT);
@@ -134,7 +155,7 @@ public class StateManagerTest {
 		when(myNumber.getMyNumber()).thenReturn(VISIT);
 		when(stateStamp.getStateMessage(HOME)).thenReturn(null);
 		
-		subject.update(STATE_SEQ_2);
+		subject.update(STATE_SEQ_2_BLACK);
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp).getStateMessage(HOME);
@@ -143,9 +164,9 @@ public class StateManagerTest {
 
 	@Test
 	public void doNothingWhenReceiveSameState() {
-		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1);
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1_WHITE);
 		
-		subject.update(STATE_SEQ_1);
+		subject.update(STATE_SEQ_1_WHITE);
 		
 		verify(stateStamp).getStateMessage(VISIT);
 		verify(stateStamp, never()).setStateMessage(any(StateMessage.class));
@@ -153,22 +174,22 @@ public class StateManagerTest {
 
 	@Test
 	public void dontUpdateOutOfOrderStates() {
-		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_2);
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_2_BLACK);
 		
 		thrown.expect(RuntimeException.class);
 		thrown.expectMessage("State received is old! (Out of order)");
 		
-		subject.update(STATE_SEQ_1);
+		subject.update(STATE_SEQ_1_WHITE);
 	}
 	
 	@Test
 	public void sendNewState() {
-		State oldState = new State(STATE_SEQ_1);
+		State oldState = new State(STATE_SEQ_1_WHITE);
 		
 		State state = subject.send(oldState, new Game());
 		
 		assertNotNull("State should not be null", state);
-		assertEquals("",  state.build(), STATE_SEQ_2);
+		assertEquals("",  state.build(), STATE_SEQ_2_BLACK);
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp, new StateMessageVerification()).setStateMessage(new StateMessage(VISIT, null));
@@ -178,12 +199,12 @@ public class StateManagerTest {
 	@Test
 	public void sendNewStateYouAreVisit() {
 		when(myNumber.getMyNumber()).thenReturn(VISIT);
-		State oldState = new State(STATE_SEQ_1);
+		State oldState = new State(STATE_SEQ_1_WHITE);
 		
 		State state = subject.send(oldState, new Game());
 		
 		assertNotNull("State should not be null", state);
-		assertEquals("",  state.build(), STATE_SEQ_2);
+		assertEquals("",  state.build(), STATE_SEQ_2_BLACK);
 		
 		verify(myNumber, times(2)).getMyNumber();
 		verify(stateStamp, new StateMessageVerification()).setStateMessage(new StateMessage(HOME, null));
@@ -192,12 +213,41 @@ public class StateManagerTest {
 	
 	@Test
 	public void refreshState() {
-		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1);
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1_WHITE);
 		
 		subject.refresh(VISIT);
 		
 		verify(stateStamp).getStateMessage(VISIT);
 		verify(sender, new StateMessageVerification()).send(new StateMessage(VISIT, null));
+	}
+
+	@Test
+	public void isHomeTurn() {		
+		boolean myTurn = subject.isMyTurn(new State(STATE_SEQ_1_WHITE));
+		
+		assertTrue("Should be home turn", myTurn);
+		
+		verify(myNumber).getMyNumber();
+	}
+
+	@Test
+	public void isVisitTurn() {		
+		boolean myTurn = subject.isMyTurn(new State(STATE_SEQ_2_BLACK));
+		
+		assertFalse("Should be visit turn", myTurn);
+		
+		verify(myNumber).getMyNumber();
+	}
+
+	@Test
+	public void iAmVistAndIsMyTurn() {
+		when(myNumber.getMyNumber()).thenReturn(VISIT);
+		
+		boolean myTurn = subject.isMyTurn(new State(STATE_SEQ_2_BLACK));
+		
+		assertTrue("Should be my turn", myTurn);
+		
+		verify(myNumber).getMyNumber();
 	}
 
 	@Test

@@ -18,7 +18,7 @@ import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 import crazygames.android.anytimechess.state.StateManager;
-import crazygames.android.anytimechess.utils.NotificationUtils;
+import crazygames.android.anytimechess.utils.Alerts;
 
 public class BoardLayout extends GridView {
 
@@ -116,7 +116,7 @@ public class BoardLayout extends GridView {
 		
 		if (!move.getMoveType().equals(Move.Type.CANTMOVE) && state != null) {
 			state = stateManager.send(state, game);
-			new NotificationUtils(getContext()).displayMessage("Jogada enviada !");
+			new Alerts(getContext()).displayMessage("Jogada enviada !");
 		}
 		
 //		if(move.isCheck())

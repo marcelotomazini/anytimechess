@@ -22,6 +22,12 @@ public class StateStamp {
 		setStateMessage(message.getDestination(), message.build());
 	}
 
+	public void clearStateMessage(String player) {
+		Editor editor = getSharedPreferences().edit();
+		editor.remove(player);
+		editor.commit();
+	}
+
 	private void setStateMessage(String player, String stateMessage) {
 		Editor editor = getSharedPreferences().edit();
 		editor.putString(filterNumber(player), stateMessage);
