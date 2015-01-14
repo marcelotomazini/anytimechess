@@ -1,8 +1,7 @@
 package crazygames.android.anytimechess.utils;
 
-import static android.content.Context.TELEPHONY_SERVICE;
 import android.content.Context;
-import android.telephony.TelephonyManager;
+import crazygames.android.anytimechess.state.MyNumberResolver;
 
 
 public class TelephonyUtils {
@@ -21,8 +20,6 @@ public class TelephonyUtils {
 	}
 	
 	public static String getTelephonyNumber(Context context) {
-		TelephonyManager tm = (TelephonyManager)context.getSystemService(TELEPHONY_SERVICE); 
-		return filterNumber(tm.getLine1Number());
+		return new MyNumberResolver(context).getMyNumber();
 	}
-
 }

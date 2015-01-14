@@ -78,7 +78,7 @@ public class AnytimeChessActivity extends Activity {
 	            Cursor cursor = getContentResolver().query(contactUri, projection, null, null, null);
 	            cursor.moveToFirst();
 	            
-	            new HandShakeManager(this).challenge(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
+	            new HandShakeManager(this).newChallenge(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
 	            
 	            new NotificationUtils(this).displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
 	        }

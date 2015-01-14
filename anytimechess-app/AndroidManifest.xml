@@ -38,6 +38,9 @@
             </intent-filter> 
         </receiver>
         
+        <service android:name="crazygames.android.anytimechess.message.ChallengeService$AcceptChallenge" />
+        <service android:name="crazygames.android.anytimechess.message.ChallengeService$DenyChallenge" />
+        
     </application>
 
 
