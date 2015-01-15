@@ -6,8 +6,7 @@ import android.preference.PreferenceManager;
 
 public class Preferences {
 	
-	public static String NUMBER = "mynumber";
-	public static String ALIAS = "alias";
+	public static final String PLAYER = "player";
 	
 	private Context context;
 

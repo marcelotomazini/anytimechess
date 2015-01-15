@@ -3,7 +3,7 @@ package crazygames.android.anytimechess.utils;
 import static android.app.Notification.DEFAULT_ALL;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static crazygames.android.anytimechess.message.ChallengeService.PLAYER_KEY;
+import static crazygames.android.anytimechess.utils.Preferences.PLAYER;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -24,12 +24,19 @@ public class Notifications {
 		this.resources = new Resources(context);
 	}
 	
-	public void notifyNewMove() {
+	public void notifyNewMove(String player) {
 		NotificationCompat.Builder mBuilder = createDefaultBuilder();
 		
-		mBuilder.setContentTitle("Nova jogada!");
-		mBuilder.setContentText("Nova jogada brow!");
-		mBuilder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, AnytimeChessActivity.class), 0));
+		mBuilder.setContentTitle("Novo movimento!"); //TODO Pilo extract string
+		mBuilder.setContentText(getPlayerName(player) + " efetuou uma novo movimento!"); //TODO Pilo extract string
+		
+		Bundle extras = new Bundle();
+		extras.putString(PLAYER, player);
+		
+		Intent intent = new Intent(context, AnytimeChessActivity.class);
+		intent.putExtras(extras);
+		
+		mBuilder.setContentIntent(PendingIntent.getActivity(context, 0, intent, FLAG_UPDATE_CURRENT));
 		
 		notify(mBuilder);
 	}
@@ -37,21 +44,25 @@ public class Notifications {
 	public void notifyChallenge(String player) {
 		NotificationCompat.Builder mBuilder = createDefaultBuilder();
 		
-		mBuilder.setContentTitle("Novo desafio!");
-		mBuilder.setContentText("Você tem um novo desafio! Aceitar?");
+		mBuilder.setContentTitle("Novo desafio!"); //TODO Pilo extract string
+		mBuilder.setContentText(getPlayerName(player) + " está te desafiando. E aí?"); //TODO Pilo extract string
 		
 		Bundle extras = new Bundle();
-		extras.putString(PLAYER_KEY, player);
+		extras.putString(PLAYER, player);
 		
 		Intent intent = new Intent(context, AcceptChallenge.class);
 		intent.putExtras(extras);
-		mBuilder.addAction(0, "Yep", PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
+		mBuilder.addAction(0, "Accept", PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
 				
 		intent = new Intent(context, DenyChallenge.class);
 		intent.putExtras(extras);
-		mBuilder.addAction(0, "Nope", PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
+		mBuilder.addAction(0, "Deny", PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
 		
 		notify(mBuilder);
+	}
+
+	private String getPlayerName(String player) {
+		return TelephonyUtils.resolvePlayerName(context, player);
 	}
 
 	public void cancel() {

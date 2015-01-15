@@ -1,5 +1,6 @@
 package crazygames.android.anytimechess.message;
 
+import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import android.content.Context;
 import android.telephony.SmsMessage;
 import crazygames.android.anytimechess.comm.message.HandShake;
@@ -15,7 +16,7 @@ public class MessageManager {
 	}
 
 	public void routeMessage(SmsMessage sms) {
-		String player = sms.getOriginatingAddress();
+		String player = filterNumber(sms.getOriginatingAddress());
 		String message = sms.getMessageBody();
 		
 		if (message.contains(HandShake.HEADER))
@@ -26,6 +27,6 @@ public class MessageManager {
 
 	private void update(String player, String message) {
 		new StateManager(context).update(player, message);
-		new Notifications(context).notifyNewMove();
+		new Notifications(context).notifyNewMove(player);
 	}
 }

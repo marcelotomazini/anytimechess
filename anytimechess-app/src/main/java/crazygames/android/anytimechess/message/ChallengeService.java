@@ -1,5 +1,6 @@
 package crazygames.android.anytimechess.message;
 
+import static crazygames.android.anytimechess.utils.Preferences.PLAYER;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +11,6 @@ import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Notifications;
 
 public abstract class ChallengeService extends Service {
-
-	public static final String PLAYER_KEY = "player";
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -31,10 +30,10 @@ public abstract class ChallengeService extends Service {
 	private String getPlayer(Intent intent) {
 		Bundle extras = intent.getExtras();
 		
-		if (extras == null || extras.getString(PLAYER_KEY) == null)
+		if (extras == null || extras.getString(PLAYER) == null)
 			throw new RuntimeException("Problema ao obter extras. Chame suporte!");
 		
-		return extras.getString(PLAYER_KEY);
+		return extras.getString(PLAYER);
 	}
 
 	private void cancelNotification() {

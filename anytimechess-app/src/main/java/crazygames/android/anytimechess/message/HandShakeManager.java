@@ -3,12 +3,12 @@ package crazygames.android.anytimechess.message;
 import static crazygames.android.anytimechess.comm.message.Challenge.CHALLENGE_TYPE;
 import static crazygames.android.anytimechess.comm.message.ChallengeAccepted.CHALLENGE_ACCEPTED;
 import static crazygames.android.anytimechess.comm.message.ChallengeDenied.CHALLENGE_DENIED;
-import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Alerts;
 import crazygames.android.anytimechess.utils.Notifications;
+import crazygames.android.anytimechess.utils.TelephonyUtils;
 
 public class HandShakeManager {
 	
@@ -28,20 +28,21 @@ public class HandShakeManager {
 	}
 
 	public void newChallenge(String player) {
-		Challenge challenge = new Challenge(null, filterNumber(player));
+		Challenge challenge = new Challenge(null, player);
 		new SMSSender().send(challenge);
 	}
 
 	private void prepareNewGame(String player) {
 		new StateManager(context).create(player);
-		new Notifications(context).notifyNewMove();
+		new Notifications(context).notifyNewMove(player);
 	}
 
 	private void notifyChallengeReceived(final String player) {
-		new Notifications(context).notifyChallenge(filterNumber(player));
+		new Notifications(context).notifyChallenge(player);
 	}
 
 	private void challengeDenied(String player) {
-		new Alerts(context).displayMessage(player + "O bixin tremeu na base!"); //TODO Pilo extract string
+		String playerName = TelephonyUtils.resolvePlayerName(context, player);
+		new Alerts(context).displayMessage(playerName + " pulou fora!"); //TODO Pilo extract string
 	}
 }
