@@ -21,11 +21,11 @@ public class MessageManager {
 		if (message.contains(HandShake.HEADER))
 			new HandShakeManager(context).resolve(player, message);
 		else
-			update(message);
+			update(player, message);
 	}
 
-	private void update(String message) {
-		new StateManager(context).update(message);
+	private void update(String player, String message) {
+		new StateManager(context).update(player, message);
 		new Notifications(context).notifyNewMove();
 	}
 }

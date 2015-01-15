@@ -1,7 +1,5 @@
 package crazygames.android.anytimechess;
 
-import static crazygames.android.anytimechess.state.MyNumberResolver.MY_NUMBER;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -11,10 +9,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
-import crazygames.android.anytimechess.state.StateManager;
 
 public class GameRoomMenu extends ListView {
 	
@@ -53,10 +49,7 @@ public class GameRoomMenu extends ListView {
 	}
 
 	private Set<String> getPlayers() {
-		Set<String> numbers = PreferenceManager.getDefaultSharedPreferences(getContext()).getAll().keySet();
-		
-		numbers.remove(MY_NUMBER);
-		return numbers;
+		return PreferenceManager.getDefaultSharedPreferences(getContext()).getAll().keySet();
 	}
 
 	private OnClickListener openGame(final String player) {
@@ -64,8 +57,7 @@ public class GameRoomMenu extends ListView {
 			
 			@Override
 			public void onClick(View arg0) {
-				State state = new StateManager(getContext()).get(player);
-				mainLayout.load(state);
+				mainLayout.load(player);
 			}
 		};
 	}

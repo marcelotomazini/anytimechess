@@ -12,7 +12,6 @@ import android.widget.GridView;
 import crazygames.android.anytimechess.PieceView;
 import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.comm.message.State;
-import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.game.Move;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
@@ -23,7 +22,7 @@ import crazygames.android.anytimechess.utils.Alerts;
 public class BoardLayout extends GridView {
 
 	private State state;
-	private Game game;
+	private String player;
 	
 	private final List<PieceView> pieces = new ArrayList<PieceView>();
 	private PieceView selectedPiece;
@@ -34,12 +33,9 @@ public class BoardLayout extends GridView {
 		setNumColumns(8);
 	}
 	
-	public void load(State state) {
-		this.state = state;
-	}
-
-	public void start() {
-		game = state != null ? state.getGame() : new Game(); // TODO Pilo para testes
+	public void load(String player) {
+		this.player = player;
+		this.state = new StateManager(getContext()).get(player);
 		
 		createPieces();
 		refresh();
@@ -50,7 +46,7 @@ public class BoardLayout extends GridView {
 			final Square item = (Square) getAdapter().getItem(i);
 			item.removeAllViews();
 
-			Piece piece = game.getBoard().get(item.getPosition().getCol(),
+			Piece piece = state.getGame().getBoard().get(item.getPosition().getCol(),
 					item.getPosition().getRow());
 			PieceView pieceView = pieceViewCorrespondingTo(piece);
 			final Square parent = (Square) pieceView.getParent();
@@ -61,7 +57,7 @@ public class BoardLayout extends GridView {
 	}
 
 	private void createPieces() {
-		for (Piece[] p1 : game.getBoard().getMap())
+		for (Piece[] p1 : state.getGame().getBoard().getMap())
 			for (Piece piece : p1)
 				if (piece != null)
 					getPieces().add(createPieceView(piece));
@@ -107,15 +103,15 @@ public class BoardLayout extends GridView {
 	
 	private void move(final Square square) {
 		StateManager stateManager = new StateManager(getContext());
-		if(!stateManager.isMyTurn(state))
+		if(!stateManager.isMyTurn(player, state))
 			return;
 		
 		final PieceView selectedPiece = getSelectedPiece();
 		
-		MoveResponse move = game.move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
+		MoveResponse move = state.getGame().move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
 		
 		if (!move.getMoveType().equals(Move.Type.CANTMOVE) && state != null) {
-			state = stateManager.send(state, game);
+			state = stateManager.send(player, state);
 			new Alerts(getContext()).displayMessage("Jogada enviada !");
 		}
 		

@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 
 public class Preferences {
 	
+	public static String NUMBER = "mynumber";
+	public static String ALIAS = "alias";
+	
 	private Context context;
 
 	public Preferences(Context context) {

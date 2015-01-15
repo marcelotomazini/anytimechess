@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
-import crazygames.android.anytimechess.state.MyNumberResolver;
 import crazygames.android.anytimechess.utils.Messages;
 
 public class OptionsMenu extends ListView {
@@ -20,14 +19,12 @@ public class OptionsMenu extends ListView {
 		super(context);
 
 		TextView tv1 = new MenuItem(context, Messages.getString("new.game"));
-		TextView tv2 = new MenuItem(context, "My Number"); //TODO Pilo extract string
-		TextView tv3 = new MenuItem(context, Messages.getString("about"));
+		TextView tv2 = new MenuItem(context, Messages.getString("about"));
 
 		tv1.setOnClickListener(openContacts(context));
-		tv2.setOnClickListener(myNumber(context));
-		tv3.setOnClickListener(about(context));
+		tv2.setOnClickListener(about(context));
 
-		setAdapter(new SimpleListAdapter(Arrays.asList(tv1, tv2, tv3)));
+		setAdapter(new SimpleListAdapter(Arrays.asList(tv1, tv2)));
 	}
 
 	private OnClickListener about(final Activity context) {
@@ -38,15 +35,6 @@ public class OptionsMenu extends ListView {
 	            ok.setMessage("AnytimeChess");
 	            ok.setPositiveButton("OK", null);
 	            ok.show();
-			}
-		};
-	}
-
-	private OnClickListener myNumber(final Activity context) {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				new MyNumberResolver(context).setMyNumber();
 			}
 		};
 	}

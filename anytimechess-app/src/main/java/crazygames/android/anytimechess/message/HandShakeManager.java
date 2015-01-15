@@ -4,7 +4,6 @@ import static crazygames.android.anytimechess.comm.message.Challenge.CHALLENGE_T
 import static crazygames.android.anytimechess.comm.message.ChallengeAccepted.CHALLENGE_ACCEPTED;
 import static crazygames.android.anytimechess.comm.message.ChallengeDenied.CHALLENGE_DENIED;
 import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
-import static crazygames.android.anytimechess.utils.TelephonyUtils.getTelephonyNumber;
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.state.StateManager;
@@ -29,7 +28,7 @@ public class HandShakeManager {
 	}
 
 	public void newChallenge(String player) {
-		Challenge challenge = new Challenge(getTelephonyNumber(context), filterNumber(player));
+		Challenge challenge = new Challenge(null, filterNumber(player));
 		new SMSSender().send(challenge);
 	}
 

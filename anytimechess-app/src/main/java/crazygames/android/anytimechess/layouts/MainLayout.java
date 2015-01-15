@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.widget.LinearLayout;
 import crazygames.android.anytimechess.BoardAdapter;
-import crazygames.android.anytimechess.comm.message.State;
 
 public class MainLayout extends LinearLayout {
 
@@ -24,10 +23,9 @@ public class MainLayout extends LinearLayout {
 		addView(gameStatusLayout);
 	}
 	
-	public void load(State state) {
+	public void load(String player) {
 		boardAdapter = new BoardAdapter(getContext());
 		boardLayout.setAdapter(boardAdapter);
-		boardLayout.load(state);
-		boardLayout.start();
+		boardLayout.load(player);
 	}
 }

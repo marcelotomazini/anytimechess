@@ -1,7 +1,6 @@
 package crazygames.android.anytimechess.state;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
-import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.Game;
@@ -15,24 +14,22 @@ public class StateManager {
 	
 	private StateStamp stateStamp;
 	private SMSSender sender;
-	private MyNumberResolver myNumberResolver;
 
 	public StateManager(Context context) {
-		this(new MyNumberResolver(context), new StateStamp(new Preferences(context)), new SMSSender());
+		this(new StateStamp(new Preferences(context)), new SMSSender());
 	}
 	
-	StateManager(MyNumberResolver myNumberResolver, StateStamp stateStamp, SMSSender sender) {
-		this.myNumberResolver = myNumberResolver;
+	StateManager(StateStamp stateStamp, SMSSender sender) {
 		this.stateStamp = stateStamp;
 		this.sender = sender;
 	}
 
 	public State create(String player) {
-		String myNumber = myNumberResolver.getMyNumber();
-		String playerNumber = filterNumber(player);
-
-		State state = new State(1, myNumber, playerNumber, WHITE, new Game());
-		stamp(state);
+		if (player == null || player.isEmpty())
+			throw new RuntimeException("Invalid player identifier");
+		
+		State state = new State(1, WHITE, new Game());
+		stateStamp.setNewStateMessage(new StateMessage(player, state));
 		
 		return state;
 	}
@@ -43,41 +40,37 @@ public class StateManager {
 		return stateMessage == null ? null : new State(stateMessage);
 	}
 
-	public State send(State oldState, Game newGame) {
-		State state = buildNext(oldState, newGame);
+	public State send(String player, State oldState) {
+		State state = buildNext(oldState);
 
-		stamp(state);
-		send(state);
+		stamp(player, state);
+		sender.send(new StateMessage(player, state));
 		
 		return state;
 	}
 
-	private State buildNext(State oldState, Game game) {
+	private State buildNext(State oldState) {
 		int nextSequence = oldState.getTurnSequence() + 1;
 		Color newTurn = oldState.getTurn().getReverse();
 		
-		return new State(nextSequence, oldState.getHome(), oldState.getVisit(), newTurn, game);
+		return new State(nextSequence, newTurn, oldState.getGame());
 	}
 
 	public void refresh(String player) {
 		State state = get(player);
 		
 		if (state != null)
-			send(state);
+			sender.send(new StateMessage(player, state));
 	}
 
-	public void update(String messageState) {
+	public void update(String player, String messageState) {
 		State newState = new State(messageState);
-		State oldState = get(getStateKey(newState));
+		State oldState = get(player);
 
 		if (oldState == null || isValidStates(oldState, newState))
-			stamp(newState);
+			stamp(player, newState);
 	}
 	
-	private String getStateKey(State state) {
-		return filterNumber(amIHome(state) ? state.getVisit() : state.getHome());
-	}
-
 	private boolean isValidStates(State oldState, State newState) {
 		if (newState.getTurnSequence() < oldState.getTurnSequence())
 			throw new RuntimeException(MSG_OUT_OF_ORDER);
@@ -85,24 +78,16 @@ public class StateManager {
 		return newState.getTurnSequence() > oldState.getTurnSequence();
 	}
 
-	private void stamp(State state) {
-		stateStamp.setStateMessage(new StateMessage(getStateKey(state), state));
+	private void stamp(String player, State state) {
+		stateStamp.setStateMessage(new StateMessage(player, state));
 	}
 
-	private void send(State state) {
-		sender.send(new StateMessage(getStateKey(state), state));
+	public boolean isMyTurn(String player, State state) {
+		return state.getTurn().getTurnValue().equals(getTurnColor(player));
 	}
 
-	public boolean isMyTurn(State state) {
-		return state.getTurn().getTurnValue().equals(getTurnColor(state));
-	}
-
-	private Color getTurnColor(State state) {
-		return amIHome(state) ? Color.WHITE : Color.BLACK;
-	}
-
-	private boolean amIHome(State state) {
-		return state.getHome().contains(myNumberResolver.getMyNumber());
+	private Color getTurnColor(String player) {
+		return stateStamp.isSignedState(player) ? Color.WHITE : Color.BLACK;
 	}
 
 	public void clear(String player) {

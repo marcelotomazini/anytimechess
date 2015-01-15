@@ -12,16 +12,14 @@ import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 
 public class StateTest {
 
-	private static final String SMS_MESSAGE_VALID = "atchess00001004498476508004491257086WHITERNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
-	private static final String VISIT_PLAYER = "4491257086";
-	private static final String HOME_PLAYER = "4498476508";
+	private static final String SMS_MESSAGE_VALID = "atchess00001WHITERNBQK1eBNRPPPPPPPP--------------------------------pppppppprnbqk8ebnr";
 	private static final Color TURN = WHITE;
 
 	@Rule public ExpectedException thrown = ExpectedException.none();
 	
 	@Test
 	public void createState() {
-		State state = new State(1, HOME_PLAYER, VISIT_PLAYER, TURN, new Game());
+		State state = new State(1, TURN, new Game());
 		
 		String smsMessage = state.build();
 		
@@ -34,8 +32,6 @@ public class StateTest {
 		
 		assertEquals("Header", "atchess", state.getHeader());
 		assertEquals("TurnSequence", 1, state.getTurnSequence());
-		assertEquals("HomePlayer", HOME_PLAYER, state.getHome());
-		assertEquals("VisitPlayer", VISIT_PLAYER, state.getVisit());
 		assertEquals("Turn", WHITE, state.getGame().getTurn());
 		
 		assertEquals("GameState", SMS_MESSAGE_VALID, state.build());
