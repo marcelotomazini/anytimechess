@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
+import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
 
 public class GameRoomMenu extends ListView {
@@ -34,7 +35,7 @@ public class GameRoomMenu extends ListView {
 
 	private ArrayList<TextView> buildGamesList() {
 		ArrayList<TextView> games = new ArrayList<TextView>();
-		games.add(new MenuItem(getContext(), "Jogos")); //TODO Pilo extract string
+		games.add(new MenuItem(getContext(), Messages.getString("games")));
 		return games;
 	}
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Alerts;
+import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.Notifications;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
 
@@ -43,6 +44,6 @@ public class HandShakeManager {
 
 	private void challengeDenied(String player) {
 		String playerName = TelephonyUtils.resolvePlayerName(context, player);
-		new Alerts(context).displayMessage(playerName + " pulou fora!"); //TODO Pilo extract string
+		new Alerts(context).displayMessage(Messages.getString("challenge.denied.message", playerName));
 	}
 }

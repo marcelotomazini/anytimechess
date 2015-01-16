@@ -27,8 +27,8 @@ public class Notifications {
 	public void notifyNewMove(String player) {
 		NotificationCompat.Builder mBuilder = createDefaultBuilder();
 		
-		mBuilder.setContentTitle("Novo movimento!"); //TODO Pilo extract string
-		mBuilder.setContentText(getPlayerName(player) + " efetuou uma novo movimento!"); //TODO Pilo extract string
+		mBuilder.setContentTitle(Messages.getString("new.move"));
+		mBuilder.setContentText(Messages.getString("new.move.detail", getPlayerName(player)));
 		
 		Bundle extras = new Bundle();
 		extras.putString(PLAYER, player);
@@ -44,8 +44,8 @@ public class Notifications {
 	public void notifyChallenge(String player) {
 		NotificationCompat.Builder mBuilder = createDefaultBuilder();
 		
-		mBuilder.setContentTitle("Novo desafio!"); //TODO Pilo extract string
-		mBuilder.setContentText(getPlayerName(player) + " está te desafiando. E aí?"); //TODO Pilo extract string
+		mBuilder.setContentTitle(Messages.getString("new.challenge"));
+		mBuilder.setContentText(Messages.getString("new.challenge.detail", getPlayerName(player)));
 		
 		Bundle extras = new Bundle();
 		extras.putString(PLAYER, player);
