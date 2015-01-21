@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.GridView;
 import crazygames.android.anytimechess.PieceView;
 import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.comm.message.State;
-import crazygames.android.anytimechess.engine.game.Move;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
@@ -26,16 +24,19 @@ public class BoardLayout extends GridView {
 	
 	private final List<PieceView> pieces = new ArrayList<PieceView>();
 	private PieceView selectedPiece;
+	private StateManager stateManager;
 
 	public BoardLayout(Context context) {
 		super(context);
-		setBackgroundColor(Color.WHITE);
+		stateManager = new StateManager(getContext());
+		
+		setBackgroundColor(android.graphics.Color.WHITE);
 		setNumColumns(8);
 	}
 	
 	public void load(String player) {
 		this.player = player;
-		this.state = new StateManager(getContext()).get(player);
+		this.state = stateManager.get(player);
 		
 		createPieces();
 		refresh();
@@ -53,7 +54,7 @@ public class BoardLayout extends GridView {
 			if (parent != null)
 				parent.removeAllViews();
 			item.addView(pieceView);
-		}
+		}		
 	}
 
 	private void createPieces() {
@@ -102,7 +103,6 @@ public class BoardLayout extends GridView {
 	}
 	
 	private void move(final Square square) {
-		StateManager stateManager = new StateManager(getContext());
 		if(!stateManager.isMyTurn(player, state))
 			return;
 		
@@ -110,17 +110,18 @@ public class BoardLayout extends GridView {
 		
 		MoveResponse move = state.getGame().move(selectedPiece.getColumn(), selectedPiece.getRow(), square.getColumn(), square.getRow());
 		
-		if (!move.getMoveType().equals(Move.Type.CANTMOVE) && state != null) {
+		switch (move.getMoveType()) {
+		case CANTMOVE:
+			break;
+			
+		case KINGISUNDERATTACK:
+			new Alerts(getContext()).displayMessage("Não cara! Seu rei está sob ataque!");
+			break;
+
+		default:
 			state = stateManager.send(player, state);
-			new Alerts(getContext()).displayMessage("Jogada enviada !");
+			new Alerts(getContext()).displayMessage("Jogada enviada!");
 		}
-		
-//		if(move.isCheck())
-//			Notifications.displayMessage("Check");
-//		if(move.isCheckmate())
-//			Notifications.displayMessage("Checkmate");
-//		if(move.getMoveType().equals(Move.Type.CANTMOVE))
-//			Notifications.displayMessage("Illegal move");
 		
 		refresh();
 	}
