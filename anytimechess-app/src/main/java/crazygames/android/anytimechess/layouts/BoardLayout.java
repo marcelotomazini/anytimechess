@@ -54,6 +54,11 @@ public class BoardLayout extends GridView {
 				parent.removeAllViews();
 			item.addView(pieceView);
 		}
+		
+		if(state.getGame().isCheckmate())
+			new Alerts(getContext()).displayMessage("Checkmate");
+		else if(state.getGame().isCheck())
+			new Alerts(getContext()).displayMessage("Check");
 	}
 
 	private void createPieces() {

@@ -191,7 +191,7 @@ public class Game {
 
 	public boolean isCheck() {
 		final King king = turn.equals(Piece.Color.WHITE) ?
-				board.getBlackKing() : board.getWhiteKing();
+				board.getWhiteKing() : board.getBlackKing();
 				if (Piece.underAttack(king.color(), king.getCol(),
 						king.getRow(), this)) {
 					board.rollback();
@@ -201,7 +201,7 @@ public class Game {
 	}
 
 	public boolean isCheckmate() {
-		final King king = turn.equals(Piece.Color.WHITE) ? board.getBlackKing() : board.getWhiteKing();
+		final King king = turn.equals(Piece.Color.WHITE) ? board.getWhiteKing() : board.getBlackKing();
 
 		final Piece.Color color = king.color();
 		for (char col = 'a'; col <= 'h'; col++)
