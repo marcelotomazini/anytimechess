@@ -83,10 +83,10 @@ public class StateManager {
 	}
 
 	public boolean isMyTurn(String player, State state) {
-		return state.getTurn().getTurnValue().equals(getTurnColor(player));
+		return state.getTurn().getTurnValue().equals(getMyColor(player));
 	}
 
-	private Color getTurnColor(String player) {
+	public Color getMyColor(String player) {
 		return stateStamp.isSignedState(player) ? Color.WHITE : Color.BLACK;
 	}
 

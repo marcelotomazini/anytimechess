@@ -3,12 +3,10 @@ package crazygames.android.anytimechess.layouts;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.LinearLayout;
-import crazygames.android.anytimechess.BoardAdapter;
 
 public class MainLayout extends LinearLayout {
 
 	private BoardLayout boardLayout;
-	private BoardAdapter boardAdapter;
 	private GameStatusLayout gameStatusLayout;
 
 	public MainLayout(final Context context) {
@@ -24,8 +22,6 @@ public class MainLayout extends LinearLayout {
 	}
 	
 	public void load(String player) {
-		boardAdapter = new BoardAdapter(getContext());
-		boardLayout.setAdapter(boardAdapter);
 		boardLayout.load(player);
 	}
 }

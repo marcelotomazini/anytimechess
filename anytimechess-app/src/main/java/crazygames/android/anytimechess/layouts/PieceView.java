@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess;
+package crazygames.android.anytimechess.layouts;
 
 import android.content.Context;
 import android.widget.ImageView;

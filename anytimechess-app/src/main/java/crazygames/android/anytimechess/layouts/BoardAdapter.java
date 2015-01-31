@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess;
+package crazygames.android.anytimechess.layouts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import android.widget.ListAdapter;
 
 public class BoardAdapter implements ListAdapter {
 
-	private final List<Square> itemList = new ArrayList<Square>();
+	protected final List<Square> itemList = new ArrayList<Square>();
 
 	public BoardAdapter(final Context context) {
 		boolean white = false;
@@ -87,5 +87,4 @@ public class BoardAdapter implements ListAdapter {
 	public List<Square> getAllItems() {
 		return itemList;
 	}
-
 }

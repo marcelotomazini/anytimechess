@@ -8,12 +8,11 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
-import crazygames.android.anytimechess.PieceView;
-import crazygames.android.anytimechess.Square;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Alerts;
 
@@ -38,8 +37,13 @@ public class BoardLayout extends GridView {
 		this.player = player;
 		this.state = stateManager.get(player);
 		
+		setAdapter(getBoardAdapter());
 		createPieces();
 		refresh();
+	}
+
+	private BoardAdapter getBoardAdapter() {
+		return stateManager.getMyColor(player) == Color.WHITE ? new ReverseBoardAdapter(getContext()) : new BoardAdapter(getContext());
 	}
 
 	public void refresh() {
