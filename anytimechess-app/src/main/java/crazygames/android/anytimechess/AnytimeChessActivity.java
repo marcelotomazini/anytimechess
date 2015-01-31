@@ -40,7 +40,7 @@ public class AnytimeChessActivity extends Activity {
         View optionsMenu = new OptionsMenu(this);
         slideMenu.addView(optionsMenu, getOptionsMenuParameters());
 
-        gameRoomMenu = new GameRoomMenu(this, mainLayout);
+        gameRoomMenu = new GameRoomMenu(this);
         slideMenu.addView(gameRoomMenu, getGameRoomMenuParameters());
 	}
 
@@ -64,6 +64,7 @@ public class AnytimeChessActivity extends Activity {
 		super.onResume();
 		gameRoomMenu.refresh();
 		loadGame();
+		slideMenu.close(true);
 	}
 
 	private void loadGame() {
@@ -73,7 +74,7 @@ public class AnytimeChessActivity extends Activity {
 		
 		mainLayout.load(extras.getString(PLAYER));
 	}
-
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// Check which request we're responding to
@@ -91,5 +92,13 @@ public class AnytimeChessActivity extends Activity {
 	        }
 	    }
 	    slideMenu.close(true);
+	}
+	
+	SlideMenu getSlideMenu() {
+		return slideMenu;
+	}
+	
+	MainLayout getMainLayout() {
+		return mainLayout;
 	}
 }

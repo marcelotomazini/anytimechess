@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
 
 public class GameRoomMenu extends ListView {
 	
-	private MainLayout mainLayout;
+	private AnytimeChessActivity activity;
 
-	public GameRoomMenu(final Activity context, MainLayout mainLayout) {
-		super(context);
-		this.mainLayout = mainLayout;
+	public GameRoomMenu(final AnytimeChessActivity activity) {
+		super(activity);
+		this.activity = activity;
 		refresh();
 	}
 
@@ -55,7 +53,8 @@ public class GameRoomMenu extends ListView {
 			
 			@Override
 			public void onClick(View arg0) {
-				mainLayout.load(player);
+				activity.getMainLayout().load(player);
+				activity.getSlideMenu().close(true);
 			}
 		};
 	}
