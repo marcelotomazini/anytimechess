@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import br.com.pilovieira.ermacs.Ermacs;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
@@ -38,6 +39,9 @@ public class GameRoomMenu extends ListView {
 	}
 
 	private TextView buildGame(String player) {
+		if (player.equals(Ermacs.ERMACS))
+			return Ermacs.getTextView(getContext());
+		
 		TextView tv = new TextView(getContext());
 		tv.setText(TelephonyUtils.resolvePlayerName(getContext(), player));
 		tv.setOnClickListener(openGame(player));

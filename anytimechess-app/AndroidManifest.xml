@@ -26,6 +26,8 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="br.com.pilovieira.ermacs.ErmacsActivity" android:label="Ermacs"/>
+        
         <receiver
             android:name="crazygames.android.anytimechess.message.SMSReceiver"
             android:exported="true" > 

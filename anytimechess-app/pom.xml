@@ -18,6 +18,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>br.com.pilovieira</groupId>
+			<artifactId>ermacs</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>crazygames</groupId>
 			<artifactId>anytimechess-engine</artifactId>
 			<version>${project.version}</version>

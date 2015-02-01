@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import crazygames.android.anytimechess.utils.Alerts;
+import br.com.pilovieira.ermacs.Ermacs;
 
 public class SMSReceiver extends BroadcastReceiver {
 	
@@ -24,7 +24,7 @@ public class SMSReceiver extends BroadcastReceiver {
 		try {
 			new MessageManager(context).routeMessage(sms);			
 		} catch (Exception e) {
-			new Alerts(context).displayMessage(e.getMessage());
+			Ermacs.addErmac(context, e);
 		}
 		
 		abortBroadcast();
