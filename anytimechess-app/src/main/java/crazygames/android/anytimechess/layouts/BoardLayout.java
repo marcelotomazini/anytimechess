@@ -15,6 +15,7 @@ import crazygames.android.anytimechess.engine.pieces.Piece;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Alerts;
+import crazygames.android.anytimechess.utils.Messages;
 
 public class BoardLayout extends GridView {
 
@@ -129,7 +130,7 @@ public class BoardLayout extends GridView {
 
 		default:
 			state = stateManager.send(player, state);
-			new Alerts(getContext()).displayMessage("Jogada enviada!");
+			new Alerts(getContext()).displayMessage(Messages.getString("move.sent"));
 		}
 		
 		refresh();
