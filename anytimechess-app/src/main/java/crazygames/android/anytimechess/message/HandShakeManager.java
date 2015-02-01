@@ -6,17 +6,16 @@ import static crazygames.android.anytimechess.comm.message.ChallengeDenied.CHALL
 import android.content.Context;
 import crazygames.android.anytimechess.comm.message.Challenge;
 import crazygames.android.anytimechess.state.StateManager;
-import crazygames.android.anytimechess.utils.Alerts;
-import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.Notifications;
-import crazygames.android.anytimechess.utils.TelephonyUtils;
 
 public class HandShakeManager {
 	
 	private Context context;
+	private Notifications notifications;
 
 	public HandShakeManager(Context context) {
 		this.context = context;
+		notifications = new Notifications(context);
 	}
 	
 	public void resolve(String player, String message) {
@@ -25,7 +24,7 @@ public class HandShakeManager {
 		if (message.contains(CHALLENGE_ACCEPTED))
 			prepareNewGame(player);
 		if (message.contains(CHALLENGE_DENIED))
-			challengeDenied(player);
+			notifyChallengeDenied(player);
 	}
 
 	public void newChallenge(String player) {
@@ -35,15 +34,14 @@ public class HandShakeManager {
 
 	private void prepareNewGame(String player) {
 		new StateManager(context).create(player);
-		new Notifications(context).notifyNewMove(player);
+		notifications.notifyNewMove(player);
 	}
 
 	private void notifyChallengeReceived(final String player) {
-		new Notifications(context).notifyChallenge(player);
+		notifications.notifyChallenge(player);
 	}
 
-	private void challengeDenied(String player) {
-		String playerName = TelephonyUtils.resolvePlayerName(context, player);
-		new Alerts(context).displayMessage(Messages.getString("challenge.denied.message", playerName));
+	private void notifyChallengeDenied(String player) {
+		notifications.notifyChallengeDenied(player);
 	}
 }
