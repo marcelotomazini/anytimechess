@@ -1,8 +1,10 @@
 package crazygames.android.anytimechess.layouts;
 
+import crazygames.android.anytimechess.utils.Alerts;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.LinearLayout;
+import br.com.pilovieira.ermacs.Ermacs;
 
 public class MainLayout extends LinearLayout {
 
@@ -28,8 +30,13 @@ public class MainLayout extends LinearLayout {
 	}
 	
 	public void load(String player) {
-		gameStatusLayout.load(player);
-		boardLayout.load(player);
-		buttonsLayout.load(player);
+		try {
+			gameStatusLayout.load(player);
+			boardLayout.load(player);
+			buttonsLayout.load(player);
+		} catch (Exception e) {
+			Ermacs.addErmac(getContext(), e);
+			new Alerts(getContext()).displayMessage("ERMAC!");
+		}
 	}
 }
