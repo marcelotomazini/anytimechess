@@ -54,9 +54,9 @@ public class BoardLayout extends GridView {
 
 	private void validateWarnings() {
 		if(state.getGame().isCheckmate(getMyColor()))
-			alerts.displayBundleMessage("check");
-		else if(state.getGame().isCheck(getMyColor()))
 			alerts.displayBundleMessage("checkmate");
+		else if(state.getGame().isCheck(getMyColor()))
+			alerts.displayBundleMessage("check");
 	}
 
 	public void refresh() {
