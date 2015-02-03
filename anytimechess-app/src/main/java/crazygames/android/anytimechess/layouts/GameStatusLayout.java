@@ -1,10 +1,12 @@
 package crazygames.android.anytimechess.layouts;
 
+import static crazygames.android.anytimechess.engine.pieces.Piece.Color.BLACK;
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
@@ -41,7 +43,7 @@ public class GameStatusLayout extends LinearLayout {
 
 	public void refresh() {
 		state = stateManager.get(player);
-		textView.setText(getGameStatus() + "\r\n" + getTurnMessage());
+		textView.setText(getGameStatus() + "\r\n" + getStatusMessage());
 	}
 
 	private String getGameStatus() {
@@ -53,7 +55,23 @@ public class GameStatusLayout extends LinearLayout {
 		return state.getTurn().getTurnValue() == WHITE ? Messages.getString("white") : Messages.getString("black");
 	}
 	
-	private String getTurnMessage() {
+	private String getStatusMessage() {
+		Color myColor = stateManager.getMyColor(player);
+
+		if (state.getGame().isCheckmate(myColor))
+			return Messages.getString("game.over.lose");
+		
+		if (state.getGame().isCheck(myColor))
+			return Messages.getString("you.check");
+
+		Color opponentColor = myColor == WHITE ? BLACK : WHITE;
+		
+		if (state.getGame().isCheckmate(opponentColor))
+			return Messages.getString("game.over.win");
+		
+		if (state.getGame().isCheck(opponentColor))
+			return Messages.getString("other.check");
+		
 		return stateManager.isMyTurn(player, state) ? Messages.getString("your.turn") : "";
 	}
 }
