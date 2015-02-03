@@ -20,6 +20,11 @@ public class GameStatusLayout extends LinearLayout {
 		super(context);
 
 		stateManager = new StateManager(getContext());
+		createWelcome();
+	}
+
+	private void createWelcome() {
+		addView(new WelcomeView(getContext()));
 	}
 
 	public void load(String player) {
