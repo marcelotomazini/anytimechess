@@ -1,5 +1,7 @@
 package crazygames.android.anytimechess.layouts;
 
+import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,6 @@ import crazygames.android.anytimechess.engine.pieces.Piece;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Alerts;
-import crazygames.android.anytimechess.utils.Messages;
 
 public class BoardLayout extends GridView {
 
@@ -26,10 +27,12 @@ public class BoardLayout extends GridView {
 	private final List<PieceView> pieces = new ArrayList<PieceView>();
 	private PieceView selectedPiece;
 	private StateManager stateManager;
+	private Alerts alerts;
 
 	public BoardLayout(Context context) {
 		super(context);
 		stateManager = new StateManager(getContext());
+		alerts = new Alerts(getContext());
 		
 		setBackgroundColor(android.graphics.Color.WHITE);
 		setNumColumns(8);
@@ -42,10 +45,18 @@ public class BoardLayout extends GridView {
 		setAdapter(getBoardAdapter());
 		createPieces();
 		refresh();
+		validateWarnings();
 	}
 
 	private BoardAdapter getBoardAdapter() {
-		return stateManager.getMyColor(player) == Color.WHITE ? new ReverseBoardAdapter(getContext()) : new BoardAdapter(getContext());
+		return getMyColor() == WHITE ? new ReverseBoardAdapter(getContext()) : new BoardAdapter(getContext());
+	}
+
+	private void validateWarnings() {
+		if(state.getGame().isCheckmate(getMyColor()))
+			alerts.displayBundleMessage("check");
+		else if(state.getGame().isCheck(getMyColor()))
+			alerts.displayBundleMessage("checkmate");
 	}
 
 	public void refresh() {
@@ -63,11 +74,6 @@ public class BoardLayout extends GridView {
 		}
 		
 		status.refresh();
-		
-		if(state.getGame().isCheckmate())
-			new Alerts(getContext()).displayMessage("Checkmate");
-		else if(state.getGame().isCheck())
-			new Alerts(getContext()).displayMessage("Check");
 	}
 
 	private void createPieces() {
@@ -120,7 +126,7 @@ public class BoardLayout extends GridView {
 			move2(square);			
 		} catch (Exception e) {
 			Ermacs.addErmac(getContext(), e);
-			new Alerts(getContext()).displayMessage("ERMAC!");
+			alerts.displayMessage("ERMAC!");
 		}
 	}
 	
@@ -137,12 +143,12 @@ public class BoardLayout extends GridView {
 			break;
 			
 		case KINGISUNDERATTACK:
-			new Alerts(getContext()).displayMessage("Não cara! Seu rei está sob ataque!");
+			alerts.displayBundleMessage("king.under.attack");
 			break;
 
 		default:
 			state = stateManager.send(player, state);
-			new Alerts(getContext()).displayMessage(Messages.getString("move.sent"));
+			alerts.displayBundleMessage("move.sent");
 		}
 		
 		refresh();
@@ -176,5 +182,9 @@ public class BoardLayout extends GridView {
 
 	public void setStatus(GameStatusLayout status) {
 		this.status = status;
+	}
+
+	private Color getMyColor() {
+		return stateManager.getMyColor(player);
 	}
 }

@@ -64,11 +64,11 @@ public class Notifications {
 		
 		Intent intent = new Intent(context, AcceptChallenge.class);
 		intent.putExtras(extras);
-		mBuilder.addAction(0, "Accept", PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
+		mBuilder.addAction(0, Messages.getString("accept.challenge"), PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
 				
 		intent = new Intent(context, DenyChallenge.class);
 		intent.putExtras(extras);
-		mBuilder.addAction(0, "Deny", PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
+		mBuilder.addAction(0, Messages.getString("deny.challenge"), PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT));
 		
 		notify(mBuilder);
 	}

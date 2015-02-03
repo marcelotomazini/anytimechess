@@ -14,7 +14,6 @@ import android.view.View;
 import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.utils.Alerts;
-import crazygames.android.anytimechess.utils.Messages;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
 
 
@@ -86,9 +85,11 @@ public class AnytimeChessActivity extends Activity {
 	            Cursor cursor = getContentResolver().query(contactUri, projection, null, null, null);
 	            cursor.moveToFirst();
 	            
-	            new HandShakeManager(this).newChallenge(TelephonyUtils.filterNumber(cursor.getString(cursor.getColumnIndex(Phone.NUMBER))));
+	            String player = TelephonyUtils.filterNumber(cursor.getString(cursor.getColumnIndex(Phone.NUMBER)));
+				new HandShakeManager(this).newChallenge(player);
 	            
-	            new Alerts(this).displayMessage(Messages.getString("challenge.sent", cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME))));
+	            String playerName = cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME));
+				new Alerts(this).displayBundleMessage("challenge.sent", playerName);
 	        }
 	    }
 	    slideMenu.close(true);

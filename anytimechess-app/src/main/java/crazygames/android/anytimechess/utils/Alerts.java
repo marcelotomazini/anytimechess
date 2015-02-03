@@ -11,6 +11,14 @@ public class Alerts {
 	public Alerts(Context context) {
 		this.context = context;
 	}
+	
+	public void displayBundleMessage(String key) {
+		displayMessage(Messages.getString(key));
+	}
+	
+	public void displayBundleMessage(String key, Object... params) {
+		displayMessage(Messages.getString(key, params));
+	}
 
 	public void displayMessage(String message) {
 		Builder alert = new AlertDialog.Builder(context);

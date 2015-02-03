@@ -1,5 +1,7 @@
 package crazygames.android.anytimechess.engine.game;
 
+import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -188,20 +190,26 @@ public class Game {
 
 		return moves.get(moves.size() - 1);
 	}
-
-	public boolean isCheck() {
-		final King king = turn.equals(Piece.Color.WHITE) ?
-				board.getWhiteKing() : board.getBlackKing();
-				if (Piece.underAttack(king.color(), king.getCol(),
-						king.getRow(), this)) {
-					board.rollback();
-					return true;
-				}
-				return false;
+	
+	private boolean isCheck() {
+		return isCheck(turn);
 	}
 
-	public boolean isCheckmate() {
-		final King king = turn.equals(Piece.Color.WHITE) ? board.getWhiteKing() : board.getBlackKing();
+	public boolean isCheck(Color myColor) {
+		final King king = myColor == WHITE ? board.getWhiteKing() : board.getBlackKing();
+		if (Piece.underAttack(king.color(), king.getCol(), king.getRow(), this)) {
+			board.rollback();
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isCheckmate() {
+		return isCheckmate(turn);
+	}
+	
+	public boolean isCheckmate(Color myColor) {
+		final King king = myColor == WHITE ? board.getWhiteKing() : board.getBlackKing();
 
 		final Piece.Color color = king.color();
 		for (char col = 'a'; col <= 'h'; col++)
@@ -215,8 +223,7 @@ public class Game {
 						board.start();
 						doTurn(move, response, null);
 
-						if (!Piece.underAttack(king.color(), king.getCol(),
-								king.getRow(), this)) {
+						if (!Piece.underAttack(king.color(), king.getCol(), king.getRow(), this)) {
 							board.rollback();
 							return false;
 						}

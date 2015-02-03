@@ -1,10 +1,11 @@
 package crazygames.android.anytimechess.layouts;
 
-import crazygames.android.anytimechess.state.StateManager;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import crazygames.android.anytimechess.state.StateManager;
+import crazygames.android.anytimechess.utils.Alerts;
 
 public class ButtonsLayout extends LinearLayout {
 
@@ -34,6 +35,7 @@ public class ButtonsLayout extends LinearLayout {
 			@Override
 			public void onClick(View v) {
 				new StateManager(getContext()).refresh(player);
+				new Alerts(getContext()).displayBundleMessage("move.sent");
 			}
 		});
 	}
