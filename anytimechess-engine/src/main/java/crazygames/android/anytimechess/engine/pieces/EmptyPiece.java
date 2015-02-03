@@ -9,10 +9,6 @@ import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 
 public class EmptyPiece extends Piece {
 
-	public EmptyPiece() {
-		color(Color.WHITE);
-	}
-
 	@Override
 	protected char _code() {
 		return '0';

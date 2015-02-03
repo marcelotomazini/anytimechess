@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.GridView;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
-import crazygames.android.anytimechess.engine.pieces.EmptyPiece;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.state.StateManager;
@@ -104,7 +103,7 @@ public class BoardLayout extends GridView {
 		for (PieceView pieceView : getPieces())
 			if (pieceView.getPiece().equals(piece))
 				return pieceView;
-		PieceView pieceView = createPieceView(new EmptyPiece().white());
+		PieceView pieceView = createPieceView(null);
 		return pieceView;
 	}
 	

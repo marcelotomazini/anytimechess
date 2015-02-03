@@ -12,13 +12,18 @@ public class PieceView extends ImageView {
 		super(context);
 		this.piece = piece;
 		
-		final String imageName = piece.color().name().toLowerCase() + "_" + String.valueOf(piece.code()).toLowerCase();
+		String imageName = "white_0";
+		if(piece != null)
+			imageName = piece.color().name().toLowerCase() + "_" + String.valueOf(piece.code()).toLowerCase();
+		
 		final int identifier = getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 		setImageResource(identifier);
 	}
 
 	@Override
 	public String toString() {
+		if(piece == null)
+			return "null piece";
 		return getPiece().toString();
 	}
 
