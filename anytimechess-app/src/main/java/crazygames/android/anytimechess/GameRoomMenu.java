@@ -42,7 +42,9 @@ public class GameRoomMenu extends ListView {
 		if (player.equals(Ermacs.ERMACS))
 			return Ermacs.getTextView(getContext());
 		
-		TextView tv = new MenuItem(getContext(), TelephonyUtils.resolvePlayerName(getContext(), player));
+		TextView tv = new TextView(getContext());
+		tv.setText(TelephonyUtils.resolvePlayerName(getContext(), player));
+		tv.setHeight(80);
 		tv.setOnClickListener(openGame(player));
 		return tv;
 	}
