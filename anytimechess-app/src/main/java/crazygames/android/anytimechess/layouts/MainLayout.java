@@ -4,6 +4,7 @@ import crazygames.android.anytimechess.utils.Alerts;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import br.com.pilovieira.ermacs.Ermacs;
 
 public class MainLayout extends LinearLayout {
@@ -25,7 +26,7 @@ public class MainLayout extends LinearLayout {
 		boardLayout.setStatus(gameStatusLayout);
 		
 		addView(boardLayout);
-		addView(gameStatusLayout);
+		addView(gameStatusLayout, new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, new Float(0.50)));
 		addView(buttonsLayout);
 	}
 	

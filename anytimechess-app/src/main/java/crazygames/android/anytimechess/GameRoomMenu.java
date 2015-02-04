@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class GameRoomMenu extends ListView {
 		
 		TextView tv = new TextView(getContext());
 		tv.setText(TelephonyUtils.resolvePlayerName(getContext(), player));
+		tv.setGravity(Gravity.CENTER);
 		tv.setHeight(80);
 		tv.setOnClickListener(openGame(player));
 		return tv;

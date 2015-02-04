@@ -4,6 +4,7 @@ import static crazygames.android.anytimechess.engine.pieces.Piece.Color.BLACK;
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import android.content.Context;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import crazygames.android.anytimechess.comm.message.State;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
@@ -23,10 +24,11 @@ public class GameStatusLayout extends LinearLayout {
 
 		stateManager = new StateManager(getContext());
 		createWelcome();
+		setBackgroundColor(android.graphics.Color.WHITE);
 	}
 
 	private void createWelcome() {
-		addView(new WelcomeView(getContext()));
+		addView(new WelcomeView(getContext()), new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, new Float(0.50)));
 	}
 
 	public void load(String player) {
@@ -38,6 +40,7 @@ public class GameStatusLayout extends LinearLayout {
 	private void createTextView() {
 		removeAllViews();
 		textView = new TextView(getContext());
+		textView.setTextColor(android.graphics.Color.BLACK);
 		addView(textView);
 	}
 
