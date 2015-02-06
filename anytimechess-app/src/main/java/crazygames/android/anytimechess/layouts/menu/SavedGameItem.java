@@ -4,14 +4,12 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.TextView;
 
-public class MenuItem extends TextView {
+public class SavedGameItem extends TextView {
 
-	public MenuItem(Context context, String text) {
+	public SavedGameItem(Context context, String text) {
 		super(context);
-		setGravity(Gravity.CENTER_HORIZONTAL);
-		setTextSize(20);
+		setGravity(Gravity.CENTER);
 		setHeight(80);
 		setText(text);
 	}
-
 }

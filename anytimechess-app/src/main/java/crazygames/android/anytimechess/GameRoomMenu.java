@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import br.com.pilovieira.ermacs.Ermacs;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
+import crazygames.android.anytimechess.layouts.menu.SavedGameItem;
 import crazygames.android.anytimechess.utils.Messages;
+import crazygames.android.anytimechess.utils.Preferences;
 import crazygames.android.anytimechess.utils.TelephonyUtils;
 
 public class GameRoomMenu extends ListView {
@@ -33,6 +33,10 @@ public class GameRoomMenu extends ListView {
 		setAdapter(new SimpleListAdapter(games));
 	}
 
+	private Set<String> getPlayers() {
+		return new Preferences(getContext()).getSharedPreferences().getAll().keySet();
+	}
+
 	private ArrayList<TextView> buildGamesList() {
 		ArrayList<TextView> games = new ArrayList<TextView>();
 		games.add(new MenuItem(getContext(), Messages.getString("games")));
@@ -43,16 +47,9 @@ public class GameRoomMenu extends ListView {
 		if (player.equals(Ermacs.ERMACS))
 			return Ermacs.getTextView(getContext());
 		
-		TextView tv = new TextView(getContext());
-		tv.setText(TelephonyUtils.resolvePlayerName(getContext(), player));
-		tv.setGravity(Gravity.CENTER);
-		tv.setHeight(80);
-		tv.setOnClickListener(openGame(player));
-		return tv;
-	}
-
-	private Set<String> getPlayers() {
-		return PreferenceManager.getDefaultSharedPreferences(getContext()).getAll().keySet();
+		SavedGameItem item = new SavedGameItem(getContext(), TelephonyUtils.resolvePlayerName(getContext(), player));
+		item.setOnClickListener(openGame(player));
+		return item;
 	}
 
 	private OnClickListener openGame(final String player) {
