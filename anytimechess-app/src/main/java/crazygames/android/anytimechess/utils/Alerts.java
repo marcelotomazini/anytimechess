@@ -3,6 +3,8 @@ package crazygames.android.anytimechess.utils;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.View;
 
 public class Alerts {
 	
@@ -26,4 +28,24 @@ public class Alerts {
 		alert.setPositiveButton("OK", null);
 		alert.show();
 	}
+
+	public View.OnClickListener createConfirmListener(final SureListener listener) {
+		return new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new Alerts(context).displayConfirmSureMessage(listener);
+			}
+		};
+	}
+
+	private void displayConfirmSureMessage(SureListener listener) {
+		Builder alert = new AlertDialog.Builder(context);
+		alert.setMessage("Tem certeza?");
+		alert.setPositiveButton("Sim", listener);
+		alert.setNegativeButton("Não", null);
+		alert.show();
+	}
+
+	public interface SureListener extends DialogInterface.OnClickListener {}
 }
