@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.state;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import static junit.framework.Assert.assertEquals;
@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import crazygames.android.anytimechess.comm.state.State;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 

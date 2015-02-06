@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.item;
+package crazygames.android.anytimechess.comm.state;
 
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece;

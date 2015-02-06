@@ -39,7 +39,11 @@ public class ButtonsLayout extends LinearLayout {
 	private class RefreshListener implements SureListener {
 		@Override
 		public void onClick(DialogInterface arg0, int arg1) {
-			new StateManager(getContext()).refresh(player);
+			StateManager stateManager = new StateManager(getContext());
+			if (stateManager.isMyTurn(player))
+				return;
+			
+			stateManager.refresh(player);
 			new Alerts(getContext()).displayBundleMessage("move.sent");
 		}
 	}

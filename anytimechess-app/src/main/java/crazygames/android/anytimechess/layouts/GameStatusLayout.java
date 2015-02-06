@@ -6,7 +6,7 @@ import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.comm.state.State;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Messages;
@@ -75,6 +75,6 @@ public class GameStatusLayout extends LinearLayout {
 		if (state.getGame().isCheck(opponentColor))
 			return Messages.getString("other.check");
 		
-		return stateManager.isMyTurn(player, state) ? Messages.getString("your.turn") : "";
+		return stateManager.isMyTurn(player) ? Messages.getString("your.turn") : "";
 	}
 }

@@ -1,9 +1,10 @@
-package crazygames.android.anytimechess.comm.item;
+package crazygames.android.anytimechess.comm.state;
 
 import static junit.framework.Assert.assertEquals;
 
 import org.junit.Test;
 
+import crazygames.android.anytimechess.comm.state.GameState;
 import crazygames.android.anytimechess.engine.game.Game;
 
 

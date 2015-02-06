@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.item;
+package crazygames.android.anytimechess.comm.state;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.BLACK;
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import crazygames.android.anytimechess.comm.state.Turn;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 
 

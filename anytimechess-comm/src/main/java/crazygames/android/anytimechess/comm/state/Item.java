@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.item;
+package crazygames.android.anytimechess.comm.state;
 
 public abstract class Item {
 	

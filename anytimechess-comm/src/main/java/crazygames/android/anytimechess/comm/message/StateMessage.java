@@ -1,7 +1,6 @@
-package crazygames.android.anytimechess.state;
+package crazygames.android.anytimechess.comm.message;
 
-import crazygames.android.anytimechess.comm.message.Message;
-import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.comm.state.State;
 
 public class StateMessage implements Message {
 	

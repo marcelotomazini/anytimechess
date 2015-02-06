@@ -1,6 +1,6 @@
 package crazygames.android.anytimechess.state;
 
-import static crazygames.android.anytimechess.comm.item.Header.HEADER;
+import static crazygames.android.anytimechess.comm.state.Header.HEADER;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
@@ -24,7 +24,8 @@ import org.mockito.invocation.Invocation;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.verification.VerificationMode;
 
-import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.comm.message.StateMessage;
+import crazygames.android.anytimechess.comm.state.State;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.message.SMSSender;
 
@@ -207,10 +208,11 @@ public class StateManagerTest {
 	}
 
 	@Test
-	public void isHomeTurn() {		
+	public void isHomeTurn() {
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_1_WHITE);
 		when(stateStamp.isSignedState(VISIT)).thenReturn(true);
 		
-		boolean myTurn = subject.isMyTurn(VISIT, new State(STATE_SEQ_1_WHITE));
+		boolean myTurn = subject.isMyTurn(VISIT);
 		
 		assertTrue("Should be home turn", myTurn);
 		verify(stateStamp).isSignedState(VISIT);
@@ -218,9 +220,10 @@ public class StateManagerTest {
 
 	@Test
 	public void isVisitTurn() {
+		when(stateStamp.getStateMessage(VISIT)).thenReturn(STATE_SEQ_2_BLACK);
 		when(stateStamp.isSignedState(VISIT)).thenReturn(true);
 		
-		boolean myTurn = subject.isMyTurn(VISIT, new State(STATE_SEQ_2_BLACK));
+		boolean myTurn = subject.isMyTurn(VISIT);
 		
 		assertFalse("Should be visit turn", myTurn);
 		verify(stateStamp).isSignedState(VISIT);

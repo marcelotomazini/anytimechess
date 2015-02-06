@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
 import br.com.pilovieira.ermacs.Ermacs;
-import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.comm.state.State;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.Piece;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
@@ -131,7 +131,7 @@ public class BoardLayout extends GridView {
 	}
 	
 	private void move2(Square square) {
-		if(!stateManager.isMyTurn(player, state))
+		if(!stateManager.isMyTurn(player))
 			return;
 		
 		final PieceView selectedPiece = getSelectedPiece();

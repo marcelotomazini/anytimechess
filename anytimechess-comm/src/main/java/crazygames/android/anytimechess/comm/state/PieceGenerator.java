@@ -1,4 +1,4 @@
-package crazygames.android.anytimechess.comm.item;
+package crazygames.android.anytimechess.comm.state;
 
 import static java.lang.Character.MAX_RADIX;
 import static java.lang.Character.digit;

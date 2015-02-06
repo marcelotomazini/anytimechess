@@ -1,10 +1,6 @@
-package crazygames.android.anytimechess.comm.message;
+package crazygames.android.anytimechess.comm.state;
 
-import static crazygames.android.anytimechess.comm.item.Header.HEADER;
-import crazygames.android.anytimechess.comm.item.GameState;
-import crazygames.android.anytimechess.comm.item.Header;
-import crazygames.android.anytimechess.comm.item.Turn;
-import crazygames.android.anytimechess.comm.item.TurnSequence;
+import static crazygames.android.anytimechess.comm.state.Header.HEADER;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 

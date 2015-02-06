@@ -2,7 +2,8 @@ package crazygames.android.anytimechess.state;
 
 import static crazygames.android.anytimechess.engine.pieces.Piece.Color.WHITE;
 import android.content.Context;
-import crazygames.android.anytimechess.comm.message.State;
+import crazygames.android.anytimechess.comm.message.StateMessage;
+import crazygames.android.anytimechess.comm.state.State;
 import crazygames.android.anytimechess.engine.game.Game;
 import crazygames.android.anytimechess.engine.pieces.Piece.Color;
 import crazygames.android.anytimechess.message.SMSSender;
@@ -81,9 +82,9 @@ public class StateManager {
 	private void stamp(String player, State state) {
 		stateStamp.setStateMessage(new StateMessage(player, state));
 	}
-
-	public boolean isMyTurn(String player, State state) {
-		return state.getTurn().getTurnValue().equals(getMyColor(player));
+	
+	public boolean isMyTurn(String player) {
+		return get(player).getTurn().getTurnValue().equals(getMyColor(player));
 	}
 
 	public Color getMyColor(String player) {
