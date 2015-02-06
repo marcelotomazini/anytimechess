@@ -24,6 +24,18 @@ public class Notifications {
 		this.resources = new Resources(context);
 	}
 	
+	public void notifyGiveUp(String player) {
+		NotificationCompat.Builder mBuilder = createDefaultBuilder();
+		
+		String playerName = TelephonyUtils.resolvePlayerName(context, player);
+		mBuilder.setContentTitle(Messages.getString("give.up.title", playerName));
+		mBuilder.setContentText(Messages.getString("give.up.message", playerName));
+		
+		mBuilder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, AnytimeChessActivity.class), FLAG_UPDATE_CURRENT));
+
+		notify(mBuilder);
+	}
+
 	public void notifyChallengeDenied(String player) {
 		NotificationCompat.Builder mBuilder = createDefaultBuilder();
 		
@@ -32,7 +44,7 @@ public class Notifications {
 		mBuilder.setContentText(Messages.getString("challenge.denied.message", playerName));
 		
 		mBuilder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, AnytimeChessActivity.class), FLAG_UPDATE_CURRENT));
-
+		
 		notify(mBuilder);
 	}
 

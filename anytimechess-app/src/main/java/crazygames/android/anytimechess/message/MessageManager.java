@@ -3,6 +3,7 @@ package crazygames.android.anytimechess.message;
 import static crazygames.android.anytimechess.utils.TelephonyUtils.filterNumber;
 import android.content.Context;
 import android.telephony.SmsMessage;
+import crazygames.android.anytimechess.comm.message.GiveUp;
 import crazygames.android.anytimechess.comm.message.HandShake;
 import crazygames.android.anytimechess.state.StateManager;
 import crazygames.android.anytimechess.utils.Notifications;
@@ -21,8 +22,15 @@ public class MessageManager {
 		
 		if (message.contains(HandShake.HEADER))
 			new HandShakeManager(context).resolve(player, message);
+		else if (message.contains(GiveUp.HEADER))
+			giveup(player);
 		else
 			update(player, message);
+	}
+
+	private void giveup(String player) {
+		new StateManager(context).clear(player);
+		new Notifications(context).notifyGiveUp(player);
 	}
 
 	private void update(String player, String message) {

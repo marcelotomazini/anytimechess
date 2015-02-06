@@ -41,9 +41,9 @@ public class Alerts {
 
 	private void displayConfirmSureMessage(SureListener listener) {
 		Builder alert = new AlertDialog.Builder(context);
-		alert.setMessage("Tem certeza?");
-		alert.setPositiveButton("Sim", listener);
-		alert.setNegativeButton("Não", null);
+		alert.setMessage(Messages.getString("are.you.sure"));
+		alert.setPositiveButton(Messages.getString("yes"), listener);
+		alert.setNegativeButton(Messages.getString("no"), null);
 		alert.show();
 	}
 
