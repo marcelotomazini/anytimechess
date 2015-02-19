@@ -25,7 +25,7 @@ public class TelephonyUtils {
 	public static String resolvePlayerName(Context context, String player) {
 		ContentResolver contentResolver = context.getContentResolver();
 		String[] projection = new String[]{ Phone.DISPLAY_NAME };
-		String selection = Phone.NUMBER + " LIKE " + player;
+		String selection = Phone.NUMBER + " LIKE " + prepare(player);
 		
 		Cursor cursor = contentResolver.query(Phone.CONTENT_URI, projection, selection, null, null);
 		
@@ -33,5 +33,13 @@ public class TelephonyUtils {
 			return cursor.getString(cursor.getColumnIndex(Phone.DISPLAY_NAME));
 		
 		return player;
+	}
+
+
+	private static String prepare(String player) {
+		String ret = "%";
+		for(int i = 0; i < player.length(); i++)
+			ret += player.charAt(i) + "%";
+		return "'" + ret + "'";
 	}
 }
