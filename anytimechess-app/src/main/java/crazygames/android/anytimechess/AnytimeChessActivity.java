@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.View;
+import android.view.Window;
 import crazygames.android.anytimechess.layouts.MainLayout;
 import crazygames.android.anytimechess.message.HandShakeManager;
 import crazygames.android.anytimechess.utils.Alerts;
@@ -27,8 +28,9 @@ public class AnytimeChessActivity extends Activity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		slideMenu = new SlideMenu(this);
         setContentView(slideMenu);
@@ -95,7 +97,7 @@ public class AnytimeChessActivity extends Activity {
 	    slideMenu.close(true);
 	}
 	
-	SlideMenu getSlideMenu() {
+	public SlideMenu getSlideMenu() {
 		return slideMenu;
 	}
 	

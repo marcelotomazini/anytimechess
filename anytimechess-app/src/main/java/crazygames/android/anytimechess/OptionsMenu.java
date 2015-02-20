@@ -20,7 +20,7 @@ public class OptionsMenu extends ListView {
 
 		TextView tv1 = new MenuItem(context, Messages.getString("new.game"));
 		TextView tv2 = new MenuItem(context, Messages.getString("about"));
-
+		
 		tv1.setOnClickListener(openContacts(context));
 		tv2.setOnClickListener(about(context));
 
