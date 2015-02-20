@@ -40,11 +40,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.android.support</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>19.1.0</version>
-		</dependency>
-		<dependency>
 			<artifactId>slidemenu-library</artifactId>
 			<groupId>com.aretha</groupId>
 		</dependency>
