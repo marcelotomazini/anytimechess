@@ -25,8 +25,9 @@ public class TitleLayout extends LinearLayout {
 		ImageView leftMenu = new ImageView(getContext());
 		leftMenu.setImageResource(identifier);
 		
+		final int listIdentifier = getResources().getIdentifier("list", "drawable", context.getPackageName());
 		ImageView rightMenu = new ImageView(getContext());
-		rightMenu.setImageResource(identifier);
+		rightMenu.setImageResource(listIdentifier);
 		
 		MenuItem title = new MenuItem(getContext(), "AnytimeChess");
 		title.setGravity(Gravity.CENTER);

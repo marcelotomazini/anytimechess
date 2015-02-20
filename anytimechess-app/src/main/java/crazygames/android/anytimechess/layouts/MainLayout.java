@@ -1,18 +1,9 @@
 package crazygames.android.anytimechess.layouts;
 
-<<<<<<< HEAD
-import android.content.Context;
 import android.graphics.Color;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
-=======
-import android.graphics.Color;
-import android.widget.LinearLayout;
-import android.widget.TableRow;
-import br.com.pilovieira.ermacs.Ermacs;
 import crazygames.android.anytimechess.AnytimeChessActivity;
-import crazygames.android.anytimechess.utils.Alerts;
->>>>>>> included menu button
 
 public class MainLayout extends LinearLayout {
 
