@@ -10,7 +10,6 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
-import br.com.pilovieira.ermacs.Ermacs;
 import crazygames.android.anytimechess.comm.state.State;
 import crazygames.android.anytimechess.engine.game.response.MoveResponse;
 import crazygames.android.anytimechess.engine.pieces.Piece;
@@ -122,15 +121,6 @@ public class BoardLayout extends GridView {
 	}
 	
 	private void move(Square square) {
-		try {
-			move2(square);			
-		} catch (Exception e) {
-			Ermacs.addErmac(getContext(), e);
-			alerts.displayMessage("ERMAC!");
-		}
-	}
-	
-	private void move2(Square square) {
 		if(!stateManager.isMyTurn(player))
 			return;
 		

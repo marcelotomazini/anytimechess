@@ -7,7 +7,6 @@ import java.util.Set;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import br.com.pilovieira.ermacs.Ermacs;
 import crazygames.android.anytimechess.layouts.menu.MenuItem;
 import crazygames.android.anytimechess.layouts.menu.SavedGameItem;
 import crazygames.android.anytimechess.utils.Messages;
@@ -44,9 +43,6 @@ public class GameRoomMenu extends ListView {
 	}
 
 	private TextView buildGame(String player) {
-		if (player.equals(Ermacs.ERMACS))
-			return Ermacs.getTextView(getContext());
-		
 		SavedGameItem item = new SavedGameItem(getContext(), TelephonyUtils.resolvePlayerName(getContext(), player));
 		item.setOnClickListener(openGame(player));
 		return item;

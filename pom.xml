@@ -28,6 +28,11 @@
 				<version>4.1.1.4</version>
 			</dependency>
 			<dependency>
+				<groupId>com.android.support</groupId>
+				<artifactId>support-v4</artifactId>
+				<version>19.1.0</version>
+			</dependency>
+			<dependency>
 				<artifactId>slidemenu-library</artifactId>
 				<groupId>com.aretha</groupId>
 				<version>1.0-SNAPSHOT</version>
@@ -38,7 +43,7 @@
 				<groupId>com.aretha</groupId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
