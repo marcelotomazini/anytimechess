@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>crazygames</groupId>
 	<artifactId>anytimechess</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>pom</packaging>
 	<name>Anytime Chess</name>
 	<description>Play anytime, anywhere</description>
@@ -18,7 +17,8 @@
 	<scm>
   		<connection>scm:git:git@github.com:marcelotomazini/anytimechess.git</connection>
   		<developerConnection>scm:git:git@github.com:marcelotomazini/anytimechess.git</developerConnection>
-	</scm>
+	  <tag>anytimechess-0.0.1</tag>
+  </scm>
 
 	<dependencyManagement>
 		<dependencies>
@@ -129,7 +129,7 @@
 					here for the local profile -->
 				<!-- this properties are good for all the maven modules -->
 				<server_host>192.168.1.12</server_host>
-				<server_path></server_path>
+				<server_path />
 			</properties>
 		</profile>
 		<profile>
