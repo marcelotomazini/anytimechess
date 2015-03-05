@@ -19,7 +19,7 @@
   		<developerConnection>scm:git:git@github.com:marcelotomazini/anytimechess.git</developerConnection>
   		<url>git@github.com:marcelotomazini/anytimechess.git</url>
 	  	<tag>HEAD</tag>
-  </scm>
+  	</scm>
 
 	<dependencyManagement>
 		<dependencies>
@@ -77,8 +77,9 @@
       			</plugin>
       			
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jarsigner-plugin</artifactId>
-					<version>1.2</version>
+					<version>1.4</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>

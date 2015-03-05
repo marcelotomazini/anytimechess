@@ -159,10 +159,10 @@
 									<includes>
 										<include>${project.build.directory}/${project.artifactId}.apk</include>
 									</includes>
-									<keystore>${sign.keystore}</keystore>
-									<alias>${sign.alias}</alias>
-									<storepass>${sign.storepass}</storepass>
-									<keypass>${sign.keypass}</keypass>
+									<keystore>crazygames.anytimechess.keystore</keystore>
+									<alias>AnytimeChessKey</alias>
+									<storepass>crazygames.anytimechess</storepass>
+									<keypass>crazygames.anytimechess</keypass>
 									<verbose>true</verbose>
 								</configuration>
 							</execution>
