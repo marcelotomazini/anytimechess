@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>crazygames</groupId>
 	<artifactId>anytimechess</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.5</version>
 	<packaging>pom</packaging>
 	<name>Anytime Chess</name>
 	<description>Play anytime, anywhere</description>
@@ -18,7 +18,7 @@
   		<connection>scm:git:git@github.com:marcelotomazini/anytimechess.git</connection>
   		<developerConnection>scm:git:git@github.com:marcelotomazini/anytimechess.git</developerConnection>
   		<url>git@github.com:marcelotomazini/anytimechess.git</url>
-	  	<tag>HEAD</tag>
+	  	<tag>anytimechess-0.0.5</tag>
   	</scm>
 
 	<dependencyManagement>
