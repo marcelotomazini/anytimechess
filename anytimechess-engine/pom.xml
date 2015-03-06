@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>crazygames</groupId>
 		<artifactId>anytimechess</artifactId>
-		<version>0.0.14-SNAPSHOT</version>
+		<version>0.0.14</version>
 	</parent>
 	<artifactId>anytimechess-engine</artifactId>
 
