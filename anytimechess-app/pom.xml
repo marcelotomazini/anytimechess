@@ -85,7 +85,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<manifest>
-						<debuggable>true</debuggable>
+						<debuggable>false</debuggable>
 					</manifest>
 				</configuration>
 				<executions>
