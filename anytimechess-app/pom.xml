@@ -85,8 +85,9 @@
 				<extensions>true</extensions>
 				<configuration>
 					<manifest>
-						<debuggable>false</debuggable>
+						<debuggable>true</debuggable>
 					</manifest>
+					<androidManifestFile>${basedir}/src/main/AndroidManifest.xml</androidManifestFile>
 				</configuration>
 				<executions>
 					<execution>
