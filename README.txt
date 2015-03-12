@@ -51,7 +51,7 @@ in your settings.xml file in ~/.m2
 
 After this preparation the release build can be invoked with
 
-mvn clean install -P release
+mvn release:prepare release:perform -P release -DignoreSnapshots=true
 
 which will in turn sign and zipalign the apk.
 
